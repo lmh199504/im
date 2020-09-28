@@ -12,8 +12,10 @@ import {
 	DropdownItem
 } from 'element-ui'
 import Avatar from './components/avatar.vue'
-import Index from './index.vue'
+// import Index from './index.vue'
+import App from './App.vue'
 import store from './store/index'
+import router from './router'
 import tim from 'tim'
 import TIM from 'tim-js-sdk'
 import './assets/icon/iconfont.css'
@@ -39,5 +41,6 @@ Vue.use(DropdownItem)
 Vue.component('avatar', Avatar)
 new Vue({
 	store,
-	render: h => h(Index)
+	router,
+	render: h => h(App)
 }).$mount('#app')

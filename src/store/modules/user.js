@@ -1,4 +1,5 @@
 import tim from '../../tim'
+import { Message } from 'element-ui'
 const user = {
 	state: {
 		currentUserProfile: {},
@@ -33,26 +34,48 @@ const user = {
 	},
 	actions: {
 		login(context, userID) {
-			tim
-				.login({
-					userID,
-					userSig: window.genTestUserSig(userID).userSig
-				})
-				.then(() => {
-					context.commit('toggleIsLogin', true)
-					context.commit('startComputeCurrent')
-					window.$message({
-						type: 'success',
-						message: '登录成功'
+			
+			return new Promise((resovle,reject) => {
+				tim
+					.login({
+						userID,
+						userSig: window.genTestUserSig(userID).userSig
 					})
-				})
-				.catch(imError => {
-					if (imError.code === 2000) {
-						window.$message.error(imError.message + ', 请检查是否正确填写了 SDKAPPID')
-					} else {
-						window.$message.error(imError.message)
-					}
-				})
+					.then(() => {
+						context.commit('toggleIsLogin', true)
+						context.commit('startComputeCurrent')
+						context.commit('GET_USER_INFO',{
+							userID,
+							userSig: window.genTestUserSig(userID).userSig,
+							sdkAppID: window.genTestUserSig('').SDKAppID
+						})
+						Message({
+							type: 'success',
+							message: '登录成功'
+						})
+						
+						resovle('success')
+					})
+					.catch(imError => {
+						if (imError.code === 2000) {
+							window.$message.error(imError.message + ', 请检查是否正确填写了 SDKAPPID')
+							Message({
+								type:'error',
+								message:imError.message + ', 请检查是否正确填写了 SDKAPPID'
+							})
+						} else {
+							// window.$message.error(imError.message)
+							Message({
+								type:'error',
+								message:imError.message
+							})
+						}
+						
+						reject('error')
+					})
+			})
+			
+			
 		},
 		logout(context) {
 			// 若有当前会话，在退出登录时已读上报
