@@ -18,8 +18,14 @@ import store from './store/index'
 import router from './router'
 import tim from 'tim'
 import TIM from 'tim-js-sdk'
+import './utils/flexible'
 import './assets/icon/iconfont.css'
 import './assets/icon/tim.css'
+
+import 'vue2-toast/lib/toast.css'
+import Toast from 'vue2-toast'
+
+
 
 window.tim = tim
 window.TIM = TIM
@@ -38,6 +44,7 @@ Vue.use(Dialog)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
+Vue.use(Toast)
 Vue.component('avatar', Avatar)
 new Vue({
 	store,

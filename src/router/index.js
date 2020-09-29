@@ -20,6 +20,16 @@ const routes = [
 		component:() => import('../views/login/oneKeyLogin.vue')
 	},
 	{
+		path: '/passLogin',
+		name: 'passLogin',
+		component:() => import('../views/login/passLogin.vue')
+	},
+	{
+		path: '/Bscroll',
+		name: 'Bscroll',
+		component:() => import('../views/Bscroll/index.vue')
+	},
+	{
 		path:'/',
 		name:'Main',
 		component: () => import('../views/main/index.vue')
