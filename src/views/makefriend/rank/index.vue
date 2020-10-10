@@ -1,18 +1,8 @@
 <template>
-	<div class="nearby">
-		<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-			<mt-swipe :auto="4000">
-				<mt-swipe-item>
-					<img class="swiperImg" src="../../../assets/image/chuyu/banner.png" alt="">
-				</mt-swipe-item>
-				<mt-swipe-item>
-					<img class="swiperImg" src="../../../assets/image/chuyu/banner.png" alt="">
-				</mt-swipe-item>
-				<mt-swipe-item>
-					<img class="swiperImg" src="../../../assets/image/chuyu/banner.png" alt="">
-				</mt-swipe-item>
-			</mt-swipe>
-		</mt-loadmore>
+	<div class="rank">
+		<div class="first">
+			
+		</div>
 	</div>
 </template>
 
@@ -41,21 +31,15 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-	.nearby
-		overflow scroll
-		height 100%
-		.mint-swipe
-			height 6.666666rem
-		.swiperImg
-			width 100%
-			height 6.666666rem
+	.rank
+		.first
+			width 8rem
+			height 11.2rem
+			background linear-gradient(0deg, #F1B5A0 0%, #E9A6BD 100%)
+			transform rotate3d(50deg,5deg,5deg)
+		
 </style>
 
 <style>
-	.nearby .mint-loadmore-top{
-		font-size: 1rem;
-	}
-	.nearby .mint-loadmore-bottom{
-		font-size: 1rem;
-	}
+
 </style>

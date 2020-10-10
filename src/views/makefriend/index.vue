@@ -16,7 +16,9 @@
 		<mt-tab-container v-model="active" :swipeable="true" class="centerTab">
 			<mt-tab-container-item id="tab-container1"><NearBy /></mt-tab-container-item>
 			<mt-tab-container-item id="tab-container2"><Suggest/></mt-tab-container-item>
-			<mt-tab-container-item id="tab-container3"><mt-cell v-for="n in 7" title="tab-container 3" :key="n"></mt-cell></mt-tab-container-item>
+			<mt-tab-container-item id="tab-container3">
+				<Rank/>
+			</mt-tab-container-item>
 		</mt-tab-container>
 	</div>
 </template>
@@ -24,6 +26,7 @@
 <script>
 import NearBy from './nearby/index.vue'
 import Suggest from './suggest/index.vue'
+import Rank from './rank/index.vue'
 export default {
 	data() {
 		return {
@@ -39,7 +42,8 @@ export default {
 	},
 	components: {
 		NearBy,
-		Suggest
+		Suggest,
+		Rank
 	}
 }
 </script>

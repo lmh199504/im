@@ -19,7 +19,14 @@
 						<!-- <img src="../../../assets/image/chuyu/online.png" alt=""> -->
 						<span>忙碌</span>
 					</div>
-					
+					<div class="person_name">
+						佩奇
+					</div>
+					<div class="person_connect">
+						<img src="../../../assets/image/chuyu/yuyin.png" alt="">
+						<br>
+						<span>30钻石/分钟</span>
+					</div>
 					
 					<img class="person_img" src="../../../assets/image/chuyu/001.jpg" alt="">
 				</div>
@@ -78,8 +85,8 @@ export default {
 				height 100%
 			.online_state
 				position absolute
-				right 0.666666rem
-				top 0.666666rem
+				right 0.64rem
+				top 0.64rem
 				height 1.28rem
 				width 3.2rem
 				border-radius 0.64rem
@@ -92,6 +99,23 @@ export default {
 				span
 					font-size 0.768rem
 					color #FFFFFF
+			.person_name 
+				position absolute
+				left 0.64rem
+				bottom 0.32rem
+				font-size 0.896rem
+				color #FFFFFF
+			.person_connect
+				position absolute
+				right 0.64rem
+				text-align right
+				bottom 0.32rem
+				img
+					width 1.344rem
+					margin-bottom -0.32rem
+				span
+					font-size 0.768rem
+					color #fff
 </style>
 
 <style>
