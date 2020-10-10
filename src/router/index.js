@@ -30,6 +30,11 @@ const routes = [
 		component:() => import('../views/Bscroll/index.vue')
 	},
 	{
+		path: '/loadMore',
+		name: 'LoadMore',
+		component:() => import('../views/loadMore/index.vue')
+	},
+	{
 		path:'/',
 		name:'Main',
 		component: () => import('../views/main/index.vue'),

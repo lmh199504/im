@@ -1,6 +1,9 @@
 <template>
 	<div class="main_page">
-		<router-view></router-view>
+		<transition  name="view">
+			<router-view></router-view>
+		</transition>	
+		
 		<div class="nav_bottom">
 			<router-link class="myrouterlink" to="/makefriend">
 				<img class="router_icon" src="../../assets/image/chuyu/home.png" alt="" />
@@ -54,8 +57,19 @@ export default {
 .main_page
 	width 100%
 	height 100%
+	
+	.view-enter-active,.view-leave-active
+		opacity: 1;
+		transition: 0.4s all ease;	
+	.view-enter
+		opacity 0
+		transform translateX(100%)
+	.view-leave-to
+		opacity 0
+		transform translateX(-100%)
+		position absolute
 	.nav_bottom
-		position fixed
+		position absolute
 		bottom 0
 		left 0
 		width 100%
@@ -63,6 +77,7 @@ export default {
 		border-top 1px solid #E0E0E0
 		display flex
 		height 3.333333rem
+		z-index 1111
 		.myrouterlink
 			text-align center
 			width 25%
@@ -72,6 +87,7 @@ export default {
 			.router_icon
 				width 1.666666rem
 				margin-top 0.333333rem
+				margin-bottom -0.333333rem
 			.router_icon_active
 				display none
 		.myrouterlink_active
@@ -80,6 +96,7 @@ export default {
 				display inline-block
 				width 1.666666rem
 				margin-top 0.333333rem
+				margin-bottom -0.333333rem
 			.router_icon
 				display none
 </style>

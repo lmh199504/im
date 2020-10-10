@@ -26,6 +26,13 @@ import 'vue2-toast/lib/toast.css'
 import Toast from 'vue2-toast'
 
 
+import Mint from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.use(Mint)
+//导入mui样式
+import './lib/mui/css/mui.min.css'
+import './lib/mui/css/icons-extra.css'
+
 
 window.tim = tim
 window.TIM = TIM
