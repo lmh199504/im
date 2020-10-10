@@ -32,12 +32,36 @@ const routes = [
 	{
 		path:'/',
 		name:'Main',
-		component: () => import('../views/main/index.vue')
+		component: () => import('../views/main/index.vue'),
+		redirect:'/makefriend',
+		children:[
+			{
+				path:'/makefriend',
+				name:'Makefriend',
+				component:() => import('../views/makefriend/index.vue')
+			},
+			{
+				path:'/find',
+				name:'Find',
+				component:() => import('../views/find/index.vue')
+			},
+			{
+				path:'/mine',
+				name:'Mine',
+				component:() => import('../views/mine/index.vue')
+			},
+			{
+				path:'/message',
+				name:'Message',
+				component:() => import('../views/message/index.vue')
+			}
+		]
 	}
 ]
 
 const router = new VueRouter({
-	routes
+	routes,
+	linkActiveClass:'myrouterlink_active'
 })
 
 // const whiteList = ['/login']
@@ -64,6 +88,5 @@ const router = new VueRouter({
 // 	}
 
 // })
-
 
 export default router
