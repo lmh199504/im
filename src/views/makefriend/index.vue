@@ -5,7 +5,7 @@
 			<div class="topNav_item" @click="active = 'tab-container1'"><div :class="[active === 'tab-container1' ? 'topNav_item_active' : '']">遇见</div></div>
 			<div class="topNav_item" @click="active = 'tab-container2'"><div :class="[active === 'tab-container2' ? 'topNav_item_active' : '']">推荐</div></div>
 			<div class="topNav_item" @click="active = 'tab-container3'"><div :class="[active === 'tab-container3' ? 'topNav_item_active' : '']">排行榜</div></div>
-			<div class="topNav_item"><img class="searchImg" src="../../assets/image/chuyu/search.png" alt="" /></div>
+			<div class="topNav_item" @click="toSearch"><img class="searchImg" src="../../assets/image/chuyu/search.png" alt="" /></div>
 		</div>
 		<!-- 		<mt-swipe :auto="0" @change="handleChange">
 			<mt-swipe-item>1</mt-swipe-item>
@@ -15,10 +15,8 @@
 
 		<mt-tab-container v-model="active" :swipeable="true" class="centerTab">
 			<mt-tab-container-item id="tab-container1"><NearBy /></mt-tab-container-item>
-			<mt-tab-container-item id="tab-container2"><Suggest/></mt-tab-container-item>
-			<mt-tab-container-item id="tab-container3">
-				<Rank/>
-			</mt-tab-container-item>
+			<mt-tab-container-item id="tab-container2"><Suggest /></mt-tab-container-item>
+			<mt-tab-container-item id="tab-container3"><Rank /></mt-tab-container-item>
 		</mt-tab-container>
 	</div>
 </template>
@@ -38,6 +36,9 @@ export default {
 	methods: {
 		handleChange(e) {
 			window.console.log(e)
+		},
+		toSearch() {
+			this.$router.push('/search')
 		}
 	},
 	components: {

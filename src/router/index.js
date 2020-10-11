@@ -2,63 +2,79 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-const routes = [
-	{
+const routes = [{
 		path: '/login',
 		name: 'Login',
-		component:() => import('../views/login/index.vue')
+		component: () => import('../views/login/index.vue')
 		// component: () => import('../components/user/login.vue'),
 	},
 	{
 		path: '/phoneLogin',
 		name: 'PhoneLogin',
-		component:() => import('../views/login/phoneLogin.vue')
+		component: () => import('../views/login/phoneLogin.vue')
 	},
 	{
 		path: '/oneKeyLogin',
 		name: 'OneKeyLogin',
-		component:() => import('../views/login/oneKeyLogin.vue')
+		component: () => import('../views/login/oneKeyLogin.vue')
 	},
 	{
 		path: '/passLogin',
 		name: 'passLogin',
-		component:() => import('../views/login/passLogin.vue')
+		component: () => import('../views/login/passLogin.vue')
 	},
 	{
 		path: '/Bscroll',
 		name: 'Bscroll',
-		component:() => import('../views/Bscroll/index.vue')
+		component: () => import('../views/Bscroll/index.vue')
 	},
 	{
 		path: '/loadMore',
 		name: 'LoadMore',
-		component:() => import('../views/loadMore/index.vue')
+		component: () => import('../views/loadMore/index.vue')
 	},
 	{
-		path:'/',
-		name:'Main',
+		path: '/',
+		name: 'Main',
 		component: () => import('../views/main/index.vue'),
-		redirect:'/makefriend',
-		children:[
-			{
-				path:'/makefriend',
-				name:'Makefriend',
-				component:() => import('../views/makefriend/index.vue')
+		redirect: '/makefriend',
+		children: [{
+				path: '/makefriend',
+				name: 'Makefriend',
+				component: () => import('../views/makefriend/index.vue'),
+				meta:{
+					show:true
+				}
+				
 			},
 			{
-				path:'/find',
-				name:'Find',
-				component:() => import('../views/find/index.vue')
+				path: '/find',
+				name: 'Find',
+				component: () => import('../views/find/index.vue'),
+				meta:{
+					show:true
+				}
 			},
 			{
-				path:'/mine',
-				name:'Mine',
-				component:() => import('../views/mine/index.vue')
+				path: '/mine',
+				name: 'Mine',
+				component: () => import('../views/mine/index.vue'),
+				meta:{
+					show:true
+				}
 			},
 			{
-				path:'/message',
-				name:'Message',
-				component:() => import('../views/message/index.vue')
+				path: '/message',
+				name: 'Message',
+				component: () => import('../views/message/index.vue'),
+				meta:{
+					show:true
+				}
+			},
+			{
+				path: '/search',
+				name: 'Search',
+				component: () => import('../views/search/index.vue')
 			}
 		]
 	}
@@ -66,7 +82,7 @@ const routes = [
 
 const router = new VueRouter({
 	routes,
-	linkActiveClass:'myrouterlink_active'
+	linkActiveClass: 'myrouterlink_active'
 })
 
 // const whiteList = ['/login']

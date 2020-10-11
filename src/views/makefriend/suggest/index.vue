@@ -14,19 +14,15 @@
 			</mt-swipe>
 			<div class="person_container">
 				<div class="person_item" v-for="i in 11" :key="i">
-					<div class="online_state">
+					<!-- <div class="online_state">
 						<img src="../../../assets/image/chuyu/busy.png" alt="">
-						<!-- <img src="../../../assets/image/chuyu/online.png" alt=""> -->
 						<span>忙碌</span>
+					</div> -->
+					<div class="online_state">
+						<img src="../../../assets/image/chuyu/online.png" alt="">
+						<div>在线</div>
 					</div>
-					<div class="person_name">
-						佩奇
-					</div>
-					<div class="person_connect">
-						<img src="../../../assets/image/chuyu/yuyin.png" alt="">
-						<br>
-						<span>30钻石/分钟</span>
-					</div>
+					
 					
 					<img class="person_img" src="../../../assets/image/chuyu/001.jpg" alt="">
 				</div>
@@ -85,37 +81,24 @@ export default {
 				height 100%
 			.online_state
 				position absolute
-				right 0.64rem
-				top 0.64rem
+				right 0.666666rem
+				top 0.666666rem
 				height 1.28rem
 				width 3.2rem
 				border-radius 0.64rem
 				background-color rgba(0,0,0,0.4)
-				line-height 0.8rem
+				line-height 1.28rem
 				text-align center
+				display flex
 				img
-					vertical-align 0.064rem
-					margin-right 0.128rem
-				span
+					margin-right 0.32rem
+					width 0.32rem
+					height 0.32rem
+					margin-left 0.512rem
+					margin-top 0.448rem
+				div
 					font-size 0.768rem
 					color #FFFFFF
-			.person_name 
-				position absolute
-				left 0.64rem
-				bottom 0.32rem
-				font-size 0.896rem
-				color #FFFFFF
-			.person_connect
-				position absolute
-				right 0.64rem
-				text-align right
-				bottom 0.32rem
-				img
-					width 1.344rem
-					margin-bottom -0.32rem
-				span
-					font-size 0.768rem
-					color #fff
 </style>
 
 <style>

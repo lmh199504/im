@@ -1,10 +1,8 @@
 <template>
 	<div class="main_page">
-		<transition  name="view">
-			<router-view></router-view>
-		</transition>	
-		
-		<div class="nav_bottom">
+		<transition name="view"><router-view></router-view></transition>
+
+		<div class="nav_bottom" v-if="show">
 			<router-link class="myrouterlink" to="/makefriend">
 				<img class="router_icon" src="../../assets/image/chuyu/home.png" alt="" />
 				<img class="router_icon_active" src="../../assets/image/chuyu/home_active.png" alt="" />
@@ -37,7 +35,9 @@
 import { mapState } from 'vuex'
 export default {
 	data() {
-		return {}
+		return {
+			showRouterArr:['/makefriend','/find','/mine','/message']
+		}
 	},
 	created() {
 		if (this.isLogin === false) {
@@ -48,7 +48,11 @@ export default {
 	computed: {
 		...mapState({
 			isLogin: state => state.user.isLogin
-		})
+		}),
+
+		show: function() {
+			return (this.showRouterArr.findIndex(  item => item === this.$route.path ) > -1)
+		}
 	}
 }
 </script>
@@ -57,10 +61,9 @@ export default {
 .main_page
 	width 100%
 	height 100%
-	
-	.view-enter-active,.view-leave-active
-		opacity: 1;
-		transition: 0.4s all ease;	
+	.view-enter-active, .view-leave-active
+		opacity 1
+		transition 0.4s all ease
 	.view-enter
 		opacity 0
 		transform translateX(100%)
@@ -86,8 +89,8 @@ export default {
 			text-decoration none
 			.router_icon
 				width 1.666666rem
-				margin-top 0.333333rem
-				margin-bottom -0.333333rem
+				margin-top 0.32rem
+				// margin-bottom -0.512rem
 			.router_icon_active
 				display none
 		.myrouterlink_active
@@ -95,8 +98,8 @@ export default {
 			.router_icon_active
 				display inline-block
 				width 1.666666rem
-				margin-top 0.333333rem
-				margin-bottom -0.333333rem
+				margin-top 0.32rem
+				// margin-bottom -0.512rem
 			.router_icon
 				display none
 </style>

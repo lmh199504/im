@@ -15,13 +15,36 @@
 				<img class="swiperImg" src="../../../assets/image/chuyu/banner2.png" alt="">
 			</mt-swipe-item>
 		</mt-swipe>
-		<div class="nearbyNoData">
+		<div class="nearbyNoData" v-if="false">
 			<img src="../../../assets/image/chuyu/nearbynodata.png" alt="">
 			<div class="noDatatext">打开定位才可以获得附近女神的信息哦</div>
 			<div class="noDataBtn">
 				立即开启
 			</div>
 		</div>
+		
+		<div class="nearContainer">
+			<div class="nearItem" v-for="n in 10" :key="n">
+				<div class="left">
+					<div>
+						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="">
+					</div>
+					<div>
+						<div class="username">灰色的回忆</div>
+						<div class="usersex">
+							<img src="../../../assets/image/chuyu/sex_girl.png" alt="" />
+							<div class="userage">21</div>
+						</div>
+						<div class="user_desc">我很无聊，快来找我玩呀!我在等你哦快来找我玩呀!我在等你哦快来找我玩呀!我在等你哦....</div>
+					</div>
+				</div>
+				<div class="right">
+					<img src="../../../assets/image/chuyu/chat_msg_active.png" alt="">
+					<img src="../../../assets/image/chuyu/chat_video.png" alt="">
+				</div>
+			</div>
+		</div>
+		
 	</div>
 </template>
 
@@ -80,6 +103,55 @@ export default {
 			margin auto
 			font-size 1rem
 			margin-top 4.666666rem
+	.nearContainer 
+		margin-top 1.28rem
+		.nearItem 
+			display flex
+			justify-content space-between
+			border-bottom 1px solid #F3F3F3
+			margin-bottom 0.64rem
+			.left
+				display flex
+				.userheader 
+					width 3.84rem
+					height 3.84rem
+					border-radius 50%
+					margin-right 0.64rem
+				.username
+					font-size 0.768rem
+					color #333
+				.usersex 
+					width 2.56rem
+					height 1.024rem
+					background-color #FF82AA
+					border-radius 0.512rem
+					display flex
+					justify-content space-around
+					line-height 1.024rem
+					margin-top 0.512rem
+					img
+						width 0.64rem
+						height 0.64rem
+						margin-top 0.192rem
+					.userage
+						font-size 0.768rem
+						color #FFFFFF
+				.user_desc 
+					overflow hidden
+					text-overflow ellipsis
+					white-space nowrap
+					font-size 0.768rem
+					color #999999
+					margin-top 0.32rem
+					max-width 12.8rem
+			.right
+				// width 6.4rem
+				display flex
+				align-items center
+				img
+					width 1.728rem
+					// height 1.728rem
+					margin 0 0.32rem
 </style>
 
 <style>
