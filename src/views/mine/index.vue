@@ -41,20 +41,20 @@
 			<div class="user_money">
 				<div class="money_item">
 					<div class="money_number">100</div>
-					<div class="money_title">钻石</div>
-					<div class="money_btn">充值</div>
+					<div class="money_title">聊币</div>
+					<div class="money_btn" @click="$router.push('/chatCharge')">充值</div>
 				</div>
 				<div class="money_item">
 					<div class="money_number">100</div>
-					<div class="money_title">聊币</div>
-					<div class="money_btn">充值</div>
+					<div class="money_title">钻石</div>
+					<div class="money_btn" @click="$router.push('/diamondCharge')">充值</div>
 				</div>
 			</div>
 			
 		</div>
 		
 		<div class="menu">
-			<div class="menu_item">
+			<div class="menu_item" @click="$router.push('/vipcenter')">
 				<div class="left">
 					<img src="../../assets/image/chuyu/mine/usercenter.png" alt="">
 					<div>会员中心</div>
@@ -63,7 +63,7 @@
 					<img src="../../assets/image/chuyu/xiangyou.png" alt="">
 				</div>
 			</div>
-			<div class="menu_item">
+			<div class="menu_item" @click="$router.push('/Authentication')">
 				<div class="left">
 					<img src="../../assets/image/chuyu/mine/shiming.png" alt="">
 					<div>实名认证</div>
@@ -72,7 +72,7 @@
 					<img src="../../assets/image/chuyu/xiangyou.png" alt="">
 				</div>
 			</div>
-			<div class="menu_item">
+			<div class="menu_item" @click="$router.push('/share')">
 				<div class="left">
 					<img src="../../assets/image/chuyu/mine/money.png" alt="">
 					<div>推广赚钱</div>

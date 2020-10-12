@@ -81,6 +81,41 @@ const routes = [{
 				name: 'VipCenter',
 				component: () => import('../views/vipcenter/index.vue')
 				
+			},
+			{
+				path: '/chatCharge',
+				name: 'ChatCharge',
+				component: () => import('../views/chatCharge/index.vue')
+			},
+			{
+				path:'/diamondCharge',
+				name:'DiamondCharge',
+				component:() => import('../views/diamondCharge/index.vue')
+			},
+			{
+				path:'/Authentication',
+				name:'Authentication',
+				component:() => import('../views/Authentication/index.vue')
+			},
+			{
+				path:'/share',
+				name:'Share',
+				component:() => import('../views/share/index.vue')
+			},
+			{
+				path:'/myprofit',
+				name:'Myprofit',
+				component:() => import('../views/myprofit/index.vue')
+			},
+			{
+				path:'/cashout',
+				name:'Cashout',
+				component:() => import('../views/cashout/index.vue')
+			},
+			{
+				path:'/rewardDetail',
+				name:'RewardDetail',
+				component:() => import('../views/rewardDetail/index.vue')
 			}
 		]
 	}

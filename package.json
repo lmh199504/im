@@ -15,9 +15,12 @@
     "element-ui": "^2.9.1",
     "mint-ui": "^2.2.13",
     "mta-h5-analysis": "^2.0.15",
+    "swiper": "^6.3.3",
     "tim-js-sdk": "^2.4.1",
     "trtc-js-sdk": "^4.3.4",
     "vue": "^2.6.10",
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-clipboard2": "^0.3.1",
     "vue-router": "^3.4.5",
     "vue2-toast": "^2.1.0",
     "vuex": "^3.1.1"

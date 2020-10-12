@@ -25,6 +25,8 @@ import './assets/icon/tim.css'
 import 'vue2-toast/lib/toast.css'
 import Toast from 'vue2-toast'
 
+import VueClipboard from 'vue-clipboard2'             //复制到剪切板
+Vue.use(VueClipboard)
 
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
@@ -33,7 +35,10 @@ Vue.use(Mint)
 // import './lib/mui/css/mui.min.css'
 // import './lib/mui/css/icons-extra.css'
 
-
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+// import 'swiper/css/swiper.css'
+import 'swiper/swiper-bundle.css'
+Vue.use(VueAwesomeSwiper)
 window.tim = tim
 window.TIM = TIM
 window.store = store
