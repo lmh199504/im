@@ -42,39 +42,45 @@ const routes = [{
 				path: '/makefriend',
 				name: 'Makefriend',
 				component: () => import('../views/makefriend/index.vue'),
-				meta:{
-					show:true
+				meta: {
+					show: true
 				}
-				
+
 			},
 			{
 				path: '/find',
 				name: 'Find',
 				component: () => import('../views/find/index.vue'),
-				meta:{
-					show:true
+				meta: {
+					show: true
 				}
 			},
 			{
 				path: '/mine',
 				name: 'Mine',
 				component: () => import('../views/mine/index.vue'),
-				meta:{
-					show:true
+				meta: {
+					show: true
 				}
 			},
 			{
 				path: '/message',
 				name: 'Message',
 				component: () => import('../views/message/index.vue'),
-				meta:{
-					show:true
+				meta: {
+					show: true
 				}
 			},
 			{
 				path: '/search',
 				name: 'Search',
 				component: () => import('../views/search/index.vue')
+			},
+			{
+				path: '/vipcenter',
+				name: 'VipCenter',
+				component: () => import('../views/vipcenter/index.vue')
+				
 			}
 		]
 	}
