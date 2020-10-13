@@ -1,7 +1,9 @@
 <template>
 	<div class="cashout">
 		<mt-header fixed title="提现">
-			<router-link to="/myprofit" slot="left"><mt-button icon="back">返回</mt-button></router-link>
+			<mt-button icon="back" slot="left" @click="$router.go(-1)">返回</mt-button>
+			
+			<!-- <router-link to="/myprofit" slot="left"></router-link> -->
 			<!-- <mt-button slot="right" @click="showBox">说明</mt-button> -->
 		</mt-header>
 

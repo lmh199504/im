@@ -34,6 +34,10 @@ const routes = [{
 		component: () => import('../views/loadMore/index.vue')
 	},
 	{
+		path:'/404',
+		component:() => import('../views/404/index.vue')
+	},
+	{
 		path: '/',
 		name: 'Main',
 		component: () => import('../views/main/index.vue'),
@@ -80,7 +84,7 @@ const routes = [{
 				path: '/vipcenter',
 				name: 'VipCenter',
 				component: () => import('../views/vipcenter/index.vue')
-				
+
 			},
 			{
 				path: '/chatCharge',
@@ -88,36 +92,121 @@ const routes = [{
 				component: () => import('../views/chatCharge/index.vue')
 			},
 			{
-				path:'/diamondCharge',
-				name:'DiamondCharge',
-				component:() => import('../views/diamondCharge/index.vue')
+				path: '/diamondCharge',
+				name: 'DiamondCharge',
+				component: () => import('../views/diamondCharge/index.vue')
 			},
 			{
-				path:'/Authentication',
-				name:'Authentication',
-				component:() => import('../views/Authentication/index.vue')
+				path: '/Authentication',
+				name: 'Authentication',
+				component: () => import('../views/Authentication/index.vue')
 			},
 			{
-				path:'/share',
-				name:'Share',
-				component:() => import('../views/share/index.vue')
+				path: '/share',
+				name: 'Share',
+				component: () => import('../views/share/index.vue')
 			},
 			{
-				path:'/myprofit',
-				name:'Myprofit',
-				component:() => import('../views/myprofit/index.vue')
+				path: '/myprofit',
+				name: 'Myprofit',
+				component: () => import('../views/myprofit/index.vue')
 			},
 			{
-				path:'/cashout',
-				name:'Cashout',
-				component:() => import('../views/cashout/index.vue')
+				path: '/cashout',
+				name: 'Cashout',
+				component: () => import('../views/cashout/index.vue')
 			},
 			{
-				path:'/rewardDetail',
-				name:'RewardDetail',
-				component:() => import('../views/rewardDetail/index.vue')
+				path: '/rewardDetail',
+				name: 'RewardDetail',
+				component: () => import('../views/rewardDetail/index.vue')
+			},
+			{
+				path: '/inviteBoy',
+				name: 'InviteBoy',
+				component: () => import('../views/inviteBoy/index.vue')
+			},
+			{
+				path: '/inviteGirl',
+				name: 'InviteGirl',
+				component: () => import('../views/inviteGirl/index.vue')
+			},
+			{
+				path: '/wallet',
+				name: 'Wallet',
+				component: () => import('../views/wallet/index.vue')
+			},
+			{
+				path: '/diamondDetail',
+				name: 'DiamondDetail',
+				component: () => import('../views/diamondDetail/index.vue')
+			},
+			{
+				path: '/chatDetail',
+				name: 'ChatDetail',
+				component: () => import('../views/chatDetail/index.vue')
+			},
+			{
+				path:'balanceDetail',
+				name:'BalanceDetail',
+				component:() => import('../views/balanceDetail/index.vue')
+			},
+			{
+				path:'helpCenter',
+				name:'HelpCenter',
+				component:() => import('../views/helpCenter/index.vue')
+			},
+			{
+				path:'/question1',
+				component:() => import('../views/helpCenter/question1/index.vue')
+			},
+			{
+				path:'/question2',
+				component:() => import('../views/helpCenter/question2/index.vue')
+			},
+			{
+				path:'/question3',
+				component:() => import('../views/helpCenter/question3/index.vue')
+			},
+			{
+				path:'/question4',
+				component:() => import('../views/helpCenter/question4/index.vue')
+			},
+			{
+				path:'/question5',
+				component:() => import('../views/helpCenter/question5/index.vue')
+			},
+			{
+				path:'/setting',
+				name:'Setting',
+				component:() => import('../views/setting/index.vue')
+			},
+			{
+				path:'/aboutUs',
+				name:'AboutUs',
+				component:() => import('../views/aboutUs/index.vue')
+			},
+			{
+				path:'/blacklist',
+				name:'Blacklist',
+				component:() => import('../views/blacklist/index.vue')
+			},
+			{
+				path:'/bindPhone',
+				name:'bindPhone',
+				component:() => import('../views/bindPhone/index.vue')
+			},
+			{
+				path:'/changePassWord',
+				name:'changePassWord',
+				component:() => import('../views/changePassWord/index.vue')
 			}
 		]
+	},
+	{
+		path: '*',
+		redirect: '/404',
+		hidden: true
 	}
 ]
 

@@ -725,7 +725,7 @@ a {
 .pay_btn_tip img {
 	width: 1.44rem;
 	margin-right: 1.28rem;
-	vertical-align: 0.32rem;
+	vertical-align: -0.32rem;
 }
 
 .pay_btn_wrapper .pay_btn_tip {

@@ -30,13 +30,13 @@
 						<img src="../../assets/image/chuyu/xiangyou.png" alt="">
 					</div>
 				</div>
-				<div class="invite_menu_item">
+				<div class="invite_menu_item" @click="$router.push('/inviteBoy')">
 					<div class="left">我邀请的男性</div>
 					<div class="right">
 						<img src="../../assets/image/chuyu/xiangyou.png" alt="">
 					</div>
 				</div>
-				<div class="invite_menu_item">
+				<div class="invite_menu_item" @click="$router.push('/inviteGirl')">
 					<div class="left">我邀请的女性</div>
 					<div class="right">
 						<img src="../../assets/image/chuyu/xiangyou.png" alt="">
