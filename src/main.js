@@ -35,6 +35,9 @@ Vue.use(Mint)
 // import './lib/mui/css/mui.min.css'
 // import './lib/mui/css/icons-extra.css'
 
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
+
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 // import 'swiper/css/swiper.css'
 import 'swiper/swiper-bundle.css'

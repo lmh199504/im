@@ -78,25 +78,20 @@
 							<div class="info_item">
 								<span>Ta说:</span>
 								<span>
-									您好，我是一个乖乖女，我想被你宠哦。等你您 好，我是一个乖乖女，我想被你宠哦。等你您好，
-									我是 一个乖乖女，我想被你宠哦。等你您好，我是一个乖乖
+									您好，我是一个乖乖女，我想被你宠哦。等你您 好，我是一个乖乖女，我想被你宠哦。等你您好， 我是 一个乖乖女，我想被你宠哦。等你您好，我是一个乖乖
 									女，我想被你宠哦。等你您好，我是一个乖乖女，我想 被你宠哦。等你您好，我是一个乖乖女，我想被你宠哦。
 								</span>
 							</div>
 						</div>
-						
+
 						<div class="info_title">礼物柜</div>
 						<div class="gift">
 							<div class="gift_left">
-								<div class="gift_item" v-for="n in 10" :key="n">
-									<img src="../../assets/image/chuyu/001.jpg" alt="">
-								</div>
+								<div class="gift_item" v-for="n in 10" :key="n"><img src="../../assets/image/chuyu/001.jpg" alt="" /></div>
 							</div>
-							<div class="gift_right">
-								<img src="../../assets/image/chuyu/xiangyou.png" alt="">
-							</div>
+							<div class="gift_right"><img src="../../assets/image/chuyu/xiangyou.png" alt="" /></div>
 						</div>
-						
+
 						<div class="info_title">女神标签</div>
 						<div class="usertab">
 							<div class="tab-items tab-items1">女汉子</div>
@@ -104,52 +99,105 @@
 							<div class="tab-items tab-items3">萝莉</div>
 							<div class="tab-items tab-items4">性感</div>
 						</div>
-						
-						
 					</mt-tab-container-item>
 					<mt-tab-container-item id="tab-container2">
-						<div class="userImgs">
-							<div class="userImgs_item" v-for="n in 5" :key="index">
-								<img src="../../assets/image/chuyu/001.jpg" alt="">
+						<!-- <div class="userImgs">
+							<div class="userImgs_item" v-for="n in 5" :key="n"><img src="../../assets/image/chuyu/001.jpg" alt="" /></div>
+						</div> -->
+
+						<div class="myImgPreview"><vue-preview :slides="thumbsList" class="imgPrev"></vue-preview></div>
+
+						<div class="video_nodata" v-if="false">
+							<img src="../../assets/image/chuyu/userInfo/novideo.png" alt="" />
+							<div class="nodata_text">
+								<p>矮油，TA还没有上传内容</p>
+								<p>快送个小礼物提示她吧！</p>
 							</div>
 						</div>
-						
 					</mt-tab-container-item>
-					<mt-tab-container-item id="tab-container3">tab-container3</mt-tab-container-item>
+					<mt-tab-container-item id="tab-container3">
+						<div class="video_con" v-if="false">
+							<div class="video_item" @click="playVideo">
+								<img src="../../assets/image/chuyu/001.jpg" alt="" class="poster" />
+								<img src="../../assets/image/chuyu/userInfo/play.png" alt="" class="playImg" />
+							</div>
+						</div>
+
+						<div class="video_nodata">
+							<img src="../../assets/image/chuyu/userInfo/novideo.png" alt="" />
+							<div class="nodata_text">
+								<p>矮油，TA还没有上传内容</p>
+								<p>快送个小礼物提示她吧！</p>
+							</div>
+						</div>
+					</mt-tab-container-item>
 				</mt-tab-container>
 			</div>
-			
+
 			<div class="bottomWrapper">
 				<div class="left">
-					<div class="messge_chat">
-						<img src="../../assets/image/chuyu/userInfo/bt_msg.png" alt="">
-					</div>
-					<div class="messge_chat">
-						<img src="../../assets/image/chuyu/userInfo/bt_phone.png" alt="">
-					</div>
+					<div class="messge_chat"><img src="../../assets/image/chuyu/userInfo/bt_msg.png" alt="" /></div>
+					<div class="messge_chat"><img src="../../assets/image/chuyu/userInfo/bt_phone.png" alt="" /></div>
 				</div>
 				<div class="video_msg">
-					<img src="../../assets/image/chuyu/userInfo/bt_video.png" alt="">
+					<img src="../../assets/image/chuyu/userInfo/bt_video.png" alt="" />
 					<div>与他视频</div>
 				</div>
 			</div>
-			
 		</div>
+		<SingleTip :show="showSingle" @close="close" />
 	</div>
 </template>
 
 <script>
+import SingleTip from '../../basecom/singleTip/index.vue'
 export default {
 	data() {
 		return {
-			active: 'tab-container1'
+			active: 'tab-container1',
+			thumbsList: [
+				{
+					w: 600,
+					h: 500,
+					src: 'https://wdm-wlm.oss-cn-hangzhou.aliyuncs.com/images/20200716/ac0a18d51f5a9c58de1893bf2009d8bd.jpg',
+					msrc: 'https://wdm-wlm.oss-cn-hangzhou.aliyuncs.com/images/20200716/ac0a18d51f5a9c58de1893bf2009d8bd.jpg'
+				},
+				{
+					w: 600,
+					h: 500,
+					src: 'https://wdm-wlm.oss-cn-hangzhou.aliyuncs.com/images/20200716/ac0a18d51f5a9c58de1893bf2009d8bd.jpg',
+					msrc: 'https://wdm-wlm.oss-cn-hangzhou.aliyuncs.com/images/20200716/ac0a18d51f5a9c58de1893bf2009d8bd.jpg'
+				},
+				{
+					w: 600,
+					h: 500,
+					src: 'https://wdm-wlm.oss-cn-hangzhou.aliyuncs.com/images/20200716/ac0a18d51f5a9c58de1893bf2009d8bd.jpg',
+					msrc: 'https://wdm-wlm.oss-cn-hangzhou.aliyuncs.com/images/20200716/ac0a18d51f5a9c58de1893bf2009d8bd.jpg'
+				},
+				{
+					w: 600,
+					h: 500,
+					src: 'https://wdm-wlm.oss-cn-hangzhou.aliyuncs.com/images/20200716/ac0a18d51f5a9c58de1893bf2009d8bd.jpg',
+					msrc: 'https://wdm-wlm.oss-cn-hangzhou.aliyuncs.com/images/20200716/ac0a18d51f5a9c58de1893bf2009d8bd.jpg'
+				}
+			],
+			showSingle: false
 		}
 	},
 	created() {
 		window.console.log(this.$route.params.id)
 	},
 	methods: {
-		showBox() {}
+		showBox() {},
+		close() {
+			this.showSingle = false
+		},
+		playVideo() {
+			this.showSingle = true
+		}
+	},
+	components: {
+		SingleTip
 	}
 }
 </script>
@@ -273,7 +321,7 @@ export default {
 		align-items center
 		margin-top 1.6rem
 		.gift_left
-			width calc( 100vw - 1.92rem)
+			width calc(100vw - 1.92rem)
 			overflow-x scroll
 			display flex
 			.gift_item
@@ -300,15 +348,15 @@ export default {
 			line-height 1.28rem
 		.tab-items1
 			background-color #24DB5A
-		.tab-items2	
+		.tab-items2
 			background-color #F19EC2
 		.tab-items3
-			background-color #F9A771	
+			background-color #F9A771
 		.tab-items4
-			background-color #C66EF1		
+			background-color #C66EF1
 	.userImgs
 		display flex
-		flex-wrap wrap	
+		flex-wrap wrap
 		justify-content space-between
 		.userImgs_item
 			width 49%
@@ -316,6 +364,35 @@ export default {
 				width 100%
 				height 15.36rem
 				border-radius 0.32rem
+	.video_con
+		display flex
+		justify-content space-between
+		.video_item
+			width 49%
+			position relative
+			.poster
+				height 15.36rem
+				width 100%
+				border-radius 0.32rem
+			.playImg
+				position absolute
+				width 2.56rem
+				height 2.56rem
+				left 50%
+				top 50%
+				margin-left -1.28rem
+				margin-top -1.28rem
+	.video_nodata
+		margin-top 5.12rem
+		text-align center
+		img
+			width 9.6rem
+		.nodata_text
+			margin-top 1.28rem
+			margin-bottom 5.12rem
+		p
+			font-size 0.896rem
+			color #666666
 .bottomWrapper
 	width 100%
 	height 5.12rem
@@ -353,4 +430,22 @@ export default {
 		div
 			font-size 1.152rem
 			color #FFFFFF
+</style>
+
+<style lang="stylus">
+.userInfo
+	.pswp__button--share
+		display none
+	.imgPrev
+		.my-gallery
+			width 100%
+			display flex
+			justify-content space-between
+			flex-wrap wrap
+		figure
+			width 49%
+			img
+				width 100%
+				height 15.36rem
+				border-radius 0.32rem
 </style>

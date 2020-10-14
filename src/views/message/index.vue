@@ -28,7 +28,7 @@
 						<div class="right"><img src="../../assets/image/chuyu/xiangyou.png" alt="" /></div>
 					</div>
 
-					<div class="kefu_msg" v-for="n in 10" :key="n">
+					<!-- <div class="kefu_msg" v-for="n in 10" :key="n">
 						<div class="left">
 							<div><img class="kefuImg" src="../../assets/image/chuyu/001.jpg" alt="" /></div>
 							<div>
@@ -40,7 +40,9 @@
 							<div class="msgTime">17：15</div>
 							<div class="mesgNumber"><mt-badge size="small" color="#F72D3C">99+</mt-badge></div>
 						</div>
-					</div>
+					</div> -->
+
+					<conversation-item :conversation="item" v-for="item in conversationList" :key="item.conversationID"></conversation-item>
 				</div>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab-container2">
@@ -60,30 +62,48 @@
 					</div>
 				</div>
 				<div class="conversation noconversation">
-					<div class="noconImg">
-						<img src="../../assets/image/chuyu/noconvation.png" alt="">
-					</div>
+					<div class="noconImg"><img src="../../assets/image/chuyu/noconvation.png" alt="" /></div>
 					<p class="noconText">您当前还没有任何记录哦，</p>
 					<p class="noconText">您可以通过闪聊与ta快速约会哦</p>
-					<div class="onekey">
-						<img src="../../assets/image/chuyu/yijianyuehui.png" alt="">
-					</div>
+					<div class="onekey"><img src="../../assets/image/chuyu/yijianyuehui.png" alt="" /></div>
 				</div>
-				
 			</mt-tab-container-item>
 		</mt-tab-container>
 	</div>
 </template>
 
 <script>
+import ConversationItem from '../../components/conversation/conversation-item'
+import { mapState } from 'vuex'
 export default {
 	data() {
 		return {
-			active: 'tab-container1'
+			active: 'tab-container1',
+			showDialog: false,
+			userID: '',
+			isCheckouting: false, // 是否正在切换会话
+			timeout: null,
+			width: '30%'
 		}
 	},
-	mounted() {},
-	created() {},
+	components: {
+		ConversationItem
+	},
+	computed: {
+		...mapState({
+			conversationList: state => state.conversation.conversationList,
+			currentConversation: state => state.conversation.currentConversation
+		})
+	},
+	mounted() {
+		window.addEventListener('keydown', this.handleKeydown)
+		if (window.innerWidth < 1000) {
+			this.width = '80%'
+		}
+	},
+	destroyed() {
+		window.removeEventListener('keydown', this.handleKeydown)
+	},
 	methods: {
 		allRead() {
 			this.$messagebox
@@ -103,6 +123,83 @@ export default {
 				})
 				.catch(() => {
 					window.console.log('取消')
+				})
+		},
+		handleRefresh() {
+			this.refreshConversation()()
+		},
+		refreshConversation() {
+			let that = this
+			return function() {
+				if (!that.timeout) {
+					that.timeout = setTimeout(() => {
+						that.timeout = null
+						that.tim.getConversationList().then(() => {
+							that.$store.commit('showMessage', {
+								message: '刷新成功',
+								type: 'success'
+							})
+						})
+					}, 1000)
+				}
+			}
+		},
+		handleAddButtonClick() {
+			this.showDialog = true
+		},
+		handleConfirm() {
+			if (this.userID !== '@TIM#SYSTEM') {
+				this.$store
+					.dispatch('checkoutConversation', `C2C${this.userID}`)
+					.then(() => {
+						this.showDialog = false
+					})
+					.catch(() => {
+						this.$store.commit('showMessage', {
+							message: '没有找到该用户',
+							type: 'warning'
+						})
+					})
+			} else {
+				this.$store.commit('showMessage', {
+					message: '没有找到该用户',
+					type: 'warning'
+				})
+			}
+			this.userID = ''
+		},
+		handleKeydown(event) {
+			if ((event.keyCode !== 38 && event.keyCode !== 40) || this.isCheckouting) {
+				return
+			}
+			const currentIndex = this.conversationList.findIndex(item => item.conversationID === this.currentConversation.conversationID)
+			if (event.keyCode === 38 && currentIndex - 1 >= 0) {
+				this.checkoutPrev(currentIndex)
+			}
+			if (event.keyCode === 40 && currentIndex + 1 < this.conversationList.length) {
+				this.checkoutNext(currentIndex)
+			}
+		},
+		checkoutPrev(currentIndex) {
+			this.isCheckouting = true
+			this.$store
+				.dispatch('checkoutConversation', this.conversationList[currentIndex - 1].conversationID)
+				.then(() => {
+					this.isCheckouting = false
+				})
+				.catch(() => {
+					this.isCheckouting = false
+				})
+		},
+		checkoutNext(currentIndex) {
+			this.isCheckouting = true
+			this.$store
+				.dispatch('checkoutConversation', this.conversationList[currentIndex + 1].conversationID)
+				.then(() => {
+					this.isCheckouting = false
+				})
+				.catch(() => {
+					this.isCheckouting = false
 				})
 		}
 	}
@@ -225,7 +322,7 @@ export default {
 			img
 				width 8rem
 				margin-top 9.6rem
-		.noconText 
+		.noconText
 			text-align center
 			font-size 0.768rem
 			color #666666

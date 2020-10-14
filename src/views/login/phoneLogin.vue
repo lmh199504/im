@@ -81,6 +81,16 @@ export default {
 		submitForm() {
 			if(this.canClick) {
 				window.console.log(this.ruleForm)
+				
+				this.$store
+					.dispatch('login', '10001')
+					.then(() => {
+						// window.console.log(res)
+						this.$router.replace('/')
+					})
+					.catch(error => {
+						window.console.log(error)
+					})
 			}else{
 				this.$toast.center('手机号或验证码不正确')
 			}
