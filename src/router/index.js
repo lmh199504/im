@@ -200,6 +200,16 @@ const routes = [{
 				path:'/changePassWord',
 				name:'changePassWord',
 				component:() => import('../views/changePassWord/index.vue')
+			},
+			{
+				path:'/personalData',
+				name:'personalData',
+				component:() => import('../views/personalData/index.vue')
+			},
+			{
+				path:'/userInfo/:id',
+				name:'userInfo',
+				component:() => import('../views/userInfo/index.vue')
 			}
 		]
 	},

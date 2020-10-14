@@ -1,187 +1,184 @@
 <template>
 	<div class="rank">
-		<div class="topRank">
-			<div class="one">
-				<div class="onetop">
-					<img class="topImg" src="../../../assets/image/chuyu/rank/second.png" alt="" />
-					<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg">
-				</div>
-				<div class="onebottom">
-					<div class="toprankname">包子</div>
-					<div class="meivalue">
-						<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
-						<span>1235464</span>
+		<mt-loadmore :top-method="loadTop"  ref="loadmore">
+			<div class="topRank">
+				<div class="one">
+					<div class="onetop">
+						<img class="topImg" src="../../../assets/image/chuyu/rank/second.png" alt="" />
+						<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg" />
 					</div>
-					<div class="topranknumber">2</div>
+					<div class="onebottom">
+						<div class="toprankname">包子</div>
+						<div class="meivalue">
+							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+							<span>1235464</span>
+						</div>
+						<div class="topranknumber">2</div>
+					</div>
+				</div>
+
+				<div class="two">
+					<div class="twotop">
+						<img class="topImg" src="../../../assets/image/chuyu/rank/first.png" alt="" />
+						<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg" />
+					</div>
+					<div class="twobttom">
+						<div class="toprankname">包子</div>
+						<div class="meivalue">
+							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+							<span>1235464</span>
+						</div>
+						<div class="topranknumber">1</div>
+					</div>
+				</div>
+
+				<div class="three">
+					<div class="threetop">
+						<img class="topImg" src="../../../assets/image/chuyu/rank/third.png" alt="" />
+						<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg" />
+					</div>
+					<div class="threebottom">
+						<div class="toprankname">包子</div>
+						<div class="meivalue">
+							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+							<span>1235464</span>
+						</div>
+						<div class="topranknumber">3</div>
+					</div>
+				</div>
+
+				<div class="rankBg"><img src="../../../assets/image/chuyu/rank/bg.png" alt="" /></div>
+				<div class="start"><img src="../../../assets/image/chuyu/rank/start.png" alt="" /></div>
+			</div>
+
+			<div class="topRank" v-if="false">
+				<div class="one">
+					<div class="onetop"><img class="topImg" src="../../../assets/image/chuyu/rank/second.png" alt="" /></div>
+					<div class="onebottom">
+						<div class="toprankname">包子</div>
+						<div class="meivalue">
+							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+							<span>1235464</span>
+						</div>
+						<div class="topranknumber">2</div>
+					</div>
+				</div>
+
+				<div class="two">
+					<div class="twotop"><img class="topImg" src="../../../assets/image/chuyu/rank/first.png" alt="" /></div>
+					<div class="twobttom">
+						<div class="toprankname">包子</div>
+						<div class="meivalue">
+							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+							<span>1235464</span>
+						</div>
+						<div class="topranknumber">1</div>
+					</div>
+				</div>
+
+				<div class="three">
+					<div class="threetop"><img class="topImg" src="../../../assets/image/chuyu/rank/third.png" alt="" /></div>
+					<div class="threebottom">
+						<div class="toprankname">包子</div>
+						<div class="meivalue">
+							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+							<span>1235464</span>
+						</div>
+						<div class="topranknumber">3</div>
+					</div>
+				</div>
+
+				<div class="rankBg"><img src="../../../assets/image/chuyu/rank/bg.png" alt="" /></div>
+				<div class="start"><img src="../../../assets/image/chuyu/rank/start.png" alt="" /></div>
+			</div>
+
+			<div class="tabBtn">
+				<div class="god">女神榜</div>
+				<div class="rich">富豪榜</div>
+			</div>
+
+			<div class="left_over_rank">
+				<div class="left_over_rank_item">
+					<div class="left">
+						<div class="left_over_rank_number">4</div>
+						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
+						<div class="username">灰色的回忆</div>
+					</div>
+
+					<div class="right">
+						<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+						<span>52525</span>
+					</div>
+				</div>
+
+				<div class="left_over_rank_item">
+					<div class="left">
+						<div class="left_over_rank_number">5</div>
+						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
+						<div class="username">灰色的回忆</div>
+					</div>
+
+					<div class="right">
+						<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+						<span>52525</span>
+					</div>
+				</div>
+
+				<div class="left_over_rank_item">
+					<div class="left">
+						<div class="left_over_rank_number">5</div>
+						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
+						<div class="username">灰色的回忆</div>
+					</div>
+
+					<div class="right">
+						<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+						<span>52525</span>
+					</div>
 				</div>
 			</div>
 
-			<div class="two">
-				<div class="twotop">
-					<img class="topImg" src="../../../assets/image/chuyu/rank/first.png" alt="" />
-					<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg">
-				</div>
-				<div class="twobttom">
-					<div class="toprankname">包子</div>
-					<div class="meivalue">
-						<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
-						<span>1235464</span>
+			<div class="left_over_rank" v-if="false">
+				<div class="left_over_rank_item">
+					<div class="left">
+						<div class="left_over_rank_number">4</div>
+						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
+						<div class="username">灰色的回忆</div>
 					</div>
-					<div class="topranknumber">1</div>
-				</div>
-			</div>
 
-			<div class="three">
-				<div class="threetop">
-					<img class="topImg" src="../../../assets/image/chuyu/rank/third.png" alt="" />
-					<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg">
-				</div>
-				<div class="threebottom">
-					<div class="toprankname">包子</div>
-					<div class="meivalue">
-						<img src="../../../assets/image/chuyu/rank/mei.png" alt="">
-						<span>1235464</span>
+					<div class="right">
+						<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+						<span>52525</span>
 					</div>
-					<div class="topranknumber">3</div>
 				</div>
-			</div>
 
-			<div class="rankBg"><img src="../../../assets/image/chuyu/rank/bg.png" alt="" /></div>
-			<div class="start"><img src="../../../assets/image/chuyu/rank/start.png" alt="" /></div>
-		</div>
-		
-		
-		
-		<div class="topRank" v-if="false">
-			<div class="one">
-				<div class="onetop"><img class="topImg" src="../../../assets/image/chuyu/rank/second.png" alt="" /></div>
-				<div class="onebottom">
-					<div class="toprankname">包子</div>
-					<div class="meivalue">
-						<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
-						<span>1235464</span>
+				<div class="left_over_rank_item">
+					<div class="left">
+						<div class="left_over_rank_number">5</div>
+						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
+						<div class="username">灰色的回忆</div>
 					</div>
-					<div class="topranknumber">2</div>
-				</div>
-			</div>
-		
-			<div class="two">
-				<div class="twotop"><img class="topImg" src="../../../assets/image/chuyu/rank/first.png" alt="" /></div>
-				<div class="twobttom">
-					<div class="toprankname">包子</div>
-					<div class="meivalue">
-						<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
-						<span>1235464</span>
+
+					<div class="right">
+						<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+						<span>52525</span>
 					</div>
-					<div class="topranknumber">1</div>
 				</div>
-			</div>
-		
-			<div class="three">
-				<div class="threetop"><img class="topImg" src="../../../assets/image/chuyu/rank/third.png" alt="" /></div>
-				<div class="threebottom">
-					<div class="toprankname">包子</div>
-					<div class="meivalue">
-						<img src="../../../assets/image/chuyu/rank/mei.png" alt="">
-						<span>1235464</span>
+
+				<div class="left_over_rank_item">
+					<div class="left">
+						<div class="left_over_rank_number">5</div>
+						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
+						<div class="username">灰色的回忆</div>
 					</div>
-					<div class="topranknumber">3</div>
+
+					<div class="right">
+						<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+						<span>52525</span>
+					</div>
 				</div>
 			</div>
-		
-			<div class="rankBg"><img src="../../../assets/image/chuyu/rank/bg.png" alt="" /></div>
-			<div class="start"><img src="../../../assets/image/chuyu/rank/start.png" alt="" /></div>
-		</div>
-		
-		<div class="tabBtn">
-			<div class="god">女神榜</div>
-			<div class="rich">富豪榜</div>
-		</div>
-		
-		<div class="left_over_rank">
-			<div class="left_over_rank_item">
-				<div class="left">
-					<div class="left_over_rank_number">4</div>
-					<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="">
-					<div class="username">灰色的回忆</div>
-				</div>
-				
-				<div class="right">
-					<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="">
-					<span>52525</span>
-				</div>
-			</div>
-			
-			<div class="left_over_rank_item">
-				<div class="left">
-					<div class="left_over_rank_number">5</div>
-					<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="">
-					<div class="username">灰色的回忆</div>
-				</div>
-				
-				<div class="right">
-					<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="">
-					<span>52525</span>
-				</div>
-			</div>
-			
-			<div class="left_over_rank_item">
-				<div class="left">
-					<div class="left_over_rank_number">5</div>
-					<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="">
-					<div class="username">灰色的回忆</div>
-				</div>
-				
-				<div class="right">
-					<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="">
-					<span>52525</span>
-				</div>
-			</div>
-		</div>
-		
-		
-		
-		<div class="left_over_rank" v-if="false">
-			<div class="left_over_rank_item">
-				<div class="left">
-					<div class="left_over_rank_number">4</div>
-					<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="">
-					<div class="username">灰色的回忆</div>
-				</div>
-				
-				<div class="right">
-					<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="">
-					<span>52525</span>
-				</div>
-			</div>
-			
-			<div class="left_over_rank_item">
-				<div class="left">
-					<div class="left_over_rank_number">5</div>
-					<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="">
-					<div class="username">灰色的回忆</div>
-				</div>
-				
-				<div class="right">
-					<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="">
-					<span>52525</span>
-				</div>
-			</div>
-			
-			<div class="left_over_rank_item">
-				<div class="left">
-					<div class="left_over_rank_number">5</div>
-					<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="">
-					<div class="username">灰色的回忆</div>
-				</div>
-				
-				<div class="right">
-					<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="">
-					<span>52525</span>
-				</div>
-			</div>
-		</div>
-		
+		</mt-loadmore>
 	</div>
 </template>
 
@@ -211,6 +208,7 @@ export default {
 <style lang="stylus" scoped>
 .rank
 	padding 0.896rem
+	overflow scroll
 	.topRank
 		display flex
 		justify-content space-around
@@ -266,7 +264,7 @@ export default {
 					margin-top 2.24rem
 		.three
 			width 33.3%
-			.threebottom 
+			.threebottom
 				position relative
 				z-index 1
 				top 6.4rem
@@ -287,7 +285,6 @@ export default {
 					font-size 3.2rem
 					color #FFFFFF
 					margin-top 0.64rem
-				
 		.onetop
 			text-align center
 			position relative
@@ -296,7 +293,7 @@ export default {
 			margin auto
 			.topImg
 				width 4.48rem
-			.toprankuserimg 
+			.toprankuserimg
 				width 3.584rem
 				height 3.584rem
 				position absolute
@@ -310,7 +307,7 @@ export default {
 			position relative
 			.topImg
 				width 6.08rem
-			.toprankuserimg	
+			.toprankuserimg
 				width 4.992rem
 				height 4.992rem
 				position absolute
@@ -331,7 +328,7 @@ export default {
 				position absolute
 				left 0.768rem
 				top 0.96rem
-				border-radius 50%	
+				border-radius 50%
 		.rankBg
 			position absolute
 			width 100%
@@ -373,29 +370,29 @@ export default {
 	.left_over_rank
 		width 100%
 		margin-top 2.24rem
-		.left_over_rank_item 
+		.left_over_rank_item
 			border-bottom 1px solid #F3F3F3
 			display flex
 			height 3.2rem
 			line-height 3.2rem
 			justify-content space-between
-			.left 
+			.left
 				display flex
 				.left_over_rank_number
 					color #333333
 					font-size 0.96rem
 					margin-left 0.32rem
 					margin-right 1.024rem
-				.userheader	
+				.userheader
 					width 2.56rem
 					height 2.56rem
 					border-radius 1.28rem
 					margin-right 2.304rem
 					margin-top 0.32rem
-				.username 
+				.username
 					font-size 0.96rem
 					color #333
-			.right 
+			.right
 				img
 					width 0.96rem
 					margin-right 0.32rem
@@ -403,4 +400,13 @@ export default {
 				span
 					font-size 0.96rem
 					color #333
+</style>
+
+<style>
+.rank .mint-loadmore-top {
+	font-size: 1rem;
+}
+.rank .mint-loadmore-bottom {
+	font-size: 1rem;
+}
 </style>

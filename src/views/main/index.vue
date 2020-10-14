@@ -36,14 +36,18 @@ import { mapState } from 'vuex'
 export default {
 	data() {
 		return {
-			showRouterArr:['/makefriend','/find','/mine','/message']
+			showRouterArr: ['/makefriend', '/find', '/mine', '/message'],
+			toPersonal:true
 		}
 	},
 	created() {
-		if (this.isLogin === false) {
-			// this.$router.replace('/login')
-		}
-		window.console.log(this.$route.path)
+		// if (this.isLogin === false) {
+		// 	// this.$router.replace('/login')
+		// }
+
+		// if (this.toPersonal && this.$route.path !== '/personalData') {
+		// 	this.$router.push('/personalData')
+		// }
 	},
 	computed: {
 		...mapState({
@@ -51,7 +55,7 @@ export default {
 		}),
 
 		show: function() {
-			return (this.showRouterArr.findIndex(  item => item === this.$route.path ) > -1)
+			return this.showRouterArr.findIndex(item => item === this.$route.path) > -1
 		}
 	}
 }

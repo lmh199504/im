@@ -13,7 +13,7 @@
 				</mt-swipe-item>
 			</mt-swipe>
 			<div class="person_container">
-				<div class="person_item" v-for="i in 11" :key="i">
+				<div class="person_item" v-for="i in 11" :key="i" @click="$router.push(`/userInfo/${i}`)">
 					<!-- <div class="online_state">
 						<img src="../../../assets/image/chuyu/busy.png" alt="">
 						<span>忙碌</span>
@@ -23,6 +23,15 @@
 						<div>在线</div>
 					</div>
 					
+					<div class="username">
+						配齐
+					</div>
+					
+					<div class="chatWith">
+						<img src="../../../assets/image/chuyu/yuyin.png" alt="">
+						<!-- <img src="../../../assets/image/chuyu/shiping.png" alt=""> -->
+						<div>50聊币/分钟</div>
+					</div>
 					
 					<img class="person_img" src="../../../assets/image/chuyu/001.jpg" alt="">
 				</div>
@@ -76,9 +85,27 @@ export default {
 			background-color #000000
 			height 11.666666rem
 			position relative
+			border-radius 0.32rem
+			overflow hidden
 			.person_img 
 				width 100%
 				height 100%
+			.username
+				position absolute
+				bottom 0.64rem
+				left 0.64rem
+				color #FFFFFF
+				font-size 0.768rem
+			.chatWith
+				position absolute
+				text-align right
+				bottom 0.64rem
+				right 0.64rem
+				img
+					height 1.216rem
+				div
+					font-size 0.768rem
+					color #FFFFFF
 			.online_state
 				position absolute
 				right 0.666666rem

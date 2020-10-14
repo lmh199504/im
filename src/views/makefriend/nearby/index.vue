@@ -1,50 +1,38 @@
 <template>
 	<div class="nearby">
-		<!-- <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+		<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+			<mt-swipe :auto="4000">
+				<mt-swipe-item><img class="swiperImg" src="../../../assets/image/chuyu/banner2.png" alt="" /></mt-swipe-item>
+				<mt-swipe-item><img class="swiperImg" src="../../../assets/image/chuyu/banner2.png" alt="" /></mt-swipe-item>
+				<mt-swipe-item><img class="swiperImg" src="../../../assets/image/chuyu/banner2.png" alt="" /></mt-swipe-item>
+			</mt-swipe>
 
-		</mt-loadmore> -->
-		
-		<mt-swipe :auto="4000">
-			<mt-swipe-item>
-				<img class="swiperImg" src="../../../assets/image/chuyu/banner2.png" alt="">
-			</mt-swipe-item>
-			<mt-swipe-item>
-				<img class="swiperImg" src="../../../assets/image/chuyu/banner2.png" alt="">
-			</mt-swipe-item>
-			<mt-swipe-item>
-				<img class="swiperImg" src="../../../assets/image/chuyu/banner2.png" alt="">
-			</mt-swipe-item>
-		</mt-swipe>
-		<div class="nearbyNoData" v-if="false">
-			<img src="../../../assets/image/chuyu/nearbynodata.png" alt="">
-			<div class="noDatatext">打开定位才可以获得附近女神的信息哦</div>
-			<div class="noDataBtn">
-				立即开启
+			<div class="nearbyNoData" v-if="false">
+				<img src="../../../assets/image/chuyu/nearbynodata.png" alt="" />
+				<div class="noDatatext">打开定位才可以获得附近女神的信息哦</div>
+				<div class="noDataBtn">立即开启</div>
 			</div>
-		</div>
-		
-		<div class="nearContainer">
-			<div class="nearItem" v-for="n in 10" :key="n">
-				<div class="left">
-					<div>
-						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="">
-					</div>
-					<div>
-						<div class="username">灰色的回忆</div>
-						<div class="usersex">
-							<img src="../../../assets/image/chuyu/sex_girl.png" alt="" />
-							<div class="userage">21</div>
+
+			<div class="nearContainer">
+				<div class="nearItem" v-for="n in 10" :key="n">
+					<div class="left">
+						<div><img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" /></div>
+						<div>
+							<div class="username">灰色的回忆</div>
+							<div class="usersex">
+								<img src="../../../assets/image/chuyu/sex_girl.png" alt="" />
+								<div class="userage">21</div>
+							</div>
+							<div class="user_desc">我很无聊，快来找我玩呀!我在等你哦快来找我玩呀!我在等你哦快来找我玩呀!我在等你哦....</div>
 						</div>
-						<div class="user_desc">我很无聊，快来找我玩呀!我在等你哦快来找我玩呀!我在等你哦快来找我玩呀!我在等你哦....</div>
+					</div>
+					<div class="right">
+						<img src="../../../assets/image/chuyu/chat_msg_active.png" alt="" />
+						<img src="../../../assets/image/chuyu/chat_video.png" alt="" />
 					</div>
 				</div>
-				<div class="right">
-					<img src="../../../assets/image/chuyu/chat_msg_active.png" alt="">
-					<img src="../../../assets/image/chuyu/chat_video.png" alt="">
-				</div>
 			</div>
-		</div>
-		
+		</mt-loadmore>
 	</div>
 </template>
 
@@ -82,17 +70,16 @@ export default {
 	.swiperImg
 		width 100%
 		height 6.666666rem
-		
-	.nearbyNoData 
+	.nearbyNoData
 		text-align center
 		margin-top 5.333333rem
 		img
 			width 10rem
-		.noDatatext 
+		.noDatatext
 			color #999999
 			margin-top 2rem
 			font-size 0.933333rem
-		.noDataBtn 
+		.noDataBtn
 			color #FFFFFF
 			height 2rem
 			width 9.333333rem
@@ -103,16 +90,16 @@ export default {
 			margin auto
 			font-size 1rem
 			margin-top 4.666666rem
-	.nearContainer 
+	.nearContainer
 		margin-top 1.28rem
-		.nearItem 
+		.nearItem
 			display flex
 			justify-content space-between
 			border-bottom 1px solid #F3F3F3
 			margin-bottom 0.64rem
 			.left
 				display flex
-				.userheader 
+				.userheader
 					width 3.84rem
 					height 3.84rem
 					border-radius 50%
@@ -120,7 +107,7 @@ export default {
 				.username
 					font-size 0.768rem
 					color #333
-				.usersex 
+				.usersex
 					width 2.56rem
 					height 1.024rem
 					background-color #FF82AA
@@ -136,7 +123,7 @@ export default {
 					.userage
 						font-size 0.768rem
 						color #FFFFFF
-				.user_desc 
+				.user_desc
 					overflow hidden
 					text-overflow ellipsis
 					white-space nowrap
