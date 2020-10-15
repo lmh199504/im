@@ -1,7 +1,8 @@
 <template>
 	<div class="userInfo">
 		<mt-header fixed title="">
-			<router-link to="/" slot="left"><mt-button icon="back">返回</mt-button></router-link>
+			<mt-button icon="back" slot="left" @click="$router.go(-1)">返回</mt-button>
+			<!-- <router-link to="/" slot="left"><mt-button icon="back">返回</mt-button></router-link> -->
 			<mt-button slot="right" icon="more" @click="showBox"></mt-button>
 		</mt-header>
 		<div class="wrapper">

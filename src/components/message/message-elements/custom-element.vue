@@ -10,7 +10,7 @@
 			<image-element
 				v-else-if="JSON.parse(message.payload.data).messageType === 'IMAGE_MESSAGE'"
 				:isMine="isMine"
-				:payload="JSON.parse(message._elements[1].content.data)"
+				:payload="JSON.parse(message._elements[0].content.data)"
 				:message="message"
 			/>
 			<gift-element
@@ -26,7 +26,7 @@
 
 			<div v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LAUNCH_AUDIO'"><span class="media_msg">[发起语音通话]</span></div>
 			<div v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_CANCEL_AUDIO'"><span class="media_msg">[语音通话已取消]</span></div>
-			<div v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_HANGUP_AUDIO'"><span class="media_msg">[语音通话已取消]</span></div>
+			<div v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_HANGUP_AUDIO'"><span class="media_msg">[语音通话已挂断]</span></div>
 
 			<div v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LOCK_HINT'"><span class="media_msg">余额不足</span></div>
 
@@ -51,17 +51,18 @@
 			<div v-else-if="JSON.parse(message.payload.data).messageType === 'FILE_MESSAGE'"><span class="media_msg">[文件消息]</span></div>
 			<div v-else-if="JSON.parse(message.payload.data).messageType === 'SYSTEM_MESSAGE'"><span class="media_msg">[系统消息]</span></div>
 
-			<div v-else-if="JSON.parse(message.payload.data).messageType === 'AUDIO_MESSAGE'">
-				<!--     <span class="">[短语音消息]</span>
-		<br/> -->
-				<audio :src="JSON.parse(JSON.parse(message._elements[1].content.data).messageContent).audioUrl" class="myvoice" @click="playOrStoop" controls="true"></audio>
-			</div>
+			<sound-element
+				v-else-if="JSON.parse(message.payload.data).messageType === 'AUDIO_MESSAGE'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
 
 			<div v-else-if="JSON.parse(message.payload.data).messageType === 'TEXT_MESSAGE'">
 				<span>{{ JSON.parse(JSON.parse(message.payload.data).messageContent).textContent }}</span>
 			</div>
 			<div v-else-if="JSON.parse(message.payload.data).messageType === 'VIDEO_MESSAGE'">
-				<video :src="JSON.parse(JSON.parse(message._elements[1].content.data).messageContent).videoCoverUrl" controls="true" class="myvideo"></video>
+				<video :src="JSON.parse(JSON.parse(message._elements[0].content.data).messageContent).videoCoverUrl" controls="true" class="myvideo"></video>
 			</div>
 			<div v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_EVENT_OFFER_VIDEO'"><span class="media_msg">[视频邀约]</span></div>
 			<div v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_INTELLIGENT_EVENT_LAUNCH_VIDEO'"><span class="media_msg">[马甲视频通话]</span></div>
@@ -72,9 +73,17 @@
 			<div v-else-if="JSON.parse(message.payload.data).messageType == 'LOCATION_MESSAGE'"><span class="media_msg">[定位消息]</span></div>
 
 			<div v-else-if="JSON.parse(message.payload.data).messageType == 'DECLINE_REQUEST_GIFT_MESSAGE'"><span>[拒绝求赏]</span></div>
+
+			<image-text-element
+				v-else-if="JSON.parse(message.payload.data).messageType === 'SERVICE_IMAGE_TEXT_MESSAGE'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
+
 			<span class="text" v-else>[不支持的消息类型]</span>
 
-			<!-- <audio :src="playAudioSrc"></audio> -->
+			<audio :src="playAudioSrc" autoplay="autoplay" ref="myaudio"></audio>
 		</div>
 	</message-bubble>
 </template>
@@ -85,7 +94,9 @@ import { Rate } from 'element-ui'
 import { ACTION } from '../../../utils/trtcCustomMessageMap'
 import { formatDuration } from '../../../utils/formatDuration'
 import ImageElement from './image-element.vue'
+import ImageTextElement from './image-text-element.vue'
 import GiftElement from './gift-element.vue'
+import SoundElement from './sound-element.vue'
 export default {
 	name: 'CustomElement',
 	props: {
@@ -101,11 +112,19 @@ export default {
 			type: Boolean
 		}
 	},
+	data() {
+		return {
+			playAudioSrc: '',
+			isPlayAudio: false
+		}
+	},
 	components: {
 		MessageBubble,
 		ElRate: Rate,
 		ImageElement,
-		GiftElement
+		GiftElement,
+		ImageTextElement,
+		SoundElement
 	},
 
 	computed: {
@@ -119,6 +138,7 @@ export default {
 	created() {
 		// console.log(this.message)
 	},
+	mounted() {},
 	methods: {
 		translateCustomMessage(payload) {
 			let videoPayload = {}
@@ -150,6 +170,16 @@ export default {
 				default:
 					return '[自定义消息]'
 			}
+		},
+
+		playThis(message) {
+			const audioUrl = JSON.parse(JSON.parse(message._elements[0].content.data).messageContent).audioUrl
+			if (this.playAudioSrc === audioUrl && this.isPlayAudio) {
+				this.$refs.myaudio.pause()
+			} else {
+				this.$refs.myaudio.src = audioUrl
+				this.playAudioSrc = audioUrl
+			}
 		}
 	}
 }
@@ -177,4 +207,16 @@ export default {
 	width 200px
 .myvoice
 	width 100px
+.audioMsg
+	width 1.92rem
+	height 1.28rem
+.audioMsg_active
+	animation scale 0.5s infinite
+@keyframes scale
+	0%
+		transform scale(0.8)
+		transform-origin center
+	100%
+		transform scale(1)
+		transform-origin center
 </style>

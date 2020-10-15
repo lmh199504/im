@@ -34,13 +34,10 @@ export default {
 	},
 	computed: {
 		url() {
-			return this.payload.url
-		},
-		size() {
-			return this.payload.size
+			return JSON.parse(this.payload.messageContent).audioUrl
 		},
 		second() {
-			return this.payload.second
+			return JSON.parse(this.payload.messageContent).audioDuration
 		}
 	},
 	methods: {

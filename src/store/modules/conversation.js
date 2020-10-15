@@ -47,12 +47,12 @@ const conversationModules = {
 		imgUrlList: state => {
 			return state.currentMessageList
 				.filter(message => {
-					if (!message._elements[1]) {
+					if (!message._elements[0]) {
 
 						return message.type === TIM.TYPES.MSG_IMAGE && !message.isRevoked
 					} else {
 						//自定义的图片类型
-						return JSON.parse(message._elements[1].content.data).messageType === 'IMAGE_MESSAGE' && !message.isRevoked
+						return message._elements[0].content.data && JSON.parse(message._elements[0].content.data).messageType === 'IMAGE_MESSAGE' && !message.isRevoked
 					}
 				}) // 筛选出没有撤回并且类型是图片类型的消息
 				.map(message => {
@@ -60,7 +60,7 @@ const conversationModules = {
 						return message.payload.imageInfoArray[0].url
 					} else {
 						//自定义的图片类型
-						return JSON.parse(JSON.parse(message._elements[1].content.data).messageContent).imageUrl
+						return JSON.parse(JSON.parse(message._elements[0].content.data).messageContent).imageUrl
 					}
 				})
 		}

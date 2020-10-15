@@ -46,9 +46,7 @@ export default {
 		}
 	},
 
-	components: {
-
-	},
+	components: {},
 	created() {
 		if (this.isLogin === false) {
 			this.$router.replace('/login')
@@ -56,17 +54,16 @@ export default {
 		// if (this.toPersonal && this.$route.path !== '/personalData') {
 		// 	this.$router.push('/personalData')
 		// }
-		if(this.userID){
+		if (this.userID) {
 			this.$store
 				.dispatch('login', this.userID)
 				.then(() => {
 					// window.console.log('登陆成功')
 				})
-				.catch( () => {
+				.catch(() => {
 					window.console.log('登陆失败')
 				})
 		}
-		
 	},
 	computed: {
 		...mapState({

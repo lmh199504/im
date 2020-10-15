@@ -41,6 +41,10 @@ Vue.use(VuePreview)
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 // import 'swiper/css/swiper.css'
 import 'swiper/swiper-bundle.css'
+
+import './lib/swiper/swiper.js'
+import './lib/swiper/swiper.css'
+
 Vue.use(VueAwesomeSwiper)
 window.tim = tim
 window.TIM = TIM

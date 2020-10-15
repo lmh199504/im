@@ -46,6 +46,9 @@ export default {
 		},
 		percentage() {
 			return this.$parent.message == undefined ? false : Math.floor((this.$parent.message.progress || 0) * 100)
+		},
+		linkUrl(){
+			return JSON.parse(this.payload.messageContent).linkUrl
 		}
 	},
 	methods: {
@@ -57,6 +60,8 @@ export default {
 			this.$bus.$emit('image-preview', {
 				url: this.payload.imageInfoArray ? this.payload.imageInfoArray[0].url : JSON.parse(this.payload.messageContent).imageUrl
 			})
+			
+			window.open(this.linkUrl)
 		}
 	},
 	created() {
@@ -67,6 +72,6 @@ export default {
 
 <style lang="stylus" scoped>
 .image-element
-	max-width 12.8rem
+	max-width 200px
 	cursor zoom-in
 </style>

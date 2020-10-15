@@ -1,15 +1,32 @@
 <template>
 	<div class="current-conversation-wrapper">
 		<div class="current-conversation" @scroll="onScroll" v-if="showCurrentConversation">
+			
+			<mt-header fixed :title="name">
+				<!-- <router-link to="/mine" slot="left"><mt-button icon="back">返回</mt-button></router-link> -->
+				<mt-button icon="back" slot="left" @click="$router.go(-1)">返回</mt-button>
+				<!-- <mt-button slot="right" @click="showBox" icon="user"></mt-button> -->
+				<div slot="right" class="mt_header_right" @click="$router.push(`/userInfo/${userId}`)"><img src="../../assets/image/user.png" alt=""></div>
+			</mt-header>
+			
+			<div class="fix_top_msg">
+				<div class="fix_top_item">
+					聊币：1234
+				</div>
+				<div class="fix_top_item">
+					聊币：1234
+				</div>
+			</div>
+			
 			<div class="header">
 				<div class="name">{{ name }}({{ userId }})</div>
-				<div
+				<!-- <div
 					class="btn-more-info"
 					:class="showConversationProfile ? '' : 'left-arrow'"
 					@click="showMore"
 					v-show="!currentConversation.conversationID.includes('SYSTEM')"
 					title="查看详细信息"
-				></div>
+				></div> -->
 			</div>
 			<div class="content">
 				<div class="message-list" ref="message-list" @scroll="this.onScroll">
@@ -26,22 +43,28 @@
 		<div class="profile" v-if="showConversationProfile"><conversation-profile /></div>
 		<!-- 群成员资料组件 -->
 		<member-profile-card />
+		<ImagePreviewer />
+		<CallLayer />
 	</div>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
-import MessageSendBox from '../message/message-send-box';
-import MessageItem from '../message/message-item';
-import ConversationProfile from './conversation-profile.vue';
-import MemberProfileCard from '../group/member-profile-card';
+import { mapGetters, mapState } from 'vuex'
+import MessageSendBox from '../message/message-send-box'
+import MessageItem from '../message/message-item'
+import ConversationProfile from './conversation-profile.vue'
+import MemberProfileCard from '../group/member-profile-card'
+import ImagePreviewer from '../message/image-previewer.vue'
+import CallLayer from '../message/call-layer.vue'
 export default {
 	name: 'CurrentConversation',
 	components: {
 		MessageSendBox,
 		MessageItem,
 		ConversationProfile,
-		MemberProfileCard
+		MemberProfileCard,
+		ImagePreviewer,
+		CallLayer
 	},
 	data() {
 		return {
@@ -49,7 +72,7 @@ export default {
 			preScrollHeight: 0,
 			showConversationProfile: false,
 			timeout: ''
-		};
+		}
 	},
 	computed: {
 		...mapState({
@@ -61,104 +84,105 @@ export default {
 		...mapGetters(['toAccount', 'hidden']),
 		// 是否显示当前会话组件
 		showCurrentConversation() {
-			return !!this.currentConversation.conversationID;
+			return !!this.currentConversation.conversationID
 		},
 		name() {
 			if (this.currentConversation.type === 'C2C') {
-				return this.currentConversation.userProfile.nick || this.toAccount;
+				return this.currentConversation.userProfile.nick || this.toAccount
 			} else if (this.currentConversation.type === 'GROUP') {
-				return this.currentConversation.groupProfile.name || this.toAccount;
+				return this.currentConversation.groupProfile.name || this.toAccount
 			} else if (this.currentConversation.conversationID === '@TIM#SYSTEM') {
-				return '系统通知';
+				return '系统通知'
 			}
-			return this.toAccount;
+			return this.toAccount
 		},
 		showMessageSendBox() {
-			return this.currentConversation.type !== this.TIM.TYPES.CONV_SYSTEM;
+			return this.currentConversation.type !== this.TIM.TYPES.CONV_SYSTEM
 		},
 
 		userId() {
-			return this.currentConversation.toAccount;
+			// return this.currentConversation.toAccount
+			return this.currentConversation.userProfile.userID
 		}
 	},
 	mounted() {
 		// setInterval(()=>{
 		// 	console.log(this.currentConversation)
 		// })
-		this.$bus.$on('image-loaded', this.onImageLoaded);
-		this.$bus.$on('scroll-bottom', this.scrollMessageListToButtom);
+		this.$bus.$on('image-loaded', this.onImageLoaded)
+		this.$bus.$on('scroll-bottom', this.scrollMessageListToButtom)
 		if (this.currentConversation.conversationID === '@TIM#SYSTEM') {
-			return false;
+			return false
 		}
 	},
 	updated() {
-		this.keepMessageListOnButtom();
+		this.keepMessageListOnButtom()
 		// 1. 系统会话隐藏右侧资料组件
 		// 2. 没有当前会话时，隐藏右侧资料组件。
 		//    背景：退出群组/删除会话时，会出现一处空白区域
 		if (this.currentConversation.conversationID === '@TIM#SYSTEM' || typeof this.currentConversation.conversationID === 'undefined') {
-			this.showConversationProfile = false;
+			this.showConversationProfile = false
 		}
 	},
 	watch: {
 		currentUnreadCount(next) {
 			if (!this.hidden && next > 0) {
-				this.tim.setMessageRead({ conversationID: this.currentConversation.conversationID });
+				this.tim.setMessageRead({ conversationID: this.currentConversation.conversationID })
 			}
 		},
 		hidden(next) {
 			if (!next && this.currentUnreadCount > 0) {
-				this.tim.setMessageRead({ conversationID: this.currentConversation.conversationID });
+				this.tim.setMessageRead({ conversationID: this.currentConversation.conversationID })
 			}
 		}
 	},
 	methods: {
 		onScroll({ target: { scrollTop } }) {
-			let messageListNode = this.$refs['message-list'];
+			let messageListNode = this.$refs['message-list']
 			if (!messageListNode) {
-				return;
+				return
 			}
 			if (this.preScrollHeight - messageListNode.clientHeight - scrollTop < 20) {
-				this.isShowScrollButtomTips = false;
+				this.isShowScrollButtomTips = false
 			}
 		},
 		// 如果滚到底部就保持在底部，否则提示是否要滚到底部
 		keepMessageListOnButtom() {
-			let messageListNode = this.$refs['message-list'];
+			let messageListNode = this.$refs['message-list']
 			if (!messageListNode) {
-				return;
+				return
 			}
 			// 距离底部20px内强制滚到底部,否则提示有新消息
 			if (this.preScrollHeight - messageListNode.clientHeight - messageListNode.scrollTop < 20) {
 				this.$nextTick(() => {
-					messageListNode.scrollTop = messageListNode.scrollHeight;
-				});
-				this.isShowScrollButtomTips = false;
+					messageListNode.scrollTop = messageListNode.scrollHeight
+				})
+				this.isShowScrollButtomTips = false
 			} else {
-				this.isShowScrollButtomTips = true;
+				this.isShowScrollButtomTips = true
 			}
-			this.preScrollHeight = messageListNode.scrollHeight;
+			this.preScrollHeight = messageListNode.scrollHeight
 		},
 		// 直接滚到底部
 		scrollMessageListToButtom() {
 			this.$nextTick(() => {
-				let messageListNode = this.$refs['message-list'];
+				let messageListNode = this.$refs['message-list']
 				if (!messageListNode) {
-					return;
+					return
 				}
-				messageListNode.scrollTop = messageListNode.scrollHeight;
-				this.preScrollHeight = messageListNode.scrollHeight;
-				this.isShowScrollButtomTips = false;
-			});
+				messageListNode.scrollTop = messageListNode.scrollHeight
+				this.preScrollHeight = messageListNode.scrollHeight
+				this.isShowScrollButtomTips = false
+			})
 		},
 		showMore() {
-			this.showConversationProfile = !this.showConversationProfile;
+			this.showConversationProfile = !this.showConversationProfile
 		},
 		onImageLoaded() {
-			this.keepMessageListOnButtom();
+			this.keepMessageListOnButtom()
 		}
 	}
-};
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -168,6 +192,32 @@ export default {
 	background-color $background-light
 	color $base
 	display flex
+	overflow hidden
+	
+	.mint-header
+		background-color #FFFFFF
+		color #333333
+		.mt_header_right
+			img
+				width 1.408rem
+	.fix_top_msg
+		height 35px
+		position fixed
+		top 40px
+		left 0
+		width 100%
+		background-color #F46AC0
+		z-index 6
+		padding 0 1.28rem
+		box-sizing border-box
+		display flex
+		align-items center
+		justify-content space-between
+		.fix_top_item
+			flex 1
+			text-align center
+			font-size 0.768rem
+			color #FFFFFF
 	.current-conversation
 		display flex
 		flex-direction column
@@ -191,7 +241,7 @@ export default {
 		padding 10px 10px
 .header
 	border-bottom 1px solid $border-base
-	height 50px
+	height 75px
 	position relative
 	.name
 		padding 0 20px

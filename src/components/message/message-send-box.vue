@@ -1,52 +1,11 @@
 <template>
-	<div id="message-send-box-wrapper" :style="focus ? { backgroundColor: 'white' } : {}">
-		<div class="send-header-bar">
-			<el-popover placement="top" width="400" trigger="click">
-				<div class="emojis">
-					<div v-for="item in emojiName" class="emoji" :key="item" @click="chooseEmoji(item)">
-						<img :src="emojiUrl + emojiMap[item]" style="width:30px;height:30px" />
-					</div>
-				</div>
-				<i class="iconfont icon-smile" slot="reference" title="发表情"></i>
-			</el-popover>
-			<i class="iconfont icon-tupian" title="发图片" @click="handleSendImageClick"></i>
-			<i class="iconfont icon-wenjian" title="发文件" @click="handleSendFileClick"></i>
-			<!--       <i class="iconfont icon-zidingyi " title="发自定义消息" @click="sendCustomDialogVisible = true"></i>
-      <i class="iconfont icon-diaocha " title="小调查" @click="surveyDialogVisible = true"></i> -->
-			<i class="el-icon-video-camera" v-if="currentConversationType === 'C2C' && toAccount !== userID" title="视频通话" @click="videoCall"></i>
-		</div>
-		<el-dialog title="发自定义消息" :visible.sync="sendCustomDialogVisible" width="30%">
-			<el-form label-width="100px">
-				<el-form-item label="data"><el-input v-model="form.data"></el-input></el-form-item>
-				<el-form-item label="description"><el-input v-model="form.description"></el-input></el-form-item>
-				<el-form-item label="extension"><el-input v-model="form.extension"></el-input></el-form-item>
-			</el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="sendCustomDialogVisible = false">取 消</el-button>
-				<el-button type="primary" @click="sendCustomMessage">确 定</el-button>
-			</span>
-		</el-dialog>
-		<el-dialog title="对IM Web demo的建议和使用感受" :visible.sync="surveyDialogVisible" width="30%">
-			<el-form label-width="100px">
-				<el-form-item label="评分">
-					<div class="block"><el-rate v-model="rate" :colors="colors" show-text></el-rate></div>
-				</el-form-item>
-				<el-form-item label="建议"><el-input type="textarea" :rows="2" placeholder="请输入内容" resize="none" v-model="suggestion"></el-input></el-form-item>
-			</el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="surveyDialogVisible = false">取 消</el-button>
-				<el-button type="primary" @click="sendSurvey">确 定</el-button>
-			</span>
-		</el-dialog>
-		<el-popover trigger="manual" v-model="showAtGroupMember" placement="top" style="max-height:500px;overflow-y:scroll;">
-			<el-radio-group v-model="atUserID" style="display:flex;flex-decoration: column;" v-for="member in memberList" :key="member.userID" @change="handleSelectAtUser">
-				<el-radio :label="member.userID">{{ member.nameCard || member.nick || member.userID }}</el-radio>
-			</el-radio-group>
-		</el-popover>
+	<div id="message-send-box-wrapper">
+		<!-- :style="focus ? { backgroundColor: 'white' } : {}" -->
 		<div class="bottom">
+			<div class="yuyin"><img src="../../assets/image/yuyin.png" alt="" /></div>
 			<textarea
 				ref="text-input"
-				rows="4"
+				rows="2"
 				resize="false"
 				v-model="messageContent"
 				class="text-input"
@@ -57,33 +16,59 @@
 				@keydown.up.stop="handleUp"
 				@keydown.down.stop="handleDown"
 			></textarea>
+			<el-popover placement="top" width="400" trigger="click">
+				<div class="emojis">
+					<div v-for="item in emojiName" class="emoji" :key="item" @click="chooseEmoji(item)">
+						<img :src="emojiUrl + emojiMap[item]" style="width:30px;height:30px" />
+					</div>
+				</div>
+				<i class="iconfont icon-smile" slot="reference" title="发表情"></i>
+			</el-popover>
 			<el-tooltip class="item" effect="dark" content="按Enter发送消息，Ctrl+Enter换行" placement="left-start">
-				<div class="btn-send" @click="sendTextMessage"><div class="tim-icon-send"></div></div>
+				<div class="btn-send" @click="sendTextMessage">发送</div>
 			</el-tooltip>
 		</div>
+		<div class="send-header-bar">
+			<!-- 	
+			<i class="iconfont icon-tupian" title="发图片" @click="handleSendImageClick"></i>
+			<i class="iconfont icon-wenjian" title="发文件" @click="handleSendFileClick"></i>
+			<i class="el-icon-video-camera" v-if="currentConversationType === 'C2C' && toAccount !== userID" title="视频通话" @click="videoCall"></i> -->
+			<div class="send-header-bar-item"><img src="../../assets/image/xiangji.png" alt="" /></div>
+			<div class="send-header-bar-item"><img src="../../assets/image/zhaopian.png" alt="" @click="handleSendImageClick" /></div>
+			<div class="send-header-bar-item"><img src="../../assets/image/phone.png" alt="" /></div>
+			<div class="send-header-bar-item">
+				<img src="../../assets/image/video.png" alt="" v-if="currentConversationType === 'C2C' && toAccount !== userID" title="视频通话" @click="videoCall" />
+			</div>
+			<div class="send-header-bar-item" @click="handleClickGift"><img src="../../assets/image/gift.png" alt="" /></div>
+		</div>
+
+		<el-popover trigger="manual" v-model="showAtGroupMember" placement="top" style="max-height:500px;overflow-y:scroll;">
+			<el-radio-group v-model="atUserID" style="display:flex;flex-decoration: column;" v-for="member in memberList" :key="member.userID" @change="handleSelectAtUser">
+				<el-radio :label="member.userID">{{ member.nameCard || member.nick || member.userID }}</el-radio>
+			</el-radio-group>
+		</el-popover>
+
 		<input type="file" id="imagePicker" ref="imagePicker" accept=".jpg, .jpeg, .png, .gif" @change="sendImage" style="display:none" />
 		<input type="file" id="filePicker" ref="filePicker" @change="sendFile" style="display:none" />
+
+		<GiftTip :showGift="showGift" @hideGift="hideGift"/>
 	</div>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import { Form, FormItem, Input, Dialog, Popover, RadioGroup, Radio, Tooltip, Rate } from 'element-ui'
+import { Popover, RadioGroup, Radio, Tooltip } from 'element-ui'
 import { emojiMap, emojiName, emojiUrl } from '../../utils/emojiMap'
-
+import GiftTip from '../../basecom/giftTip/index.vue'
 export default {
 	name: 'message-send-box',
 	props: ['scrollMessageListToButtom'],
 	components: {
-		ElInput: Input,
-		ElForm: Form,
-		ElFormItem: FormItem,
-		ElDialog: Dialog,
 		ElPopover: Popover,
 		ElRadioGroup: RadioGroup,
 		ElRadio: Radio,
 		ElTooltip: Tooltip,
-		ElRate: Rate
+		GiftTip
 	},
 	data() {
 		return {
@@ -105,7 +90,8 @@ export default {
 			emojiUrl: emojiUrl,
 			showAtGroupMember: false,
 			atUserID: '',
-			focus: false
+			focus: false,
+			showGift: false
 		}
 	},
 	computed: {
@@ -123,6 +109,12 @@ export default {
 		this.$refs['text-input'].removeEventListener('paste', this.handlePaste)
 	},
 	methods: {
+		hideGift() {
+			this.showGift = false
+		},
+		handleClickGift() {
+			this.showGift = true
+		},
 		reEditMessage(payload) {
 			this.messageContent = payload
 		},
@@ -344,7 +336,7 @@ export default {
 #message-send-box-wrapper
 	box-sizing border-box
 	overflow hidden
-	padding 3px 20px 20px 20px
+	padding 3px 15px 10px 15px
 .emojis
 	height 160px
 	box-sizing border-box
@@ -358,7 +350,15 @@ export default {
 	box-sizing border-box
 .send-header-bar
 	box-sizing border-box
-	padding 3px 0 0 0
+	padding 6px 0 0 0
+	display flex
+	justify-content space-between
+	align-items center
+	.send-header-bar-item
+		width 25%
+		text-align center
+		img
+			height 22px
 .send-header-bar i
 	cursor pointer
 	font-size 24px
@@ -382,13 +382,31 @@ textarea
 .bottom
 	padding-top 10px
 	position relative
+	display flex
+	align-items center
+	textarea
+		background-color #FFFFFF
+		border-radius 20px
+		box-sizing border-box
+		height 36px
+		padding 5px
+		margin-right 10px
+	span
+		margin-top -5px
+	.yuyin
+		margin-right 10px
+		img
+			width 0.96rem
 	.btn-send
 		cursor pointer
-		position absolute
 		color $primary
-		font-size 30px
-		right 0
-		bottom -5px
-		padding 6px 6px 4px 4px
-		border-radius 50%
+		font-size 0.768rem
+		width 3.88rem
+		height 1.6rem
+		color #FFFFFF
+		border-radius 0.8rem
+		text-align center
+		line-height 1.6rem
+		background linear-gradient(-86deg, rgba(249, 85, 232, 0.96), rgba(251, 90, 148, 0.96))
+		margin-left 0.64rem
 </style>

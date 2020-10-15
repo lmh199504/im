@@ -210,6 +210,11 @@ const routes = [{
 				path:'/userInfo/:id',
 				name:'userInfo',
 				component:() => import('../views/userInfo/index.vue')
+			},
+			{
+				path:'/currentConversation',
+				name:'currentConversation',
+				component:() => import('../components/conversation/current-conversation.vue')
 			}
 		]
 	},
