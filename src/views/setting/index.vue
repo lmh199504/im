@@ -7,25 +7,19 @@
 		<div class="wrapper">
 			<div class="wrapper_item">
 				<div class="setting_item first_item" @click="$router.push('/bindPhone')">
-					<div class="left">
-						绑定手机号
-					</div>
+					<div class="left">绑定手机号</div>
 					<div class="right">
 						<div class="right_text">已绑定</div>
-						<img class="rightImg" src="../../assets/image/chuyu/xiangyou.png" alt="">
+						<img class="rightImg" src="../../assets/image/chuyu/xiangyou.png" alt="" />
 					</div>
 				</div>
-				
+
 				<div class="setting_item" style="border: none;" @click="$router.push('/changePassWord')">
 					<div class="left">修改密码</div>
-					<div class="right">
-						<img class="rightImg" src="../../assets/image/chuyu/xiangyou.png" alt="">
-					</div>
+					<div class="right"><img class="rightImg" src="../../assets/image/chuyu/xiangyou.png" alt="" /></div>
 				</div>
-				
-				
 			</div>
-			
+
 			<div class="wrapper_item">
 				<div class="setting_item">
 					<div class="left">好友上线提醒</div>
@@ -42,33 +36,23 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="wrapper_item">
 				<div class="setting_item" @click="$router.push('/blacklist')">
 					<div class="left">黑名单</div>
-					<div class="right">
-						<img class="rightImg" src="../../assets/image/chuyu/xiangyou.png" alt="">
-					</div>
+					<div class="right"><img class="rightImg" src="../../assets/image/chuyu/xiangyou.png" alt="" /></div>
 				</div>
 				<div class="setting_item">
 					<div class="left">清除缓存</div>
-					<div class="right">
-						<img class="rightImg" src="../../assets/image/chuyu/xiangyou.png" alt="">
-					</div>
+					<div class="right"><img class="rightImg" src="../../assets/image/chuyu/xiangyou.png" alt="" /></div>
 				</div>
 				<div class="setting_item" @click="$router.push('/aboutUs')">
 					<div class="left">关于我们</div>
-					<div class="right">
-						<img class="rightImg" src="../../assets/image/chuyu/xiangyou.png" alt="">
-					</div>
+					<div class="right"><img class="rightImg" src="../../assets/image/chuyu/xiangyou.png" alt="" /></div>
 				</div>
 			</div>
-			
-			
-			
-			
 		</div>
-		<div class="logoutBtn">退出登陆</div>
+		<div class="logoutBtn" @click="logout">退出登陆</div>
 	</div>
 </template>
 
@@ -76,8 +60,14 @@
 export default {
 	data() {
 		return {
-			onlineValue:false,
-			msgValue:false
+			onlineValue: false,
+			msgValue: false
+		}
+	},
+	methods: {
+		logout() {
+			this.$store.dispatch('logout')
+			this.$router.replace('/login')
 		}
 	}
 }
@@ -113,7 +103,7 @@ export default {
 					.rightImg
 						height 1.28rem
 		.first_item
-			padding-top 3.84rem!important
+			padding-top 3.84rem !important
 	.logoutBtn
 		width 8rem
 		height 2.24rem
@@ -128,23 +118,23 @@ export default {
 </style>
 
 <style>
-	.mint-switch-core{
-		height: 24px;
-	}
-	.mint-switch-core::after{
-		height: 20px;
-		width: 20px;
-		margin-top: 1px;
-	}
-	.mint-switch-input:checked + .mint-switch-core::after{
-		transform: translateX(27px);
-	}
-	.mint-switch-core::before{
-		height: 24px;
-		background-color: #bebebe;
-	}
-	.mint-switch-input:checked + .mint-switch-core{
-		background-color: #e0477e;
-		border-color:#e0477e;
-	}
+.mint-switch-core {
+	height: 24px;
+}
+.mint-switch-core::after {
+	height: 20px;
+	width: 20px;
+	margin-top: 1px;
+}
+.mint-switch-input:checked + .mint-switch-core::after {
+	transform: translateX(27px);
+}
+.mint-switch-core::before {
+	height: 24px;
+	background-color: #bebebe;
+}
+.mint-switch-input:checked + .mint-switch-core {
+	background-color: #e0477e;
+	border-color: #e0477e;
+}
 </style>

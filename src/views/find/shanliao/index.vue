@@ -12,13 +12,23 @@
 			</div>
 		</div>
 		
-		<div class="shandian">
+		<div class="onlineNumber">当前<span>12302</span>人在线</div>
+		
+		<div class="shandian" @click="getVideo" v-show="active">
 			<div class="circle1"></div>
 			<div class="circle2"></div>
 			<div class="circle3"></div>
 			<div class="circle4"></div>
-			<img src="../../../assets/image/chuyu/find/shandian.png" alt="">
+			<img src="../../../assets/image/chuyu/find/shandian.png" alt="" class="s_img">
 		</div>
+		<div class="phone" v-show="!active">
+			<img src="./imgs/phone.png" alt="">
+		</div>
+		<div class="video" v-show="!active">
+			<img src="./imgs/video.png" alt="">
+		</div>
+		
+		<div class="explainText">被举报并核实之后，将匹配不到女神。</div>
 	</div>
 </template>
 
@@ -26,7 +36,7 @@
 	export default{
 		data() {
 			return{
-				
+				active:true
 			}
 		},
 		mounted() {
@@ -36,7 +46,9 @@
 			
 		},
 		methods:{
-			
+			getVideo() {
+				this.active = false
+			}
 		}
 	}
 </script>
@@ -53,7 +65,7 @@
 				width 2.944rem
 		.xinContainer 
 			margin-top 3.2rem
-			min-height 22.4rem
+			min-height 17.92rem
 			position relative
 			.xin_item
 				text-align center
@@ -94,7 +106,7 @@
 		.shandian
 			text-align center
 			position absolute
-			bottom 9.6rem
+			bottom 5.12rem
 			left 50%
 			.circle1 
 				width 6.4rem
@@ -141,18 +153,45 @@
 				top 50%
 				left 50%
 				transform translate(-50%,-50%)	
-			img	
+			.s_img	
 				width 4.48rem
 				height 4.48rem
 				position absolute
 				border-radius 50%
 				top 50%
 				left 50%
-				transform translate(-50%,-50%)	
-				
+				transform translate(-50%,-50%)
+
 		@keyframes scale
 			0%
 				transform translate(-50%,-50%) scale(1)
 			100%
 				transform translate(-50%,-50%) scale(1.2)
+		.onlineNumber
+			text-align center
+			font-size 0.768rem
+			color #FFFFFF
+			span
+				color #F242B6
+		.phone
+			position absolute
+			left 1.92rem
+			bottom 5.12rem
+			img
+				width 3.2rem
+				height 3.2rem
+		.video
+			bottom 5.12rem
+			position absolute
+			right 1.92rem
+			img
+				width 3.2rem
+				height 3.2rem
+		.explainText
+			position absolute
+			bottom 0.64rem
+			color #FFFFFF
+			font-size 0.768rem
+			text-align center
+			width 100%
 </style>		

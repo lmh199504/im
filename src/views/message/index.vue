@@ -17,7 +17,7 @@
 						<mt-swipe-item><img class="swiperImg" src="../../assets/image/chuyu/banner2.png" alt="" /></mt-swipe-item>
 					</mt-swipe>
 
-					<div class="kefu_msg">
+					<!-- <div class="kefu_msg">
 						<div class="left">
 							<div><img class="kefuImg" src="../../assets/image/chuyu/kefu.png" alt="" /></div>
 							<div>
@@ -26,7 +26,7 @@
 							</div>
 						</div>
 						<div class="right"><img src="../../assets/image/chuyu/xiangyou.png" alt="" /></div>
-					</div>
+					</div> -->
 
 					<!-- <div class="kefu_msg" v-for="n in 10" :key="n">
 						<div class="left">
@@ -41,7 +41,7 @@
 							<div class="mesgNumber"><mt-badge size="small" color="#F72D3C">99+</mt-badge></div>
 						</div>
 					</div> -->
-
+					<ConversationKefu :conversation="item" v-for="item in conversationKefu" :key="item.conversationID"></ConversationKefu>
 					<conversation-item :conversation="item" v-for="item in conversationList" :key="item.conversationID"></conversation-item>
 				</div>
 			</mt-tab-container-item>
@@ -69,11 +69,28 @@
 				</div>
 			</mt-tab-container-item>
 		</mt-tab-container>
+		
+		<div class="fixFree" @click="handleClickFree">
+			<img src="./imgs/mianfeiliao.png" alt="">
+		</div>
+		
+		<div class="svipWrapper" v-show="showSvip">
+			<div class="svip_container">
+				<img src="./imgs/text.png" alt="" class="text">
+				<img src="./imgs/bg.png" alt="" class="bg">
+				
+				<div class="express_btn" @click="$router.push('/vipCenter')">抢先体验</div>
+				<div class="close">
+					<img src="../../basecom/downBanner/imgs/close.png" alt="" class="close" @click="closeSvip">
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
 import ConversationItem from '../../components/conversation/conversation-item'
+import ConversationKefu from '../../components/conversation/conversation-kefu.vue'
 import { mapState } from 'vuex'
 export default {
 	data() {
@@ -83,15 +100,18 @@ export default {
 			userID: '',
 			isCheckouting: false, // 是否正在切换会话
 			timeout: null,
-			width: '30%'
+			width: '30%',
+			showSvip:false
 		}
 	},
 	components: {
-		ConversationItem
+		ConversationItem,
+		ConversationKefu
 	},
 	computed: {
 		...mapState({
-			conversationList: state => state.conversation.conversationList,
+			conversationList: state => state.conversation.conversationList.filter(item => item.conversationID!=='C2Ccustomer01'),
+			conversationKefu: state => state.conversation.conversationList.filter(item => item.conversationID==='C2Ccustomer01'),
 			currentConversation: state => state.conversation.currentConversation
 		})
 	},
@@ -109,7 +129,16 @@ export default {
 			this.$messagebox
 				.confirm('是否标记所有消息为已读')
 				.then(() => {
-					window.console.log('确定')
+					for(let i = 0;i < this.conversationList.length;i++) {
+						this.tim.setMessageRead({
+							conversationID:this.conversationList[i].conversationID
+						})
+					}
+					for(let i = 0;i<this.conversationKefu.length;i++ ) {
+						this.tim.setMessageRead({
+							conversationID:this.conversationKefu[i].conversationID
+						})
+					}
 				})
 				.catch(() => {
 					window.console.log('取消')
@@ -118,15 +147,25 @@ export default {
 		allDel() {
 			this.$messagebox
 				.confirm('是否删除所有消息')
-				.then(() => {
-					window.console.log('确定')
+				.then( async () => {
+					// window.console.log('确定')
+					for( let i = this.conversationList.length - 1; i > 0; i-- ) {
+						await this.tim.deleteConversation(this.conversationList[i].conversationID)
+						this.$store.commit('resetCurrentConversation')
+					}
 				})
 				.catch(() => {
-					window.console.log('取消')
+					// window.console.log('取消')
 				})
 		},
 		handleRefresh() {
 			this.refreshConversation()()
+		},
+		handleClickFree() {
+			this.showSvip = true
+		},
+		closeSvip() {
+			this.showSvip = false
 		},
 		refreshConversation() {
 			let that = this
@@ -263,6 +302,7 @@ export default {
 			display flex
 			justify-content space-between
 			margin-top 1.28rem
+			margin-bottom 0.96rem
 			.left
 				display flex
 				.kefuImg
@@ -333,6 +373,52 @@ export default {
 			text-align center
 			img
 				height 1.92rem
+	.fixFree
+		position fixed
+		right 0.96rem
+		bottom 5.12rem
+		img
+			width 3.84rem
+	.svipWrapper
+		width 100%
+		height 100%
+		z-index 100
+		background-color rgba(0,0,0,0.5)
+		top 0
+		left 0
+		position fixed
+		.svip_container
+			width 100%
+			position relative
+			margin-top 7.36rem
+			.bg
+				width 21.952rem
+				margin-left 0.64rem
+			.text
+				position absolute
+				width 10.4rem
+				text-align center
+				left 50%
+				transform translateX(-50%)
+				top 0.96rem
+			.close
+				text-align center
+				img
+					width 1.216rem
+			.express_btn
+				position absolute
+				width 11.84rem
+				height 2.688rem
+				border-radius 1.344rem
+				background linear-gradient(90deg, #DBB292 0%, #F8DFC4 100%)
+				box-shadow 0px 10px 30px 0px rgba(0, 0, 0, 0.5)
+				text-align center
+				line-height 2.688rem
+				bottom 5.12rem
+				left 50%
+				margin-left -5.92rem 
+				color #78482F
+				font-size 0.96rem
 </style>
 
 <style>

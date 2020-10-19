@@ -1,7 +1,8 @@
 <template>
 	<div class="helpCenter">
 		<mt-header fixed title="帮助中心">
-			<router-link to="/mine" slot="left"><mt-button icon="back">返回</mt-button></router-link>
+			<mt-button slot="left" icon="back" @click="$router.go(-1)">返回</mt-button>
+			<!-- <router-link to="/mine" slot="left"><mt-button icon="back">返回</mt-button></router-link> -->
 			<!-- <mt-button slot="right" @click="showBox">说明</mt-button> -->
 		</mt-header>
 		<div class="wrapper">

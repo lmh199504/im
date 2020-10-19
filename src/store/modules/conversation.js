@@ -48,7 +48,6 @@ const conversationModules = {
 			return state.currentMessageList
 				.filter(message => {
 					if (!message._elements[0]) {
-
 						return message.type === TIM.TYPES.MSG_IMAGE && !message.isRevoked
 					} else {
 						//自定义的图片类型
@@ -57,7 +56,7 @@ const conversationModules = {
 				}) // 筛选出没有撤回并且类型是图片类型的消息
 				.map(message => {
 					if (message.payload.imageInfoArray) {
-						return message.payload.imageInfoArray[0].url
+						return message.payload.imageInfoArray[0].imageUrl
 					} else {
 						//自定义的图片类型
 						return JSON.parse(JSON.parse(message._elements[0].content.data).messageContent).imageUrl

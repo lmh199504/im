@@ -1,14 +1,14 @@
 <template>
 	<div class="rank">
-		<mt-loadmore :top-method="loadTop"  ref="loadmore">
-			<div class="topRank">
+		<mt-loadmore :top-method="loadTop" ref="loadmore">
+			<div class="topRank" v-if="active === 0">
 				<div class="one">
 					<div class="onetop">
 						<img class="topImg" src="../../../assets/image/chuyu/rank/second.png" alt="" />
 						<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg" />
 					</div>
 					<div class="onebottom">
-						<div class="toprankname">包子</div>
+						<div class="toprankname">女神包子</div>
 						<div class="meivalue">
 							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
 							<span>1235464</span>
@@ -23,7 +23,7 @@
 						<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg" />
 					</div>
 					<div class="twobttom">
-						<div class="toprankname">包子</div>
+						<div class="toprankname">女神包子</div>
 						<div class="meivalue">
 							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
 							<span>1235464</span>
@@ -38,7 +38,7 @@
 						<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg" />
 					</div>
 					<div class="threebottom">
-						<div class="toprankname">包子</div>
+						<div class="toprankname">女神包子</div>
 						<div class="meivalue">
 							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
 							<span>1235464</span>
@@ -51,13 +51,16 @@
 				<div class="start"><img src="../../../assets/image/chuyu/rank/start.png" alt="" /></div>
 			</div>
 
-			<div class="topRank" v-if="false">
+			<div class="topRank" v-else>
 				<div class="one">
-					<div class="onetop"><img class="topImg" src="../../../assets/image/chuyu/rank/second.png" alt="" /></div>
+					<div class="onetop">
+						<img class="topImg" src="../../../assets/image/chuyu/rank/second.png" alt="" />
+						<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg" />
+					</div>
 					<div class="onebottom">
-						<div class="toprankname">包子</div>
+						<div class="toprankname">富豪包子</div>
 						<div class="meivalue">
-							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+							<img src="../../../assets/image/chuyu/wallet/liaobi.png" alt="" />
 							<span>1235464</span>
 						</div>
 						<div class="topranknumber">2</div>
@@ -65,11 +68,14 @@
 				</div>
 
 				<div class="two">
-					<div class="twotop"><img class="topImg" src="../../../assets/image/chuyu/rank/first.png" alt="" /></div>
+					<div class="twotop">
+						<img class="topImg" src="../../../assets/image/chuyu/rank/first.png" alt="" />
+						<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg" />
+					</div>
 					<div class="twobttom">
-						<div class="toprankname">包子</div>
+						<div class="toprankname">富豪包子</div>
 						<div class="meivalue">
-							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+							<img src="../../../assets/image/chuyu/wallet/liaobi.png" alt="" />
 							<span>1235464</span>
 						</div>
 						<div class="topranknumber">1</div>
@@ -77,11 +83,14 @@
 				</div>
 
 				<div class="three">
-					<div class="threetop"><img class="topImg" src="../../../assets/image/chuyu/rank/third.png" alt="" /></div>
+					<div class="threetop">
+						<img class="topImg" src="../../../assets/image/chuyu/rank/third.png" alt="" />
+						<img src="../../../assets/image/chuyu/001.jpg" alt="" class="toprankuserimg" />
+					</div>
 					<div class="threebottom">
-						<div class="toprankname">包子</div>
+						<div class="toprankname">富豪包子</div>
 						<div class="meivalue">
-							<img src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+							<img src="../../../assets/image/chuyu/wallet/liaobi.png" alt="" />
 							<span>1235464</span>
 						</div>
 						<div class="topranknumber">3</div>
@@ -93,16 +102,16 @@
 			</div>
 
 			<div class="tabBtn">
-				<div class="god">女神榜</div>
-				<div class="rich">富豪榜</div>
+				<div :class="[active === 0 ? 'god_active' : 'god']" @click="getGod">女神榜</div>
+				<div :class="[active === 1 ? 'rich_active' : 'rich']" @click="getRich">富豪榜</div>
 			</div>
 
-			<div class="left_over_rank">
+			<div class="left_over_rank" v-if="active === 0">
 				<div class="left_over_rank_item">
 					<div class="left">
 						<div class="left_over_rank_number">4</div>
 						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
-						<div class="username">灰色的回忆</div>
+						<div class="username">女神1</div>
 					</div>
 
 					<div class="right">
@@ -115,7 +124,7 @@
 					<div class="left">
 						<div class="left_over_rank_number">5</div>
 						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
-						<div class="username">灰色的回忆</div>
+						<div class="username">女神1</div>
 					</div>
 
 					<div class="right">
@@ -128,7 +137,7 @@
 					<div class="left">
 						<div class="left_over_rank_number">5</div>
 						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
-						<div class="username">灰色的回忆</div>
+						<div class="username">女神1</div>
 					</div>
 
 					<div class="right">
@@ -138,16 +147,16 @@
 				</div>
 			</div>
 
-			<div class="left_over_rank" v-if="false">
+			<div class="left_over_rank" v-else>
 				<div class="left_over_rank_item">
 					<div class="left">
 						<div class="left_over_rank_number">4</div>
 						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
-						<div class="username">灰色的回忆</div>
+						<div class="username">富豪</div>
 					</div>
 
 					<div class="right">
-						<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+						<img class="rightImg" src="../../../assets/image/chuyu/wallet/liaobi.png" alt="" />
 						<span>52525</span>
 					</div>
 				</div>
@@ -156,11 +165,11 @@
 					<div class="left">
 						<div class="left_over_rank_number">5</div>
 						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
-						<div class="username">灰色的回忆</div>
+						<div class="username">富豪</div>
 					</div>
 
 					<div class="right">
-						<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+						<img class="rightImg" src="../../../assets/image/chuyu/wallet/liaobi.png" alt="" />
 						<span>52525</span>
 					</div>
 				</div>
@@ -169,11 +178,11 @@
 					<div class="left">
 						<div class="left_over_rank_number">5</div>
 						<img class="userheader" src="../../../assets/image/chuyu/001.jpg" alt="" />
-						<div class="username">灰色的回忆</div>
+						<div class="username">富豪</div>
 					</div>
 
 					<div class="right">
-						<img class="rightImg" src="../../../assets/image/chuyu/rank/mei.png" alt="" />
+						<img class="rightImg" src="../../../assets/image/chuyu/wallet/liaobi.png" alt="" />
 						<span>52525</span>
 					</div>
 				</div>
@@ -186,7 +195,8 @@
 export default {
 	data() {
 		return {
-			allLoaded: false
+			allLoaded: false,
+			active: 0 //0 - 女神榜  1 - 富豪榜
 		}
 	},
 	methods: {
@@ -200,6 +210,12 @@ export default {
 			setTimeout(() => {
 				this.$refs.loadmore.onBottomLoaded()
 			}, 3000)
+		},
+		getGod() {
+			this.active = 0
+		},
+		getRich() {
+			this.active = 1
 		}
 	}
 }
@@ -347,7 +363,7 @@ export default {
 		justify-content space-between
 		padding 0 1.6rem
 		box-sizing border-box
-		.god
+		.god_active
 			width 8rem
 			height 2.24rem
 			background linear-gradient(0deg, #FF80A8 0%, #FF9ABA 100%)
@@ -357,6 +373,17 @@ export default {
 			line-height 2.24rem
 			font-size 0.96rem
 			color #FFFFFF
+		.god
+			width 8rem
+			height 2.24rem
+			background #FFFFFF
+			border 1px solid #FF82AA
+			border-radius 1.12rem
+			text-align center
+			line-height 2.24rem
+			font-size 0.96rem
+			color #FF82AA
+			box-shadow 0px 5px 15px 0px rgba(189, 116, 214, 0.34)
 		.rich
 			width 8rem
 			height 2.24rem
@@ -367,6 +394,16 @@ export default {
 			line-height 2.24rem
 			font-size 0.96rem
 			color #478CF9
+		.rich_active
+			width 8rem
+			height 2.24rem
+			background-color #478CF9
+			border-radius 1.12rem
+			text-align center
+			line-height 2.24rem
+			font-size 0.96rem
+			color #FFFFFF
+			box-shadow 0px 5px 15px 0px rgba(189, 116, 214, 0.34)
 	.left_over_rank
 		width 100%
 		margin-top 2.24rem

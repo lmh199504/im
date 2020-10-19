@@ -89,6 +89,7 @@ const user = {
 				context.commit('stopComputeCurrent')
 				context.commit('reset')
 			})
+			
 		}
 	}
 }

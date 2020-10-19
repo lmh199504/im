@@ -9,13 +9,15 @@
 	>
 		<!-- <div class="close-btn"><span class="tim-icon-close" title="删除会话" @click="deleteConversation"></span></div> -->
 		<div class="warp">
-			<avatar :src="avatar" :type="conversation.type" />
+			<!-- <img src="" alt=""> -->
+			<avatar src="../../assets/image/chuyu/kefu.png" type="KEFU" />
 			<div class="content">
 				<div class="row-1">
 					<div class="name">
 						<div class="text-ellipsis">
 							<span :title="conversation.userProfile.nick || conversation.userProfile.userID" v-if="conversation.type === TIM.TYPES.CONV_C2C">
-								{{ conversation.userProfile.nick || conversation.userProfile.userID }}
+								<!-- {{ conversation.userProfile.nick || conversation.userProfile.userID }} -->
+								客服
 							</span>
 							<span :title="conversation.groupProfile.name || conversation.groupProfile.groupID" v-else-if="conversation.type === TIM.TYPES.CONV_GROUP">
 								{{ conversation.groupProfile.name || conversation.groupProfile.groupID }}
@@ -202,7 +204,8 @@ export default {
 	},
 	methods: {
 		setMessageRead() {
-			this.tim.setMessageRead({
+			// eslint-disable-next-line
+			tim.setMessageRead({
 				conversationID:this.conversation.conversationID
 			})
 		},
@@ -290,6 +293,7 @@ export default {
 	overflow hidden
 	transition 0.2s
 	margin-bottom 1.28rem
+	margin-top 1.28rem
 	user-select none
 	// &:first-child
 	// padding-top 30px

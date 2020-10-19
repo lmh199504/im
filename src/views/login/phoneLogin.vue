@@ -83,7 +83,7 @@ export default {
 				window.console.log(this.ruleForm)
 				
 				this.$store
-					.dispatch('login', '10001')
+					.dispatch('login', '10002')
 					.then(() => {
 						// window.console.log(res)
 						this.$router.replace('/')

@@ -6,10 +6,12 @@
 				<!-- <router-link to="/mine" slot="left"><mt-button icon="back">返回</mt-button></router-link> -->
 				<mt-button icon="back" slot="left" @click="$router.go(-1)">返回</mt-button>
 				<!-- <mt-button slot="right" @click="showBox" icon="user"></mt-button> -->
-				<div slot="right" class="mt_header_right" @click="$router.push(`/userInfo/${userId}`)"><img src="../../assets/image/user.png" alt=""></div>
+				<div v-if="userId !== 'customer01'" slot="right" class="mt_header_right" @click="$router.push(`/userInfo/${userId}`)"><img src="../../assets/image/user.png" alt=""></div>
+				<div v-else slot="right" class="mt_header_right" @click="$router.push('/helpCenter')"><img src="../../assets/image/chuyu/kefuquestion.png" alt=""></div>
+				
 			</mt-header>
 			
-			<div class="fix_top_msg">
+			<div class="fix_top_msg" v-if="userId !== 'customer01'">
 				<div class="fix_top_item">
 					聊币：1234
 				</div>
@@ -240,7 +242,7 @@ export default {
 		font-size 12px
 		padding 10px 10px
 .header
-	border-bottom 1px solid $border-base
+	// border-bottom 1px solid $border-base
 	height 75px
 	position relative
 	.name

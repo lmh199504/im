@@ -16,7 +16,7 @@
 				<span>发现</span>
 			</router-link>
 			<router-link class="myrouterlink" to="/message">
-				<el-badge :value="200" :max="99" class="item">
+				<el-badge :value="totalUnreadCount" :max="99" class="item" :hidden="totalUnreadCount===0">
 					<img class="router_icon" src="../../assets/image/chuyu/tabbar/message.png" alt="" />
 					<img class="router_icon_active" src="../../assets/image/chuyu/tabbar/message_active.png" alt="" />
 				</el-badge>

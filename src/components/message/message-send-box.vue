@@ -2,7 +2,8 @@
 	<div id="message-send-box-wrapper">
 		<!-- :style="focus ? { backgroundColor: 'white' } : {}" -->
 		<div class="bottom">
-			<div class="yuyin"><img src="../../assets/image/yuyin.png" alt=""  @click="handClickYuyin"/></div>
+			<div class="yuyin" v-if="toAccount !== 'customer01'"><img src="../../assets/image/yuyin.png" alt=""  @click="handClickYuyin"/></div>
+			<div class="sendimg" v-else><img src="../../assets/image/zhaopian.png" alt="" @click="handleSendImageClick"></div>
 			<textarea
 				ref="text-input"
 				rows="2"
@@ -29,7 +30,7 @@
 				
 			</el-tooltip> -->
 		</div>
-		<div class="send-header-bar">
+		<div class="send-header-bar" v-if="toAccount !== 'customer01'">
 			<!-- 	
 			<i class="iconfont icon-tupian" title="发图片" @click="handleSendImageClick"></i>
 			<i class="iconfont icon-wenjian" title="发文件" @click="handleSendFileClick"></i>
@@ -108,6 +109,7 @@ export default {
 	mounted() {
 		this.$refs['text-input'].addEventListener('paste', this.handlePaste)
 		this.$bus.$on('reEditMessage', this.reEditMessage)
+	
 	},
 	beforeDestroy() {
 		this.$refs['text-input'].removeEventListener('paste', this.handlePaste)
@@ -301,9 +303,13 @@ export default {
 			this.messageContent += item
 		},
 		handleSendImageClick() {
+			if(this.toAccount==='customer01') {
+				this.$refs.imagePicker.click()
+			}else{
+				this.showSingle = true
+			}
 			
-			this.showSingle = true
-			// this.$refs.imagePicker.click()
+			
 		},
 		handClickPhone() {
 			this.showSingle = true
@@ -433,6 +439,10 @@ textarea
 		margin-right 10px
 		img
 			width 0.96rem
+	.sendimg
+		margin-right 10px
+		img
+			width 1.6rem
 	.btn-send
 		cursor pointer
 		color $primary
