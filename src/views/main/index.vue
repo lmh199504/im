@@ -4,49 +4,62 @@
 
 		<div class="nav_bottom" v-if="show">
 			<router-link class="myrouterlink" to="/makefriend">
-				<img class="router_icon" src="../../assets/image/chuyu/home.png" alt="" />
-				<img class="router_icon_active" src="../../assets/image/chuyu/home_active.png" alt="" />
+				<img class="router_icon" src="../../assets/image/chuyu/tabbar/makefriend.png" alt="" />
+				<img class="router_icon_active" src="../../assets/image/chuyu/tabbar/makefriend_active.png" alt="" />
 				<br />
 				<span>交友</span>
 			</router-link>
 			<router-link class="myrouterlink" to="/find">
-				<img class="router_icon" src="../../assets/image/chuyu/home.png" alt="" />
-				<img class="router_icon_active" src="../../assets/image/chuyu/home_active.png" alt="" />
+				<img class="router_icon" src="../../assets/image/chuyu/tabbar/find.png" alt="" />
+				<img class="router_icon_active" src="../../assets/image/chuyu/tabbar/find_active.png" alt="" />
 				<br />
 				<span>发现</span>
 			</router-link>
 			<router-link class="myrouterlink" to="/message">
-				<img class="router_icon" src="../../assets/image/chuyu/home.png" alt="" />
-				<img class="router_icon_active" src="../../assets/image/chuyu/home_active.png" alt="" />
+				<el-badge :value="200" :max="99" class="item">
+					<img class="router_icon" src="../../assets/image/chuyu/tabbar/message.png" alt="" />
+					<img class="router_icon_active" src="../../assets/image/chuyu/tabbar/message_active.png" alt="" />
+				</el-badge>
+				<!-- <mt-badge type="primary"  class="totalUnreadCount">{{ totalUnreadCount }}</mt-badge> -->
+
 				<br />
 				<span>信息</span>
 			</router-link>
 			<router-link class="myrouterlink" to="/mine">
-				<img class="router_icon" src="../../assets/image/chuyu/home.png" alt="" />
-				<img class="router_icon_active" src="../../assets/image/chuyu/home_active.png" alt="" />
+				<img class="router_icon" src="../../assets/image/chuyu/tabbar/mine.png" alt="" />
+				<img class="router_icon_active" src="../../assets/image/chuyu/tabbar/mine_active.png" alt="" />
 				<br />
 				<span>我的</span>
 			</router-link>
 		</div>
+		
+		<DownBanner :showDown="showDown" @closeDown="closeDown"/>
+		<CallTip />
 	</div>
 </template>
 
 <script>
-import { Notification } from 'element-ui'
+import { Notification,Badge } from 'element-ui'
 import { mapState } from 'vuex'
 import { translateGroupSystemNotice } from '../../utils/common'
 import { ACTION } from '../../utils/trtcCustomMessageMap'
 import MTA from '../../utils/mta'
-
+import { mapGetters } from 'vuex'
+import DownBanner from '../../basecom/downBanner/index.vue'
+import CallTip from '../../basecom/callTip/index.vue'
 export default {
 	data() {
 		return {
 			showRouterArr: ['/makefriend', '/find', '/mine', '/message'],
-			toPersonal: true
+			toPersonal: true,
+			showDown:true
 		}
 	},
-
-	components: {},
+	components:{
+		ElBadge:Badge,
+		DownBanner,
+		CallTip
+	},
 	created() {
 		if (this.isLogin === false) {
 			this.$router.replace('/login')
@@ -54,18 +67,15 @@ export default {
 		// if (this.toPersonal && this.$route.path !== '/personalData') {
 		// 	this.$router.push('/personalData')
 		// }
-		if (this.userID) {
-			this.$store
-				.dispatch('login', this.userID)
-				.then(() => {
-					// window.console.log('登陆成功')
-				})
-				.catch(() => {
-					window.console.log('登陆失败')
-				})
+		
+		
+		if(sessionStorage.getItem('showDown') === 'close') {
+			this.showDown = false
 		}
+		
 	},
 	computed: {
+		...mapGetters(['totalUnreadCount']),
 		...mapState({
 			currentUserProfile: state => state.user.currentUserProfile,
 			currentConversation: state => state.conversation.currentConversation,
@@ -84,9 +94,26 @@ export default {
 	},
 	mounted() {
 		// 初始化监听器
-		this.initListener()
+	
+		if (this.userID) {
+			this.$store
+				.dispatch('login', this.userID)
+				.then(() => {
+					this.initListener()
+				})
+				.catch(() => {
+					window.console.log('登陆失败')
+				})
+		}
+		
+		this.$bus.$emit('showCallTip') //显示来电弹窗
+		
 	},
 	methods: {
+		closeDown() {
+			this.showDown = false
+			sessionStorage.setItem('showDown','close')
+		},
 		initListener() {
 			// 登录成功后会触发 SDK_READY 事件，该事件触发后，可正常使用 SDK 接口
 			this.tim.on(this.TIM.EVENT.SDK_READY, this.onReadyStateUpdate, this)
@@ -239,6 +266,9 @@ export default {
 				if (videoMessageList[0].from !== this.userID) {
 					this.$bus.$emit('isCalled')
 				}
+				
+				
+				this.$bus.$emit('showCallTip') //显示来电弹窗
 			}
 			if (videoPayload.action === ACTION.VIDEO_CALL_ACTION_SPONSOR_CANCEL) {
 				this.$bus.$emit('missCall')
@@ -344,13 +374,23 @@ export default {
 		border-top 1px solid #E0E0E0
 		display flex
 		height 3.333333rem
-		z-index 1111
+		z-index 99
 		.myrouterlink
 			text-align center
 			width 25%
 			font-size 0.8rem
 			color #333333
 			text-decoration none
+			position relative
+			.totalUnreadCount
+				position absolute
+				top 0.192rem
+				right 0.32rem
+				font-size 0.768rem
+				border-radius 50%
+				background-color red
+				height 0.96rem
+				width 0.96rem
 			.router_icon
 				width 1.666666rem
 				margin-top 0.32rem
@@ -366,4 +406,11 @@ export default {
 				// margin-bottom -0.512rem
 			.router_icon
 				display none
+</style>
+
+<style>
+	
+	.main_page .myrouterlink .el-badge__content.is-fixed{
+		top: 12px;
+	}
 </style>

@@ -9,7 +9,7 @@
 
 				<div class="explain">为VIP功能，平台提供双方信息保 护，一键开启与隔壁的Ta立即约会。</div>
 
-				<div class="level_up" @click="$router.push('/vipCenter')">华丽升级</div>
+				<div class="level_up" @click="levelUp">华丽升级</div>
 
 				<div class="alsosingle" @click="close">继续单身</div>
 			</div>
@@ -28,6 +28,11 @@ export default {
 	methods:{
 		close() {
 			this.$emit('close')
+		},
+		levelUp() {
+			this.$emit('close')
+			this.$bus.$emit('closeCallTip')
+			this.$router.push('/vipCenter')
 		}
 	}
 }

@@ -208,6 +208,7 @@ export default {
 
 <style lang="stylus" scoped>
 .message
+	user-select none
 	.mint-msgbox-confirm
 		color #EE45CC
 	.centerTab

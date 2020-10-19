@@ -1,158 +1,105 @@
 <template>
 	<div class="find">
-		<div class="title">
-			<img src="../../assets/image/chuyu/find/title.png" alt="">
-		</div>
-		<div class="xinContainer">
-			<div :class="['xin_item',`xin_item${i}`]" v-for="i in 8" :key="i">
-				<img class="userheader" src="../../assets/image/chuyu/001.jpg" alt="">
-				<div class="username">
-					铭久源
+		<div class="topNav">
+			<div class="topNav_item" @click="active = 'tab-container1'"><div :class="[active === 'tab-container1' ? 'topNav_item_active' : '']">附近动态</div></div>
+			<div class="topNav_item" @click="active = 'tab-container2'"><div :class="[active === 'tab-container2' ? 'topNav_item_active' : '']">闪聊</div></div>
+			<div class="topNav_item" @click="active = 'tab-container3'"><div :class="[active === 'tab-container3' ? 'topNav_item_active' : '']">私密</div></div>
+			<div class="topNav_item" @click="active = 'tab-container4'"><div :class="[active === 'tab-container4' ? 'topNav_item_active' : '']">我的动态</div></div>
+			<div class="topNav_item" >
+				<el-badge is-dot class="item"><img class="searchImg" src="../../assets/image/chuyu/find/bell.png" alt="" /></el-badge>
 				</div>
-			</div>
 		</div>
-		
-		<div class="shandian">
-			<div class="circle1"></div>
-			<div class="circle2"></div>
-			<div class="circle3"></div>
-			<div class="circle4"></div>
-			<img src="../../assets/image/chuyu/find/shandian.png" alt="">
-		</div>
+		<mt-tab-container v-model="active" :swipeable="true" class="centerTab">
+			<mt-tab-container-item id="tab-container1"><NearDynamic /></mt-tab-container-item>
+			<mt-tab-container-item id="tab-container2"><ShanLiao /></mt-tab-container-item>
+			<mt-tab-container-item id="tab-container3"><PrivateFind /></mt-tab-container-item>
+			<mt-tab-container-item id="tab-container4"><MyDynamic /></mt-tab-container-item>
+		</mt-tab-container>
 	</div>
 </template>
 
 <script>
-	export default{
-		data() {
-			return{
-				
-			}
-		},
-		mounted() {
-			
-		},
-		created() {
-			
-		},
-		methods:{
-			
+import MyDynamic from './myDynamic/index.vue'
+import NearDynamic from './nearDynamic/index.vue'
+import PrivateFind from './privateFind/index.vue'
+import ShanLiao from './shanliao/index.vue'
+import { Badge } from 'element-ui'
+export default {
+	data() {
+		return {
+			active: 'tab-container2',
+			showSign: false
 		}
+	},
+	mounted() {},
+	created() {},
+	methods: {
+		handleChange(e) {
+			window.console.log(e)
+		},
+		toSearch() {
+			this.$router.push('/search')
+		},
+		closeSign() {
+			this.showSign = false
+		}
+	},
+	components: {
+		MyDynamic,
+		NearDynamic,
+		PrivateFind,
+		ShanLiao,
+		ElBadge:Badge
 	}
+}
 </script>
 
 <style lang="stylus" scoped>
-	.find
-		height 100%
-		background-image url(../../assets/image/chuyu/find/bg.png)
-		background-size 100% 100%
-		.title 
+.find
+	height 100%
+	background-color #FFFFFF
+	.centerTab
+		height calc(100vh - 4rem - 3.333333rem)
+		overflow scroll
+		.mint-tab-container-wrap
+			height 100%
+	.topNav
+		display flex
+		height 4rem
+		box-sizing border-box
+		padding 0 0.32rem
+		padding-top 0.533333rem
+		.topNav_item
+			width 20%
 			text-align center
-			padding-top 1.28rem
+			padding 0.333333rem 0
 			img
-				width 2.944rem
-		.xinContainer 
-			margin-top 3.2rem
-			min-height 22.4rem
-			position relative
-			.xin_item
-				text-align center
-				position absolute
-				.userheader 
-					width 1.6rem
-					height 1.6rem
-					border-radius 50%
-				.username
-					font-size 0.768rem
-					color #FFFFFF
-			.xin_item1
-				left 5.76rem
-				top 0.64rem
-			.xin_item2
-				right 5.76rem
-				top 0.64rem
-			.xin_item3
-				left 50%
-				top 1.92rem
-				transform translateX(-50%)
-			.xin_item4
-				left 2.56rem
-				top 5.12rem
-			.xin_item5 
-				right 2.56rem
-				top 5.12rem
-			.xin_item6	
-				left 6.4rem
-				top 9.6rem
-			.xin_item7
-				right 6.4rem
-				top 9.6rem
-			.xin_item8
-				left 50%
-				top 12.8rem
-				transform translate(-50%)
-		.shandian
-			text-align center
-			position absolute
-			bottom 9.6rem
-			left 50%
-			.circle1 
-				width 6.4rem
-				height 6.4rem
-				background-color rgba(255,255,255,0.1)
-				border-radius 50%
-				margin auto
+				width 2rem
+			div
+				font-size 1.024rem
+				line-height 2rem
+			.topNav_item_active
+				font-size 1.152rem
 				position relative
-				animation scale 1s infinite
-				position absolute
-				top 50%
-				left 50%
-				transform translate(-50%,-50%)
-			.circle2 
-				width 5.76rem
-				height 5.76rem
-				border-radius 50%
-				background-color rgba(255,255,255,0.4)
-				animation scale 1s infinite
-				animation-delay 0.2s
-				position absolute
-				top 50%
-				left 50%
-				transform translate(-50%,-50%)
-			.circle3
-				width 5.12rem
-				height 5.12rem
-				border-radius 50%
-				background-color rgba(255,255,255,0.4)
-				animation scale 1s infinite
-				animation-delay 0.4s
-				position absolute
-				top 50%
-				left 50%
-				transform translate(-50%,-50%)
-			.circle4
-				width 4.48rem
-				height 4.48rem
-				border-radius 50%
-				background-color rgba(255,255,255,0.4)
-				animation scale 1s infinite
-				animation-delay 0.6s
-				position absolute
-				top 50%
-				left 50%
-				transform translate(-50%,-50%)	
-			img	
-				width 4.48rem
-				height 4.48rem
-				position absolute
-				border-radius 50%
-				top 50%
-				left 50%
-				transform translate(-50%,-50%)	
-				
-		@keyframes scale
-			0%
-				transform translate(-50%,-50%) scale(1)
-			100%
-				transform translate(-50%,-50%) scale(1.2)
-</style>		
+				transition all 0.4s ease
+				&::after
+					content ''
+					display block
+					width 2rem
+					height 0.266666rem
+					border-radius 0.133333rem
+					background linear-gradient(-86deg, rgba(249, 85, 232, 0.96), rgba(225, 71, 127, 0.96))
+					position absolute
+					left 50%
+					margin-left -1rem
+					bottom -0.533333rem
+			.searchImg
+				width 1.333333rem
+				margin-top 0.333333rem
+</style>
+
+<style>
+.centerTab .mint-tab-container-wrap {
+	height: 100%;
+}
+</style>

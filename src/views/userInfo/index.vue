@@ -137,16 +137,18 @@
 
 			<div class="bottomWrapper">
 				<div class="left">
-					<div class="messge_chat"><img src="../../assets/image/chuyu/userInfo/bt_msg.png" alt="" /></div>
-					<div class="messge_chat"><img src="../../assets/image/chuyu/userInfo/bt_phone.png" alt="" /></div>
+					<div class="messge_chat"><img src="../../assets/image/chuyu/userInfo/bt_msg.png" alt="" @click="toChat"/></div>
+					<div class="messge_chat"><img src="../../assets/image/chuyu/userInfo/bt_phone.png" alt="" @click="showVipCenter"/></div>
 				</div>
-				<div class="video_msg">
+				<div class="video_msg" @click="showVipCenter">
 					<img src="../../assets/image/chuyu/userInfo/bt_video.png" alt="" />
 					<div>与他视频</div>
 				</div>
 			</div>
 		</div>
 		<SingleTip :show="showSingle" @close="close" />
+
+		<mt-actionsheet :actions="actions" v-model="sheetVisible"></mt-actionsheet>
 	</div>
 </template>
 
@@ -156,6 +158,14 @@ export default {
 	data() {
 		return {
 			active: 'tab-container1',
+			actions: [{
+				name:'举报',
+				method:this.report
+			},{
+				name:'拉黑',
+				method:this.toBlackList
+			}],
+			sheetVisible: false,
 			thumbsList: [
 				{
 					w: 600,
@@ -189,12 +199,38 @@ export default {
 		window.console.log(this.$route.params.id)
 	},
 	methods: {
-		showBox() {},
+		showBox() {
+			this.sheetVisible = true
+		},
 		close() {
 			this.showSingle = false
 		},
 		playVideo() {
 			this.showSingle = true
+		},
+		toBlackList() {
+			window.console.log('黑名单')
+		},
+		report() {
+			window.console.log('举报')
+		},
+		showVipCenter() {
+			const number = Math.random() * 10
+			if(number > 5) {
+				this.showSingle = true
+			}else{
+				this.$messagebox({
+					title: '初遇提醒您',
+					message: '安装APP后才可使用此功能哦，快来下载吧，更多精彩在等你哦。',
+					showCancelButton: true,
+					confirmButtonText: '极速安装APP',
+					cancelButtonText: '继续体验',
+					confirmButtonClass: 'downappconfirm'
+				})
+			}
+		},
+		toChat() {
+			alert('去聊天')
 		}
 	},
 	components: {

@@ -49,10 +49,10 @@ const user = {
 							userSig: window.genTestUserSig(userID).userSig,
 							sdkAppID: window.genTestUserSig('').SDKAppID
 						})
-						Message({
-							type: 'success',
-							message: '登录成功'
-						})
+						// Message({
+						// 	type: 'success',
+						// 	message: '登录成功'
+						// })
 						
 						resovle('success')
 					})

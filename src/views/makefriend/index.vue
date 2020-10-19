@@ -1,7 +1,7 @@
 <template>
 	<div class="makefriend">
 		<div class="topNav">
-			<div class="topNav_item"><img src="../../assets/image/chuyu/qiandao.png" alt="" /></div>
+			<div class="topNav_item"><img src="../../assets/image/chuyu/qiandao.png" alt="" @click="showSign=true"/></div>
 			<div class="topNav_item" @click="active = 'tab-container1'"><div :class="[active === 'tab-container1' ? 'topNav_item_active' : '']">遇见</div></div>
 			<div class="topNav_item" @click="active = 'tab-container2'"><div :class="[active === 'tab-container2' ? 'topNav_item_active' : '']">推荐</div></div>
 			<div class="topNav_item" @click="active = 'tab-container3'"><div :class="[active === 'tab-container3' ? 'topNav_item_active' : '']">排行榜</div></div>
@@ -18,6 +18,8 @@
 			<mt-tab-container-item id="tab-container2"><Suggest /></mt-tab-container-item>
 			<mt-tab-container-item id="tab-container3"><Rank /></mt-tab-container-item>
 		</mt-tab-container>
+		
+		<SignTip :showSign="showSign" @closeSign="closeSign"/>
 	</div>
 </template>
 
@@ -25,10 +27,12 @@
 import NearBy from './nearby/index.vue'
 import Suggest from './suggest/index.vue'
 import Rank from './rank/index.vue'
+import SignTip from '../../basecom/signTip/index.vue'
 export default {
 	data() {
 		return {
-			active: 'tab-container2'
+			active: 'tab-container2',
+			showSign:false
 		}
 	},
 	mounted() {},
@@ -39,12 +43,16 @@ export default {
 		},
 		toSearch() {
 			this.$router.push('/search')
+		},
+		closeSign() {
+			this.showSign = false
 		}
 	},
 	components: {
 		NearBy,
 		Suggest,
-		Rank
+		Rank,
+		SignTip
 	}
 }
 </script>

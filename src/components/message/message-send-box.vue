@@ -2,7 +2,7 @@
 	<div id="message-send-box-wrapper">
 		<!-- :style="focus ? { backgroundColor: 'white' } : {}" -->
 		<div class="bottom">
-			<div class="yuyin"><img src="../../assets/image/yuyin.png" alt="" /></div>
+			<div class="yuyin"><img src="../../assets/image/yuyin.png" alt=""  @click="handClickYuyin"/></div>
 			<textarea
 				ref="text-input"
 				rows="2"
@@ -16,7 +16,7 @@
 				@keydown.up.stop="handleUp"
 				@keydown.down.stop="handleDown"
 			></textarea>
-			<el-popover placement="top" width="400" trigger="click">
+			<el-popover placement="top" width="330" trigger="click">
 				<div class="emojis">
 					<div v-for="item in emojiName" class="emoji" :key="item" @click="chooseEmoji(item)">
 						<img :src="emojiUrl + emojiMap[item]" style="width:30px;height:30px" />
@@ -24,18 +24,19 @@
 				</div>
 				<i class="iconfont icon-smile" slot="reference" title="发表情"></i>
 			</el-popover>
-			<el-tooltip class="item" effect="dark" content="按Enter发送消息，Ctrl+Enter换行" placement="left-start">
-				<div class="btn-send" @click="sendTextMessage">发送</div>
-			</el-tooltip>
+			<div class="btn-send" @click="sendTextMessage">发送</div>
+			<!-- <el-tooltip class="item" effect="dark" content="按Enter发送消息，Ctrl+Enter换行" placement="left-start">
+				
+			</el-tooltip> -->
 		</div>
 		<div class="send-header-bar">
 			<!-- 	
 			<i class="iconfont icon-tupian" title="发图片" @click="handleSendImageClick"></i>
 			<i class="iconfont icon-wenjian" title="发文件" @click="handleSendFileClick"></i>
 			<i class="el-icon-video-camera" v-if="currentConversationType === 'C2C' && toAccount !== userID" title="视频通话" @click="videoCall"></i> -->
-			<div class="send-header-bar-item"><img src="../../assets/image/xiangji.png" alt="" /></div>
+			<div class="send-header-bar-item"><img src="../../assets/image/xiangji.png" alt="" @click="handleClickCarame" /></div>
 			<div class="send-header-bar-item"><img src="../../assets/image/zhaopian.png" alt="" @click="handleSendImageClick" /></div>
-			<div class="send-header-bar-item"><img src="../../assets/image/phone.png" alt="" /></div>
+			<div class="send-header-bar-item"><img src="../../assets/image/phone.png" alt=""  @click="handClickPhone"/></div>
 			<div class="send-header-bar-item">
 				<img src="../../assets/image/video.png" alt="" v-if="currentConversationType === 'C2C' && toAccount !== userID" title="视频通话" @click="videoCall" />
 			</div>
@@ -51,15 +52,17 @@
 		<input type="file" id="imagePicker" ref="imagePicker" accept=".jpg, .jpeg, .png, .gif" @change="sendImage" style="display:none" />
 		<input type="file" id="filePicker" ref="filePicker" @change="sendFile" style="display:none" />
 
-		<GiftTip :showGift="showGift" @hideGift="hideGift"/>
+		<GiftTip :showGift="showGift" @hideGift="hideGift" />
+		<SingleTip :show="showSingle" @close="closeSingle" />
 	</div>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import { Popover, RadioGroup, Radio, Tooltip } from 'element-ui'
+import { Popover, RadioGroup, Radio } from 'element-ui'
 import { emojiMap, emojiName, emojiUrl } from '../../utils/emojiMap'
 import GiftTip from '../../basecom/giftTip/index.vue'
+import SingleTip from '../../basecom/singleTip/index.vue'
 export default {
 	name: 'message-send-box',
 	props: ['scrollMessageListToButtom'],
@@ -67,8 +70,8 @@ export default {
 		ElPopover: Popover,
 		ElRadioGroup: RadioGroup,
 		ElRadio: Radio,
-		ElTooltip: Tooltip,
-		GiftTip
+		GiftTip,
+		SingleTip
 	},
 	data() {
 		return {
@@ -91,7 +94,8 @@ export default {
 			showAtGroupMember: false,
 			atUserID: '',
 			focus: false,
-			showGift: false
+			showGift: false,
+			showSingle: false
 		}
 	},
 	computed: {
@@ -109,11 +113,36 @@ export default {
 		this.$refs['text-input'].removeEventListener('paste', this.handlePaste)
 	},
 	methods: {
+		handClickYuyin() {
+			this.showSingle = true
+		},
+		closeSingle() {
+			this.showSingle = false
+		},
 		hideGift() {
 			this.showGift = false
 		},
+
+		handleClickCarame() {
+			this.downAppTip()
+		},
+		downAppTip() {
+			// this.$messagebox
+			// 	.confirm('安装APP后才可使用此功能哦，快来下载吧，更多精彩在等你哦。')
+			// 	.then(() => {})
+			// 	.catch(() => {})
+			this.$messagebox({
+				title: '初遇提醒您',
+				message: '安装APP后才可使用此功能哦，快来下载吧，更多精彩在等你哦。',
+				showCancelButton: true,
+				confirmButtonText: '极速安装APP',
+				cancelButtonText: '继续体验',
+				confirmButtonClass: 'downappconfirm'
+			})
+		},
 		handleClickGift() {
-			this.showGift = true
+			this.downAppTip()
+			// this.showGift = true   //会员显示送礼
 		},
 		reEditMessage(payload) {
 			this.messageContent = payload
@@ -272,13 +301,20 @@ export default {
 			this.messageContent += item
 		},
 		handleSendImageClick() {
-			this.$refs.imagePicker.click()
+			
+			this.showSingle = true
+			// this.$refs.imagePicker.click()
 		},
+		handClickPhone() {
+			this.showSingle = true
+		},
+		
 		handleSendFileClick() {
 			this.$refs.filePicker.click()
 		},
 		videoCall() {
-			this.$bus.$emit('video-call')
+			this.showSingle = true
+			// this.$bus.$emit('video-call')
 		},
 		sendImage() {
 			const message = this.tim.createImageMessage({
@@ -409,4 +445,11 @@ textarea
 		line-height 1.6rem
 		background linear-gradient(-86deg, rgba(249, 85, 232, 0.96), rgba(251, 90, 148, 0.96))
 		margin-left 0.64rem
+</style>
+
+<style lang="stylus">
+.downappconfirm
+	color #EE45CC
+	&:hover
+		color #EE45CC
 </style>

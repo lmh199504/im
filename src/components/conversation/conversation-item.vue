@@ -1,5 +1,12 @@
 <template>
-	<div class="conversation-item-container" :class="{ choose: conversation.conversationID === currentConversation.conversationID }" @click="selectConversation">
+	<div
+		class="conversation-item-container"
+		:class="{ choose: conversation.conversationID === currentConversation.conversationID }"
+		@click="selectConversation"
+		@touchstart="gotouchstart"
+		@touchmove="gotouchmove"
+		@touchend="gotouchend"
+	>
 		<!-- <div class="close-btn"><span class="tim-icon-close" title="删除会话" @click="deleteConversation"></span></div> -->
 		<div class="warp">
 			<avatar :src="avatar" :type="conversation.type" />
@@ -31,6 +38,8 @@
 				</div>
 			</div>
 		</div>
+
+		<mt-actionsheet :actions="actions" v-model="sheetVisible"></mt-actionsheet>
 	</div>
 </template>
 
@@ -43,7 +52,13 @@ export default {
 	data() {
 		return {
 			popoverVisible: false,
-			hasMessageAtMe: false
+			hasMessageAtMe: false,
+			timeOutEvent: null,
+			actions:[
+				{name:'标记已读',method:this.setMessageRead},
+				{name:'删除消息',method:this.deleteConversation}
+			],
+			sheetVisible:false
 		}
 	},
 	computed: {
@@ -102,69 +117,72 @@ export default {
 				}
 				return `${this.conversation.lastMessage.fromAccount}撤回了一条消息`
 			}
-			var messageType = JSON.parse(this.conversation.lastMessage.payload.data).messageType
-			if( messageType === 'TEXT_MESSAGE'){
-				return JSON.parse(JSON.parse(this.conversation.lastMessage.payload.data).messageContent).textContent
-			}else if( messageType === 'RTC_EVENT_CANCEL_VIDEO' ){
-				return '[视频通话取消]'
-			}else if( messageType === 'GIFT_MESSAGE' ){
-				return '[礼物消息]'
-			}else if(messageType === 'RTC_EVENT_LAUNCH_VIDEO'){
-				return '[发起视频通话]'
-			}else if(messageType === 'RTC_EVENT_HANGUP_VIDEO'){
-				return '[挂断视频通话]'
-			}else if(messageType === 'RTC_EVENT_LAUNCH_AUDIO'){
-				return '[发起语音通话]'
-			}else if(messageType==='RTC_EVENT_CANCEL_AUDIO'){
-				return '[语音通话已取消]'
-			}else if(messageType==='RTC_EVENT_HANGUP_AUDIO'){
-				return '[语音通话已挂断]'
-			}else if(messageType==='RTC_EVENT_LOCK_HINT'){
-				return '[余额不足]'
-			}else if(messageType==='ADD_FRIEND_MESSAGE'){
-				return '[请求添加好友]'
-			}else if(messageType==='SEE_WE_CHAT_MESSAGE'){
-				return '[查看微信号消息]'
-			}else if(messageType==='SEE_PHONE_MESSAGE'){
-				return '[查看手机号消息]'
-			}else if(messageType==='SEE_QQ_MESSAGE'){
-				return '[查看QQ号消息]'
-			}else if(messageType==='SEND_WE_CHAT_MESSAGE'){
-				return '[发送微信号消息]'
-			}else if(messageType==='SEND_PHONE_MESSAGE'){
-				return '[发送手机号]'
-			}else if(messageType==='SEND_QQ_MESSAGE'){
-				return '[发送QQ号消息]'
-			}else if(messageType==='REFUSE_FRIEND_APPLY_MESSAGE'){
-				return '[拒绝好友申请]'
-			}else if(messageType==='AGREE_FRIEND_APPLY_MESSAGE'){
-				return '[同意好友申请]'
-			}else if(messageType==='FILE_MESSAGE'){
-				return '[文件消息]'
-			}else if(messageType==='SYSTEM_MESSAGE'){
-				return '[系统消息]'
-			}else if(messageType==='AUDIO_MESSAGE'){
-				return '[语音消息]'
-			}else if(messageType==='VIDEO_MESSAGE'){
-				return '[视频消息]'
-			}else if(messageType==='RTC_EVENT_OFFER_VIDEO'){
-				return '[视频邀约]'
-			}else if(messageType==='RTC_INTELLIGENT_EVENT_LAUNCH_VIDEO'){
-				return '[马甲视频通话]'
-			}else if(messageType==='RTC_INTELLIGENT_EVENT_LAUNCH_AUDIO'){
-				return '[马甲语音通话]'
-			}else if(messageType==='RTC_EVENT_SHADE_VIDEO'){
-				return '[事件，遮罩]'
-			}else if(messageType==='RTC_EVENT_LOCK_HINT'){
-				return '[事件，余额不足提示]'
-			}else if(messageType==='LOCATION_MESSAGE'){
-				return '[定位消息]'
-			}else if(messageType==='DECLINE_REQUEST_GIFT_MESSAGE'){
-				return '[拒绝求赏]'
-			}else if(messageType==='SERVICE_IMAGE_TEXT_MESSAGE'){
-				return '[图文消息]'
+
+			if (this.conversation.lastMessage.payload && this.conversation.lastMessage.payload.data) {
+				var messageType = JSON.parse(this.conversation.lastMessage.payload.data).messageType
+				if (messageType === 'TEXT_MESSAGE') {
+					return JSON.parse(JSON.parse(this.conversation.lastMessage.payload.data).messageContent).textContent
+				} else if (messageType === 'RTC_EVENT_CANCEL_VIDEO') {
+					return '[视频通话取消]'
+				} else if (messageType === 'GIFT_MESSAGE') {
+					return '[礼物消息]'
+				} else if (messageType === 'RTC_EVENT_LAUNCH_VIDEO') {
+					return '[发起视频通话]'
+				} else if (messageType === 'RTC_EVENT_HANGUP_VIDEO') {
+					return '[挂断视频通话]'
+				} else if (messageType === 'RTC_EVENT_LAUNCH_AUDIO') {
+					return '[发起语音通话]'
+				} else if (messageType === 'RTC_EVENT_CANCEL_AUDIO') {
+					return '[语音通话已取消]'
+				} else if (messageType === 'RTC_EVENT_HANGUP_AUDIO') {
+					return '[语音通话已挂断]'
+				} else if (messageType === 'RTC_EVENT_LOCK_HINT') {
+					return '[余额不足]'
+				} else if (messageType === 'ADD_FRIEND_MESSAGE') {
+					return '[请求添加好友]'
+				} else if (messageType === 'SEE_WE_CHAT_MESSAGE') {
+					return '[查看微信号消息]'
+				} else if (messageType === 'SEE_PHONE_MESSAGE') {
+					return '[查看手机号消息]'
+				} else if (messageType === 'SEE_QQ_MESSAGE') {
+					return '[查看QQ号消息]'
+				} else if (messageType === 'SEND_WE_CHAT_MESSAGE') {
+					return '[发送微信号消息]'
+				} else if (messageType === 'SEND_PHONE_MESSAGE') {
+					return '[发送手机号]'
+				} else if (messageType === 'SEND_QQ_MESSAGE') {
+					return '[发送QQ号消息]'
+				} else if (messageType === 'REFUSE_FRIEND_APPLY_MESSAGE') {
+					return '[拒绝好友申请]'
+				} else if (messageType === 'AGREE_FRIEND_APPLY_MESSAGE') {
+					return '[同意好友申请]'
+				} else if (messageType === 'FILE_MESSAGE') {
+					return '[文件消息]'
+				} else if (messageType === 'SYSTEM_MESSAGE') {
+					return '[系统消息]'
+				} else if (messageType === 'AUDIO_MESSAGE') {
+					return '[语音消息]'
+				} else if (messageType === 'VIDEO_MESSAGE') {
+					return '[视频消息]'
+				} else if (messageType === 'RTC_EVENT_OFFER_VIDEO') {
+					return '[视频邀约]'
+				} else if (messageType === 'RTC_INTELLIGENT_EVENT_LAUNCH_VIDEO') {
+					return '[马甲视频通话]'
+				} else if (messageType === 'RTC_INTELLIGENT_EVENT_LAUNCH_AUDIO') {
+					return '[马甲语音通话]'
+				} else if (messageType === 'RTC_EVENT_SHADE_VIDEO') {
+					return '[事件，遮罩]'
+				} else if (messageType === 'RTC_EVENT_LOCK_HINT') {
+					return '[事件，余额不足提示]'
+				} else if (messageType === 'LOCATION_MESSAGE') {
+					return '[定位消息]'
+				} else if (messageType === 'DECLINE_REQUEST_GIFT_MESSAGE') {
+					return '[拒绝求赏]'
+				} else if (messageType === 'SERVICE_IMAGE_TEXT_MESSAGE') {
+					return '[图文消息]'
+				}
 			}
-			
+
 			return this.conversation.lastMessage.messageForShow
 		},
 		...mapState({
@@ -183,16 +201,25 @@ export default {
 		// window.console.log(JSON.parse(JSON.parse(this.conversation.lastMessage.payload.data).messageContent).textContent)
 	},
 	methods: {
+		setMessageRead() {
+			// eslint-disable-next-line
+			tim.setMessageRead({
+				conversationID:this.conversation.conversationID
+			})
+		},
 		selectConversation() {
 			if (this.conversation.conversationID !== this.currentConversation.conversationID) {
 				this.$store.dispatch('checkoutConversation', this.conversation.conversationID)
-				
 			}
 			this.$router.push('/currentConversation')
 		},
 		deleteConversation(event) {
 			// 停止冒泡，避免和点击会话的事件冲突
-			event.stopPropagation()
+			try{
+				event.stopPropagation()
+			}catch(e) {
+				//TODO handle the exception
+			}
 			this.tim
 				.deleteConversation(this.conversation.conversationID)
 				.then(() => {
@@ -213,6 +240,37 @@ export default {
 		},
 		showContextMenu() {
 			this.popoverVisible = true
+		},
+		gotouchstart() {
+			// let that = this
+			clearTimeout(this.timeOutEvent) //清除定时器
+			this.timeOutEvent = 0
+			this.timeOutEvent = setTimeout(() => {
+				//执行长按要执行的内容，
+				// ...
+				// window.console.log('长安')
+
+				// this.$messagebox
+				// 	.confirm('是否删除该会话？')
+				// 	.then(() => {
+				// 		this.deleteConversation()
+				// 	})
+				// 	.catch(() => {})
+				this.sheetVisible = true
+				
+			}, 600) //这里设置定时
+		},
+		//手释放，如果在500毫秒内就释放，则取消长按事件，此时可以执行onclick应该执行的事件
+		gotouchend() {
+			clearTimeout(this.timeOutEvent)
+			if (this.timeOutEvent != 0) {
+				//这里写要执行的内容（尤如onclick事件）
+			}
+		},
+		//如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
+		gotouchmove() {
+			clearTimeout(this.timeOutEvent) //清除定时器
+			this.timeOutEvent = 0
 		}
 	},
 	watch: {
@@ -233,6 +291,7 @@ export default {
 	overflow hidden
 	transition 0.2s
 	margin-bottom 1.28rem
+	user-select none
 	// &:first-child
 	// padding-top 30px
 	&:hover
