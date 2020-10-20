@@ -20,7 +20,8 @@ module.exports = {
 				// 	"^/api": ""
 				// }
 			}
-		}
+		},
+		disableHostCheck: true
 	},
 	chainWebpack: config => {
 		config.resolve.alias

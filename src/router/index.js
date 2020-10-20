@@ -38,6 +38,11 @@ const routes = [{
 		component:() => import('../views/404/index.vue')
 	},
 	{
+		path:'/personalData',
+		name:'personalData',
+		component:() => import('../views/personalData/index.vue')
+	},
+	{
 		path: '/',
 		name: 'Main',
 		component: () => import('../views/main/index.vue'),
@@ -200,11 +205,6 @@ const routes = [{
 				path:'/changePassWord',
 				name:'changePassWord',
 				component:() => import('../views/changePassWord/index.vue')
-			},
-			{
-				path:'/personalData',
-				name:'personalData',
-				component:() => import('../views/personalData/index.vue')
 			},
 			{
 				path:'/userInfo/:id',

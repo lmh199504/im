@@ -72,6 +72,7 @@ export default {
 		if(sessionStorage.getItem('showDown') === 'close') {
 			this.showDown = false
 		}
+		window.console.log(this.TIM.TYPES.MSG_CUSTOM)
 		
 	},
 	computed: {
@@ -134,6 +135,7 @@ export default {
 		},
 		onReceiveMessage({ data: messageList }) {
 			window.console.log('收到新消息了...')
+			window.console.log(messageList)
 			this.handleVideoMessage(messageList)
 			this.handleAt(messageList)
 			this.handleQuitGroupTip(messageList)

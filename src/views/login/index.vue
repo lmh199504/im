@@ -1,33 +1,21 @@
 <template>
 	<div class="login-wrapper">
-		<div class="logo-wrapper">
-			<img class="logo" src="../../assets/image/chuyu/logo.png" alt="logo" />
-		</div>
-		
-		<div class="onekeyLogin" @click="toOneKeyLogin">
-			一键登录
-		</div>
-		<div class="phoneLogin" @click="toPhoneLogin">
-			手机登录
-		</div>
-		
+		<div class="logo-wrapper"><img class="logo" src="../../assets/image/chuyu/logo.png" alt="logo" /></div>
+
+		<div class="onekeyLogin" @click="toOneKeyLogin">一键登录</div>
+		<div class="phoneLogin" @click="toPhoneLogin">手机登录</div>
+
 		<div class="other_login">
 			<div class="other_login_title">选择第三方登录</div>
-			
+
 			<div class="other_login_container">
-				<div class="other_login_item" >
-					<img style="width: 1.152rem;" src="../../assets/image/chuyu/qqlogin.png" alt="">
-				</div>
-				<div class="other_login_item">
-					<img src="../../assets/image/chuyu/wxlogin.png" alt="">
-				</div>
-				<div class="other_login_item">
-					<img src="../../assets/image/chuyu/wblogin.png" alt="">
-				</div>
+				<div class="other_login_item" @click="qqLogin"><img style="width: 1.152rem;" src="../../assets/image/chuyu/qqlogin.png" alt="" /></div>
+				<div class="other_login_item"><img src="../../assets/image/chuyu/wxlogin.png" alt="" /></div>
+				<div class="other_login_item"><img src="../../assets/image/chuyu/wblogin.png" alt="" /></div>
 			</div>
 		</div>
-		
-		<div class="login_agree"> 
+
+		<div class="login_agree">
 			<span>登陆即同意</span>
 			<span class="agree_item">《用户协议》</span>
 			<span>和</span>
@@ -45,12 +33,18 @@ export default {
 	created() {
 		// getUserInfo()
 	},
-	methods:{
+	methods: {
 		toPhoneLogin() {
 			this.$router.push('/PhoneLogin')
 		},
 		toOneKeyLogin() {
 			this.$router.push('/OneKeyLogin')
+		},
+		qqLogin() {
+			let pages =
+			'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa0be6f5997701c70&redirect_uri=http%3a%2f%2flmh.nat300.top%2f%23%2fmakefriend&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
+			//我是用的非静默授权，snsapi_userinfo 需要用户手动同意
+			window.location.href = pages
 		}
 	}
 }
@@ -106,8 +100,7 @@ export default {
 			justify-content center
 			margin-top 1.92rem
 			&::before
-				content '',
-				display block
+				content '', display block
 				width 50
 				height 1
 				background-color #CCCCCC
@@ -115,26 +108,24 @@ export default {
 				top 0
 				left 0
 			&::after
-				content '',
-				display block
+				content '', display block
 				width 50
 				height 1
 				background-color #CCCCCC
 				position absolute
 				top 0
 				left 0
-			
 			.other_login_item
 				margin 0.64rem
 				img
 					width 1.408rem
 	.login_agree
-			position absolute
-			bottom 1.92rem
-			width 100%
-			text-align center
-			font-size 0.704rem
-			left 0
-			.agree_item
-				color $cyBasicFontColor
+		position absolute
+		bottom 1.92rem
+		width 100%
+		text-align center
+		font-size 0.704rem
+		left 0
+		.agree_item
+			color $cyBasicFontColor
 </style>
