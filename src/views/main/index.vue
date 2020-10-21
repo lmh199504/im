@@ -368,7 +368,7 @@ export default {
 		transform translateX(-100%)
 		position absolute
 	.nav_bottom
-		position absolute
+		position fixed
 		bottom 0
 		left 0
 		width 100%

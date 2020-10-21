@@ -10,7 +10,7 @@
 
 		<div class="group-tip-element-wrapper" v-if="message.isRevoked">
 			{{ text }}
-			<el-button type="text" size="mini" class="edit-button" v-show="isEdit" @click="reEdit">&nbsp;重新编辑</el-button>
+			<!-- <el-button type="text" size="mini" class="edit-button" v-show="isEdit" @click="reEdit">&nbsp;重新编辑</el-button> -->
 		</div>
 	</div>
 </template>
@@ -160,10 +160,12 @@ export default {
 			// content "\e906"
 			font-family 'tim' !important
 			font-size 24px // 32px 在mac上会模糊 24px正常 , window 24px模糊 28px 32px正常  36px windows mac 基本一致，但是太大
+			display none
 	.message-received
 		background-color $white
 		margin-left 15px
-		border-radius 0 4px 4px 4px
+		border-radius 10px 10px 10px 0px
+		// border-radius 0 4px 4px 4px
 		&::before
 			left -10px
 			transform scaleX(-1)
@@ -175,7 +177,7 @@ export default {
 	.message-send
 		background-color $light-primary
 		margin-right 15px
-		border-radius 4px 0 4px 4px
+		border-radius 10px 0px 10px 10px
 		color $white
 		&::before
 			right -10px

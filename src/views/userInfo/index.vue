@@ -17,7 +17,7 @@
 					<div class="userId">ID:123456</div>
 					<div class="userAge">
 						<img src="../../assets/image/chuyu/personalData/girl.png" alt="" />
-						<span>21</span>
+						<div>21</div>
 					</div>
 				</div>
 
@@ -277,16 +277,17 @@ export default {
 			width 2.24rem
 			padding 0 0.192rem
 			text-align center
-			line-height 0.8rem
+			// line-height 0.8rem
 			font-size 0.768rem
 			border-radius 0.4rem
 			color #FFFFFF
 			display flex
+			align-items center
 			justify-content space-around
 			img
 				width 0.64rem
 				height 0.64rem
-				margin-top 0.096rem
+				// margin-top 0.096rem
 	.chatMoney
 		margin-top 1.088rem
 		display flex
@@ -382,7 +383,7 @@ export default {
 			color #FFFFFF
 			margin-right 0.64rem
 			background-color #24DB5A
-			line-height 1.28rem
+			// line-height 1.28rem
 		.tab-items1
 			background-color #24DB5A
 		.tab-items2

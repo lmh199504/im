@@ -3,7 +3,7 @@
 (function flexible(window, document) {
 	var docEl = document.documentElement;
 	var dpr = window.devicePixelRatio || 1;
-	
+
 	// adjust body font size
 	function setBodyFontSize() {
 		if (document.body) {
@@ -17,7 +17,7 @@
 	// set 1rem = viewWidth / 10
 	function setRemUnit() {
 		var rem = docEl.clientWidth / 24;
-		rem > 30 ?  rem = 20 : rem
+		rem > 30 ?  rem = 30 : rem
 		docEl.style.fontSize = rem + "px";
 	}
 

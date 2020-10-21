@@ -35,7 +35,7 @@ export default {
 				phone: '',
 				password: ''
 			},
-			passError: false
+			passError: false,
 		}
 	},
 	components: {
@@ -70,6 +70,7 @@ export default {
 
 <style lang="stylus" scoped>
 .passLogin
+	min-height 600px
 	.topHeader
 		position fixed
 		top 0

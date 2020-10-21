@@ -317,6 +317,11 @@ export default {
 		flex 1
 		height 60px
 		overflow hidden
+		font-size 0.768rem
+		justify-content space-between
+		flex-direction column
+		display flex
+		padding 5px 0
 		.row-1
 			display flex
 			line-height 21px
@@ -345,7 +350,6 @@ export default {
 					white-space nowrap
 		.row-2
 			display flex
-			font-size 12px
 			padding-top 3px
 			.summary
 				flex 1

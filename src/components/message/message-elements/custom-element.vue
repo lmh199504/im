@@ -20,7 +20,7 @@
 				:message="message"
 			></gift-element>
 
-			<div v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LAUNCH_VIDEO'"><span class="media_msg">[发起视频通话]</span></div>
+			<!-- <div v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LAUNCH_VIDEO'"><span class="media_msg">[发起视频通话]</span></div> -->
 			<div v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_CANCEL_VIDEO'"><span class="media_msg">[视频通话已取消]</span></div>
 			<div v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_HANGUP_VIDEO'"><span class="media_msg">[挂断视频通话]</span></div>
 
@@ -57,7 +57,14 @@
 				:payload="JSON.parse(message._elements[0].content.data)"
 				:message="message"
 			/>
-
+			
+			<video-chat-element 
+				v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LAUNCH_VIDEO'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
+			
 			<div v-else-if="JSON.parse(message.payload.data).messageType === 'TEXT_MESSAGE'">
 				<span>{{ JSON.parse(JSON.parse(message.payload.data).messageContent).textContent }}</span>
 			</div>
@@ -97,6 +104,7 @@ import ImageElement from './image-element.vue'
 import ImageTextElement from './image-text-element.vue'
 import GiftElement from './gift-element.vue'
 import SoundElement from './sound-element.vue'
+import VideoChatElement from './video_chat-element.vue'
 export default {
 	name: 'CustomElement',
 	props: {
@@ -124,7 +132,8 @@ export default {
 		ImageElement,
 		GiftElement,
 		ImageTextElement,
-		SoundElement
+		SoundElement,
+		VideoChatElement
 	},
 
 	computed: {

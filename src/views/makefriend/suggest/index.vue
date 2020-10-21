@@ -19,8 +19,8 @@
 						<span>忙碌</span>
 					</div> -->
 					<div class="online_state">
-						<img src="../../../assets/image/chuyu/online.png" alt="">
-						<div>在线</div>
+						<img src="../../../assets/image/chuyu/online.png" alt="" class="Img">
+						<div class="text">在线</div>
 					</div>
 					
 					<div class="username">
@@ -117,13 +117,13 @@ export default {
 				line-height 1.28rem
 				text-align center
 				display flex
-				img
+				align-items center
+				.Img
 					margin-right 0.32rem
 					width 0.32rem
 					height 0.32rem
 					margin-left 0.512rem
-					margin-top 0.448rem
-				div
+				.text
 					font-size 0.768rem
 					color #FFFFFF
 </style>

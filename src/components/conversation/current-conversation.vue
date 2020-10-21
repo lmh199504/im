@@ -190,7 +190,7 @@ export default {
 <style lang="stylus" scoped>
 /* 当前会话的骨架屏 */
 .current-conversation-wrapper
-	height $height
+	height 100vh
 	background-color $background-light
 	color $base
 	display flex
@@ -224,7 +224,7 @@ export default {
 		display flex
 		flex-direction column
 		width 100%
-		height $height
+		height 100vh
 	.profile
 		height $height
 		overflow-y scroll

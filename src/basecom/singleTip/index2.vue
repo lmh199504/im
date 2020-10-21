@@ -49,19 +49,16 @@ export default {
 	background-color rgba(0, 0, 0, 0.5)
 	.tip_wrapper
 		margin-top 8rem
-		width 100%
+		// width 21.248rem
 		position relative
 		.bgImg
 			width 21.248rem
 			position absolute
 			z-index -1
-			left 50%
-			margin-left -12.1rem
 		.innerText
 			text-align center
 			padding-top 5.12rem
-			width 17.92rem
-			margin auto
+			// background url('./imgs/tip_bg.png')
 			.openVip
 				font-size 1.792rem
 				color #FFFFFF
@@ -74,7 +71,7 @@ export default {
 				text-align center
 				color #333333
 				font-size 0.896rem
-				// padding 0 3.84rem
+				padding 0 3.84rem
 		.level_up
 			width 12.16rem
 			height 2.24rem

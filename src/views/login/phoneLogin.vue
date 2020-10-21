@@ -125,15 +125,25 @@ export default {
 				return false
 			}
 		}
+	},
+	watch:{
+		// ruleForm.phone(newVal,oldVal){
+		// 	window.console.log(newVal)
+		// }
 	}
 }
 </script>
 
 <style lang="stylus" scoped>
+html
+	min-height 600px
+body 
+	min-height 600px
 .phoneLogin
 	width 100%
 	height 100%
 	background-color #fff
+	min-height 600px
 	.topHeader
 		position fixed
 		top 0
@@ -159,7 +169,7 @@ export default {
 			align-items center
 			justify-content space-between
 			.testcodeInput
-				width 6.4rem
+				width 7.4rem
 				position relative
 			.testcodeText
 				font-size 0.768rem
