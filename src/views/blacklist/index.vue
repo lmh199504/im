@@ -6,16 +6,16 @@
 		</mt-header>
 		<div class="wrapper">
 			<div class="blackWrapper">
-				<div class="black_item" v-for="n in 10" :key="n">
+				<div class="black_item" v-for="(n,index) in blacklist" :key="index">
 					<div class="left">
-						<img src="../../assets/image/chuyu/001.jpg" alt="" />
-						<div class="username">浪胃仙</div>
+						<img :src="n.avatar ? n.avatar:'https://imgcache.qq.com/open/qcloud/video/act/webim-avatar/avatar-2.png'" alt="" />
+						<div class="username">{{ n.nick }}</div>
 					</div>
-					<div class="right"><div class="remove" @click="removeBlack">移除</div></div>
+					<div class="right"><div class="remove" @click="removeBlack(n)">移除</div></div>
 				</div>
 			</div>
 
-			<div class="noData" v-if="false">
+			<div class="noData" v-if="!hasBlacklist">
 				<img src="../../assets/image/chuyu/heimingdan.png" alt="" />
 				<p>添加到黑名单对的用户和你发消息你将不会看到，</p>
 				<p>无法收到该消息</p>
@@ -25,17 +25,38 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
 	data() {
 		return {}
 	},
 	methods: {
-		removeBlack() {
-			this.$messagebox.confirm('确定将该好友移除黑名单吗？').then(() => {
-				
-			}).catch(() => {
-				
-			})
+		removeBlack(item) {
+			this.$messagebox
+				.confirm('确定将该好友移除黑名单吗？')
+				.then(() => {
+					window.console.log(item)
+					this.tim
+						.removeFromBlacklist({ userIDList: [item.userID] })
+						.then(() => {
+							this.$store.commit('removeFromBlacklist', item.userID)
+						})
+						.catch(error => {
+							this.$store.commit('showMessage', {
+								type: 'error',
+								message: error.message
+							})
+						})
+				})
+				.catch(() => {})
+		}
+	},
+	computed: {
+		...mapState({
+			blacklist: state => state.blacklist.blacklist
+		}),
+		hasBlacklist() {
+			return this.blacklist.length > 0
 		}
 	}
 }
@@ -79,14 +100,15 @@ export default {
 			width 3.84rem
 			height 1.6rem
 			border-radius 0.8rem
-			line-height 1.6rem
+			// line-height 1.6rem
 			color #FFFFFF
-			font-size 0.768rem
+			font-size 0.896rem
 			text-align center
+			padding-top 0.192rem 
 </style>
 
 <style>
-	.mint-msgbox-confirm{
-		color: #EE46CC!important;
-	}
+.mint-msgbox-confirm {
+	color: #ee46cc !important;
+}
 </style>

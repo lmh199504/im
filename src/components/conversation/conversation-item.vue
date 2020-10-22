@@ -315,13 +315,13 @@ export default {
 		flex-shrink 0
 	.content
 		flex 1
-		height 60px
+		height 3.84rem
 		overflow hidden
 		font-size 0.768rem
 		justify-content space-between
 		flex-direction column
 		display flex
-		padding 5px 0
+		padding 0.512rem 0
 		.row-1
 			display flex
 			line-height 21px

@@ -1,14 +1,6 @@
 <template>
-	<div class="phoneLogin" ref="phoneLogin">
-		<!-- <div class="topHeader">
-			<i class="el-icon-arrow-left" style="color: #343434;margin-left: 0.96rem;z-index: 11;position: relative;" @click="$router.go(-1)"></i>
-			<div class="topHeader_title">手机号登录</div>
-		</div> -->
-		<mt-header fixed title="手机号登录">
-			<mt-button icon="back" slot="left" @click="$router.go(-1)">返回</mt-button>
-			<!-- <router-link to="/mine" slot="left"><mt-button icon="back">返回</mt-button></router-link> -->
-			<!-- <mt-button slot="right" @click="showBox">说明</mt-button> -->
-		</mt-header>
+	<div class="forgetPass">
+		<mt-header fixed title="忘记密码"><mt-button icon="back" slot="left" @click="$router.go(-1)">返回</mt-button></mt-header>
 
 		<div class="login_box">
 			<el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
@@ -24,34 +16,43 @@
 					<div :class="['testcodeText', canGetCode ? 'canGetCode' : '']" @click="getCode()">{{ time === 60 ? '获取验证码' : time + 's后重试' }}</div>
 				</div>
 
+				<el-form-item label-width="0" label="" prop="password">
+					<el-input type="password" v-model="ruleForm.password" placeholder="请输入新密码" autocomplete="off" clearable></el-input>
+				</el-form-item>
+				<div class="red_p" v-show="showPasstip">请输入8-16位密码，格式不能为纯数字，不含特殊字符</div>
+
+				<el-form-item label-width="0" label="" prop="repass">
+					<el-input type="password" v-model="ruleForm.repass" placeholder="请确认新密码" autocomplete="off" clearable></el-input>
+				</el-form-item>
+				<div class="red_p" v-if="showRepass">与设置密码不一致</div>
+
 				<el-form-item label-width="0">
-					<el-button :class="['loginBtn', canClick ? 'canClick' : '']" type="primary" @click="submitForm('ruleForm')">登录</el-button>
+					<el-button :class="['loginBtn', canClick ? 'canClick' : '']" type="primary" @click="submitForm('ruleForm')">确定</el-button>
 				</el-form-item>
 			</el-form>
-			<div class="password_login" @click="$router.push('passLogin')">密码登录</div>
+			<!-- <div class="password_login" @click="$router.push('passLogin')">密码登录</div> -->
 		</div>
 
-		<!-- <div class="login_agree">
-			<span>登陆即同意</span>
-			<span class="agree_item">《用户协议》</span>
-			<span>和</span>
-			<span class="agree_item">《隐私条款》</span>
-		</div> -->
-		<LoginFooter/>
+		<LoginFooter />
 	</div>
 </template>
 
 <script>
 import { Form, Input, FormItem, Button } from 'element-ui'
 import LoginFooter from './loginFooter/index.vue'
+const pwdCheck = /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/
 export default {
 	data() {
 		return {
 			ruleForm: {
 				phone: '',
-				code: ''
+				code: '',
+				password: '',
+				repass: ''
 			},
 			time: 60,
+			showPasstip: false,
+			showRepass: false
 		}
 	},
 	components: {
@@ -85,26 +86,19 @@ export default {
 				}
 			}, 1000)
 		}
-		
 	},
-	mounted() {
-		// this.windowHeight = window.innerHeight
-		this.$nextTick(() => {
-			this.windowHeight = this.$refs.phoneLogin.offsetHeight
-		})
-	},
+	mounted() {},
 	methods: {
 		submitForm() {
 			if (this.canClick) {
-				this.$store
-					.dispatch('login', '10001')
-					.then(() => {
-						// window.console.log(res)
-						this.$router.replace('/')
-					})
-					.catch(error => {
-						window.console.log(error)
-					})
+				// this.$store
+				// 	.dispatch('login', '10001')
+				// 	.then(() => {
+				// 		this.$router.replace('/')
+				// 	})
+				// 	.catch(error => {
+				// 		window.console.log(error)
+				// 	})
 			} else {
 				this.$toast.center('手机号或验证码不正确')
 			}
@@ -149,17 +143,27 @@ export default {
 			if (newVal.length > 4) {
 				this.ruleForm.code = oldVal
 			}
+		},
+		'ruleForm.password'(newVal) {
+			if (!pwdCheck.test(newVal)) {
+				this.showPasstip = true
+			} else {
+				this.showPasstip = false
+			}
+		},
+		'ruleForm.repass'() {
+			if (this.ruleForm.repass !== this.ruleForm.password) {
+				this.showRepass = true
+			} else {
+				this.showRepass = false
+			}
 		}
 	}
 }
 </script>
 
 <style lang="stylus" scoped>
-html
-	min-height 600px
-body
-	min-height 600px
-.phoneLogin
+.forgetPass
 	width 100%
 	height 100%
 	background-color #fff
@@ -216,6 +220,10 @@ body
 			text-align center
 			color $cyNormalFontColor
 			font-size 0.768rem
+		.red_p
+			color #EC3661
+			font-size 0.32rem
+			margin-top -1.28rem
 	.login_agree
 		position absolute
 		bottom 1.92rem
@@ -228,7 +236,7 @@ body
 </style>
 
 <style lang="stylus">
-.phoneLogin
+.forgetPass
 	.el-input__inner
 		border none
 		border-bottom 1px solid #CCCCCC

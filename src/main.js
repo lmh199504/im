@@ -17,6 +17,7 @@ import App from './App.vue'
 import store from './store/index'
 import router from './router'
 import tim from 'tim'
+tim.setLogLevel(1)
 import TIM from 'tim-js-sdk'
 import './utils/flexible'
 import './assets/icon/iconfont.css'

@@ -3,10 +3,12 @@
 		class="conversation-item-container"
 		:class="{ choose: conversation.conversationID === currentConversation.conversationID }"
 		@click="selectConversation"
-		@touchstart="gotouchstart"
-		@touchmove="gotouchmove"
-		@touchend="gotouchend"
+	
 	>
+<!-- 	@touchstart="gotouchstart"
+	@touchmove="gotouchmove"
+	@touchend="gotouchend" -->
+		
 		<!-- <div class="close-btn"><span class="tim-icon-close" title="删除会话" @click="deleteConversation"></span></div> -->
 		<div class="warp">
 			<!-- <img src="" alt=""> -->
@@ -25,9 +27,9 @@
 							<span v-else-if="conversation.type === TIM.TYPES.CONV_SYSTEM">系统通知</span>
 						</div>
 					</div>
-					<div class="unread-count">
+				<!-- 	<div class="unread-count">
 						<span class="badge" v-if="showUnreadCount">{{ conversation.unreadCount > 99 ? '99+' : conversation.unreadCount }}</span>
-					</div>
+					</div> -->
 				</div>
 				<div class="row-2">
 					<div class="summary">
@@ -36,8 +38,11 @@
 							<span class="text" :title="conversation.lastMessage.messageForShow">{{ messageForShow }}</span>
 						</div>
 					</div>
-					<div class="date">{{ date }}</div>
+					<!-- <div class="date">{{ date }}</div> -->
 				</div>
+			</div>
+			<div>
+				<img style="width: 1.152rem;margin-top: 1.344rem;" src="../../assets/image/chuyu/xiangyou.png" alt="">
 			</div>
 		</div>
 
@@ -319,8 +324,13 @@ export default {
 		flex-shrink 0
 	.content
 		flex 1
-		height 60px
+		height 3.84rem
 		overflow hidden
+		font-size 0.768rem
+		justify-content space-between
+		flex-direction column
+		display flex
+		padding 0.512rem 0
 		.row-1
 			display flex
 			line-height 21px
@@ -349,7 +359,7 @@ export default {
 					white-space nowrap
 		.row-2
 			display flex
-			font-size 12px
+			// font-size 12px
 			padding-top 3px
 			.summary
 				flex 1

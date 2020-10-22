@@ -1,18 +1,12 @@
 <template>
 	<message-bubble :isMine="isMine" :message="message">
 		<template v-for="(item, index) in contentList">
-			<span :key="index" v-if="item.name === 'text'">{{ item.text }}</span>
-			<img v-else-if="item.name === 'img'" :src="item.src" width="20px" height="20px" :key="index" />
+			<div style="padding: 10px;" :key="index">
+				<span :key="index" v-if="item.name === 'text'">{{ item.text }}</span>
+				<img v-else-if="item.name === 'img'" :src="item.src" width="20px" height="20px" :key="index" />
+			</div>
 		</template>
 	</message-bubble>
-	<!-- <div class="chat-bubble">
-    <div class="message-content" :class="isMine ? 'message-send' : 'message-received'">
-      <template v-for="(item, index) in contentList">
-        <span :key="index" v-if="item.name === 'text'">{{ item.text }}</span>
-        <img v-else-if="item.name === 'img'" :src="item.src" width="20px" height="20px" :key="index"/>
-      </template>
-    </div>
-  </div> -->
 </template>
 
 <script>

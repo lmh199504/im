@@ -143,7 +143,7 @@ export default {
 		max-width 350px
 		word-wrap break-word
 		word-break break-all
-		padding 10px
+		// padding 10px
 		box-shadow 0 5px 10px 0 rgba(0, 0, 0, 0.1)
 		span
 			white-space pre-wrap
@@ -175,7 +175,8 @@ export default {
 			transform-origin top left
 			animation bounce 500ms linear both
 	.message-send
-		background-color $light-primary
+		// background-color $light-primary
+		background linear-gradient(90deg, #F468BE, #FD9EF0)
 		margin-right 15px
 		border-radius 10px 0px 10px 10px
 		color $white

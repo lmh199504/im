@@ -128,5 +128,6 @@
 						text-align center
 						border-radius 0.64rem
 						margin-top 1.152rem
-						line-height 1.28rem
+						// line-height 1.28rem
+						// padding-top 0.064rem 
 </style>

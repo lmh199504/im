@@ -15,23 +15,24 @@
 			</div>
 		</div>
 
-		<div class="login_agree">
+		<!-- <div class="login_agree">
 			<span>登陆即同意</span>
 			<span class="agree_item">《用户协议》</span>
 			<span>和</span>
 			<span class="agree_item">《隐私条款》</span>
-		</div>
+		</div> -->
+		<LoginFooter />
 	</div>
 </template>
 
 <script>
-// import { getUserInfo } from '@/api'
+import LoginFooter from './loginFooter/index.vue'
 export default {
 	data() {
 		return {}
 	},
 	created() {
-		// getUserInfo()
+
 	},
 	methods: {
 		toPhoneLogin() {
@@ -46,6 +47,9 @@ export default {
 			//我是用的非静默授权，snsapi_userinfo 需要用户手动同意
 			window.location.href = pages
 		}
+	},
+	components:{
+		LoginFooter
 	}
 }
 </script>

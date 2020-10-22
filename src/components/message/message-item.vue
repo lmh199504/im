@@ -4,6 +4,7 @@
 			<div class="col-1" v-if="showAvatar">
 				<!-- 头像 -->
 				<avatar :src="avatar" />
+				<!-- <avatar src="../../assets/image/chuyu/kefu.png" type="KEFU" /> -->
 			</div>
 			<div class="col-2">
 				<!-- 消息主体 -->
@@ -121,7 +122,9 @@ export default {
 		},
 		avatar() {
 			if (this.currentConversation.type === 'C2C') {
-				return this.isMine ? this.currentUserProfile.avatar : this.currentConversation.userProfile.avatar
+				
+				// 'https://wdm-wlm.oss-cn-hangzhou.aliyuncs.com/h5/kefu.png'
+				return this.isMine ? this.currentUserProfile.avatar : this.currentConversation.userProfile.userID === 'customer01' ? 'https://wdm-wlm.oss-cn-hangzhou.aliyuncs.com/h5/kefu.png' : this.currentConversation.userProfile.avatar
 			} else if (this.currentConversation.type === 'GROUP') {
 				return this.isMine ? this.currentUserProfile.avatar : this.message.avatar
 			} else {

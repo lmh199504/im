@@ -1,9 +1,16 @@
 <template>
 	<div class="passLogin">
-		<div class="topHeader">
+		<!-- <div class="topHeader">
 			<i class="el-icon-arrow-left" style="color: #343434;margin-left: 0.96rem;z-index: 11;position: relative;" @click="$router.go(-1)"></i>
-			<div class="topHeader_title">手机号登录</div>
-		</div>
+			<div class="topHeader_title">密码登录</div>
+		</div> -->
+		
+		<mt-header fixed title="密码登录">
+			
+			<mt-button icon="back"  slot="left" @click="$router.go(-1)">返回</mt-button>
+			<!-- <router-link to="/mine" slot="left"><mt-button icon="back">返回</mt-button></router-link> -->
+			<!-- <mt-button slot="right" @click="showBox">说明</mt-button> -->
+		</mt-header>
 
 		<div class="login_box">
 			<el-form :model="ruleForm" ref="ruleForm" label-width="0" class="demo-ruleForm">
@@ -71,6 +78,11 @@ export default {
 <style lang="stylus" scoped>
 .passLogin
 	min-height 600px
+	position relative
+	height 100%
+	.mint-header
+		background-color #FFFFFF
+		color #333333	
 	.topHeader
 		position fixed
 		top 0

@@ -46,6 +46,7 @@
 
 <style lang="stylus" scoped>
 .aboutUs	
+	min-height 100%
 	.mint-header
 		background-color #FFFFFF
 		color #333333

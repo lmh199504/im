@@ -1,9 +1,9 @@
 <template>
 	<div class="login_agree">
 		<span>登陆即同意</span>
-		<span class="agree_item">《用户协议》</span>
+		<span class="agree_item" @click="$router.push('/userAgreement')">《用户协议》</span>
 		<span>和</span>
-		<span class="agree_item">《隐私条款》</span>
+		<span class="agree_item" @click="$router.push('/privacy')">《隐私条款》</span>
 	</div>
 </template>
 

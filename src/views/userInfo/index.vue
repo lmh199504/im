@@ -48,19 +48,19 @@
 					<mt-tab-container-item id="tab-container1">
 						<div class="info_title">联系方式</div>
 						<div class="conact">
-							<div class="conact_item">
+							<div class="conact_item" @click="showVipCenter">
 								<img src="../../assets/image/chuyu/userInfo/wx_check.png" alt="" />
 								<div class="check">查看</div>
 							</div>
 
-							<div class="conact_item">
+							<div class="conact_item" @click="showVipCenter">
 								<img src="../../assets/image/chuyu/userInfo/qq.png" alt="" />
-								<div class="check">查看</div>
+								<div class="check"  >查看</div>
 							</div>
 
-							<div class="conact_item">
+							<div class="conact_item" @click="showVipCenter">
 								<img src="../../assets/image/chuyu/userInfo/phone_check.png" alt="" />
-								<div class="check">查看</div>
+								<div class="check"  >查看</div>
 							</div>
 						</div>
 
@@ -137,8 +137,8 @@
 
 			<div class="bottomWrapper">
 				<div class="left">
-					<div class="messge_chat"><img src="../../assets/image/chuyu/userInfo/bt_msg.png" alt="" @click="toChat"/></div>
-					<div class="messge_chat"><img src="../../assets/image/chuyu/userInfo/bt_phone.png" alt="" @click="showVipCenter"/></div>
+					<div class="messge_chat"><img src="../../assets/image/chuyu/userInfo/bt_msg.png" alt="" @click="toChat" /></div>
+					<div class="messge_chat"><img src="../../assets/image/chuyu/userInfo/bt_phone.png" alt="" @click="showVipCenter" /></div>
 				</div>
 				<div class="video_msg" @click="showVipCenter">
 					<img src="../../assets/image/chuyu/userInfo/bt_video.png" alt="" />
@@ -154,17 +154,21 @@
 
 <script>
 import SingleTip from '../../basecom/singleTip/index.vue'
+import { Toast } from 'mint-ui'
 export default {
 	data() {
 		return {
 			active: 'tab-container1',
-			actions: [{
-				name:'举报',
-				method:this.report
-			},{
-				name:'拉黑',
-				method:this.toBlackList
-			}],
+			actions: [
+				{
+					name: '举报',
+					method: this.report
+				},
+				{
+					name: '拉黑',
+					method: this.toBlackList
+				}
+			],
 			sheetVisible: false,
 			thumbsList: [
 				{
@@ -210,15 +214,31 @@ export default {
 		},
 		toBlackList() {
 			window.console.log('黑名单')
+			this.tim
+				.addToBlacklist({ userIDList: [this.$route.params.id] })
+				.then(() => {
+					Toast({
+						message: '拉黑成功',
+						position: 'center',
+						duration: 3000
+					})
+					this.$store.dispatch('getBlacklist')
+				})
+				.catch(imError => {
+					this.$store.commit('showMessage', {
+						message: imError.message,
+						type: 'error'
+					})
+				})
 		},
 		report() {
 			window.console.log('举报')
 		},
 		showVipCenter() {
 			const number = Math.random() * 10
-			if(number > 5) {
+			if (number > 5) {
 				this.showSingle = true
-			}else{
+			} else {
 				this.$messagebox({
 					title: '初遇提醒您',
 					message: '安装APP后才可使用此功能哦，快来下载吧，更多精彩在等你哦。',

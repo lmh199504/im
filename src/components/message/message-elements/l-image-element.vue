@@ -1,15 +1,12 @@
 <template>
-	<message-bubble :isMine="isMine" :message="message">
+	<div :isMine="isMine" :message="message" style="padding: 10px;">
 		<!-- el-image在IE下会自动加上用于兼容object-fit的类，该类的样式在没设置图片宽高是会 GG -->
-		<div style="padding:10px ;">
-			<img class="image-element" :src="imageUrl" @load="onImageLoaded" @click="handlePreview" />
-			<el-progress v-if="showProgressBar" :percentage="percentage" :color="percentage => (percentage === 100 ? '#67c23a' : '#409eff')" />
-		</div>
-	</message-bubble>
+		<img class="image-element" :src="imageUrl" @load="onImageLoaded" @click="handlePreview" />
+		<el-progress v-if="showProgressBar" :percentage="percentage" :color="percentage => (percentage === 100 ? '#67c23a' : '#409eff')" />
+	</div>
 </template>
 
 <script>
-import MessageBubble from '../message-bubble'
 import { Progress } from 'element-ui'
 import { mapGetters } from 'vuex'
 export default {
@@ -28,7 +25,6 @@ export default {
 		}
 	},
 	components: {
-		MessageBubble,
 		ElProgress: Progress
 	},
 	computed: {

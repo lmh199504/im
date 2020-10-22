@@ -2,7 +2,7 @@
 	<div class="current-conversation-wrapper">
 		<div class="current-conversation" @scroll="onScroll" v-if="showCurrentConversation">
 			
-			<mt-header fixed :title="name">
+			<mt-header fixed :title=" userId !== 'customer01' ? name : '客服'">
 				<!-- <router-link to="/mine" slot="left"><mt-button icon="back">返回</mt-button></router-link> -->
 				<mt-button icon="back" slot="left" @click="$router.go(-1)">返回</mt-button>
 				<!-- <mt-button slot="right" @click="showBox" icon="user"></mt-button> -->
@@ -21,7 +21,8 @@
 			</div>
 			
 			<div class="header">
-				<div class="name">{{ name }}({{ userId }})</div>
+				<div class="name" v-if="userId !== 'customer01'">{{ name }}({{ userId }})</div>
+				<div class="name" v-else>客服</div>
 				<!-- <div
 					class="btn-more-info"
 					:class="showConversationProfile ? '' : 'left-arrow'"

@@ -24,6 +24,11 @@ const routes = [{
 		component: () => import('../views/login/passLogin.vue')
 	},
 	{
+		path: '/forgetPass',
+		name: 'forgetPass',
+		component: () => import('../views/login/forgetPass.vue')
+	},
+	{
 		path: '/Bscroll',
 		name: 'Bscroll',
 		component: () => import('../views/Bscroll/index.vue')
@@ -41,6 +46,16 @@ const routes = [{
 		path:'/personalData',
 		name:'personalData',
 		component:() => import('../views/personalData/index.vue')
+	},
+	{
+		path:'/userAgreement',
+		name:'userAgreement',
+		component:() => import('../views/userAgreement/index.vue')
+	},
+	{
+		path:'/privacy',
+		name:'privacy',
+		component:() => import('../views/privacy/index.vue')
 	},
 	{
 		path: '/',
@@ -215,6 +230,11 @@ const routes = [{
 				path:'/currentConversation',
 				name:'currentConversation',
 				component:() => import('../components/conversation/current-conversation.vue')
+			},
+			{
+				path:'/greet',
+				name:'greet',
+				component:() => import('../views/greet/index.vue')
 			}
 		]
 	},
