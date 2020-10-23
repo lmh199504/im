@@ -76,5 +76,5 @@
 			color #5EC256
 			font-size 0.768rem
 			text-align right
-			margin-top 5px
+			padding 5px
 </style>
