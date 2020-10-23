@@ -29,7 +29,7 @@
 				:payload="JSON.parse(message._elements[0].content.data)"
 				:message="message"
 			/>
-			
+
 			<!-- 视频通话挂断 -->
 			<VideoChatEndElement
 				v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_HANGUP_VIDEO'"
@@ -40,7 +40,6 @@
 
 			<!-- <div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_HANGUP_VIDEO'"><span class="media_msg">[挂断视频通话]</span></div> -->
 
-	
 			<!-- 发起语音通话 -->
 			<PhoneChatElement
 				v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LAUNCH_AUDIO'"
@@ -75,23 +74,96 @@
 
 			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_ANSWER'"><span class="media_msg">[接听]</span></div>
 
-			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'ADD_FRIEND_MESSAGE'"><span class="media_msg">[请求添加好友]</span></div>
+			<!-- <div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'ADD_FRIEND_MESSAGE'"><span class="media_msg">[请求添加好友]</span></div> -->
+			
+			<!-- 请求添加好友 -->
+			<RequestAddFriend
+				v-else-if="JSON.parse(message.payload.data).messageType === 'ADD_FRIEND_MESSAGE'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
 
-			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_WE_CHAT_MESSAGE'"><span class="media_msg">[查看微信号消息]</span></div>
-			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_PHONE_MESSAGE'"><span class="media_msg">[查看手机号消息]</span></div>
+			<!-- <div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_WE_CHAT_MESSAGE'"><span class="media_msg">[查看微信号消息]</span></div> -->
+			<!-- 查看微信号消息 -->
+			<SeeWxMessage
+				v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_WE_CHAT_MESSAGE'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
+			
+			
+			<!-- 查看手机号消息 -->
+			<SeePhoneMessage
+				v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_PHONE_MESSAGE'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
+			<!-- <div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_PHONE_MESSAGE'"><span class="media_msg">[查看手机号消息]</span></div> -->
 
-			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_QQ_MESSAGE'"><span class="media_msg">[查看QQ号消息]</span></div>
+			<!-- <div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_QQ_MESSAGE'"><span class="media_msg">[查看QQ号消息]</span></div> -->
+			
+			<!-- 查看QQ号消息 -->
+			<SeeQqMessage
+				v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_QQ_MESSAGE'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
+			<!-- <div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_WE_CHAT_MESSAGE'"><span class="media_msg">[发送微信号消息]</span></div> -->
+			
+			<!-- 发送微信号消息 -->
+			<SendWxMessage
+				v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_WE_CHAT_MESSAGE'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
+			
+			<!-- 发送手机号 -->
+			<SendPhoneMessage
+				v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_PHONE_MESSAGE'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
 
-			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_WE_CHAT_MESSAGE'"><span class="media_msg">[发送微信号消息]</span></div>
+			<!-- <div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_PHONE_MESSAGE'"><span class="media_msg">[发送手机号]</span></div> -->
 
-			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_PHONE_MESSAGE'"><span class="media_msg">[发送手机号]</span></div>
+			<!-- <div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_QQ_MESSAGE'"><span class="media_msg">[发送QQ号消息]</span></div> -->
 
-			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_QQ_MESSAGE'"><span class="media_msg">[发送QQ号消息]</span></div>
+			<!-- 发送QQ号消息 -->
+			<SendQqMessage
+				v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_QQ_MESSAGE'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
 
-			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'REFUSE_FRIEND_APPLY_MESSAGE'"><span class="media_msg">[拒绝好友申请]</span></div>
+			<!-- <div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'REFUSE_FRIEND_APPLY_MESSAGE'"><span class="media_msg">[拒绝好友申请]</span></div> -->
 
-			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'AGREE_FRIEND_APPLY_MESSAGE'"><span class="media_msg">[同意好友申请]</span></div>
+			<!-- <div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'AGREE_FRIEND_APPLY_MESSAGE'"><span class="media_msg">[同意好友申请]</span></div> -->
+			
+			<!-- 同意好友申请 -->
+			<AgreeFriend
+				v-else-if="JSON.parse(message.payload.data).messageType === 'AGREE_FRIEND_APPLY_MESSAGE'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
+			
+			<!-- 拒绝好友申请 -->
+			<RefuseFriend
+				v-else-if="JSON.parse(message.payload.data).messageType === 'REFUSE_FRIEND_APPLY_MESSAGE'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
+
 			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'FILE_MESSAGE'"><span class="media_msg">[文件消息]</span></div>
+
 			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SYSTEM_MESSAGE'"><span class="media_msg">[系统消息]</span></div>
 
 			<sound-element
@@ -157,7 +229,15 @@ import PhoneChatEndElement from './phone_chat_end_element.vue'
 import VideoChatElementCancel from './video_chat_element_cancel.vue'
 import VideoChatEndElement from './video_chat_end_element.vue'
 import PhoneChatElement from './phone_chat-element.vue'
-
+import RequestAddFriend from './request_add_friend.vue'
+import AgreeFriend from './agree_friend.vue'
+import RefuseFriend from './refuse_friend.vue'
+import SendWxMessage from './send_wx_message.vue'
+import SendQqMessage from './send_qq_message.vue'
+import SendPhoneMessage from './send_phone_message.vue'
+import SeeWxMessage from './see_wx_message.vue'
+import SeePhoneMessage from './see_phone_message.vue'
+import SeeQqMessage from './see_qq_message.vue'
 export default {
 	name: 'CustomElement',
 	props: {
@@ -191,7 +271,16 @@ export default {
 		PhoneChatEndElement,
 		VideoChatElementCancel,
 		VideoChatEndElement,
-		PhoneChatElement
+		PhoneChatElement,
+		RequestAddFriend,
+		AgreeFriend,
+		RefuseFriend,
+		SendWxMessage,
+		SendQqMessage,
+		SendPhoneMessage,
+		SeeWxMessage,
+		SeePhoneMessage,
+		SeeQqMessage
 	},
 
 	computed: {

@@ -78,5 +78,6 @@
 			font-size 0.768rem
 			text-align right
 			padding 5px
+			background-color #FFFFFF
 			
 </style>

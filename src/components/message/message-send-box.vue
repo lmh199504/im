@@ -17,7 +17,7 @@
 				@keydown.up.stop="handleUp"
 				@keydown.down.stop="handleDown"
 			></textarea>
-			<el-popover placement="top" width="320" trigger="click">
+			<el-popover placement="top" width="100%" trigger="click">
 				<div class="emojis">
 					<div v-for="item in emojiName" class="emoji" :key="item" @click="chooseEmoji(item)">
 						<img :src="emojiUrl + emojiMap[item]" style="width:30px;height:30px" />
@@ -386,10 +386,12 @@ export default {
 	flex-direction row
 	flex-wrap wrap
 	overflow-y scroll
+	justify-content space-between
 .emoji
 	height 40px
 	width 40px
 	box-sizing border-box
+	text-align center
 .send-header-bar
 	box-sizing border-box
 	padding 6px 0 0 0

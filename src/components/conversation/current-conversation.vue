@@ -32,8 +32,8 @@
 			</div>
 			
 			<div class="header">
-				<div class="name" v-if="userId !== 'customer01'">{{ name }}({{ userId }})</div>
-				<div class="name" v-else>客服</div>
+				<!-- <div class="name" v-if="userId !== 'customer01'">{{ name }}({{ userId }})</div> -->
+				<div class="name">客服</div>
 				<!-- <div
 					class="btn-more-info"
 					:class="showConversationProfile ? '' : 'left-arrow'"
@@ -61,6 +61,19 @@
 		<CallLayer />
 		<SingleTip :show="showSingle" @close="close" />
 		
+		<div class="fix_right" v-if="userId !== 'customer01'">
+			<div class="fix_right_item">
+				<img src="../../assets/image/chuyu/message_item/fly.png" alt="">
+				<div class="line"></div>
+			</div>
+			<div class="fix_right_item">
+				<img src="../../assets/image/chuyu/message_item/meg.png" alt="">
+				<div class="line"></div>
+			</div>
+			<div class="fix_right_item">
+				<img src="../../assets/image/chuyu/message_item/gift.png" alt="">
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -261,6 +274,29 @@ export default {
 			img
 				width 1.024rem
 				margin-right 0.32rem
+	.fix_right
+		width 2.88rem
+		border-radius 1.44rem
+		background #FFFFFF
+		box-shadow 0px 6px 14px 0px rgba(124, 123, 124, 0.48)
+		padding 5px
+		position fixed
+		right 1.28rem
+		top 50%
+		.fix_right_item
+			text-align center
+			.line
+				width 1.28rem
+				margin auto
+				margin-top 0.512rem
+				margin-bottom 0.512rem
+				height 1px
+				background-color #A0A0A0
+			img
+				width 27px
+				display block
+				margin auto
+				
 	.current-conversation
 		display flex
 		flex-direction column
