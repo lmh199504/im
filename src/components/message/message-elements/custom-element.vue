@@ -21,35 +21,78 @@
 			></gift-element>
 
 			<!-- <div v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LAUNCH_VIDEO'"><span class="media_msg">[发起视频通话]</span></div> -->
-			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_CANCEL_VIDEO'"><span class="media_msg">[视频通话已取消]</span></div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_HANGUP_VIDEO'"><span class="media_msg">[挂断视频通话]</span></div>
+			<!-- <div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_CANCEL_VIDEO'"><span class="media_msg">[视频通话已取消]</span></div> -->
+			<!-- 视频通话取消 -->
+			<VideoChatElementCancel
+				v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_CANCEL_VIDEO'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
+			
+			<!-- 视频通话挂断 -->
+			<VideoChatEndElement
+				v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_HANGUP_VIDEO'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LAUNCH_AUDIO'"><span class="media_msg">[发起语音通话]</span></div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_CANCEL_AUDIO'"><span class="media_msg">[语音通话已取消]</span></div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_HANGUP_AUDIO'"><span class="media_msg">[语音通话已挂断]</span></div>
+			<!-- <div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_HANGUP_VIDEO'"><span class="media_msg">[挂断视频通话]</span></div> -->
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LOCK_HINT'"><span class="media_msg">余额不足</span></div>
+	
+			<!-- 发起语音通话 -->
+			<PhoneChatElement
+				v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LAUNCH_AUDIO'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_ANSWER'"><span class="media_msg">[接听]</span></div>
+			<!-- <div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LAUNCH_AUDIO'"><span class="media_msg">[发起语音通话]</span></div> -->
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'ADD_FRIEND_MESSAGE'"><span class="media_msg">[请求添加好友]</span></div>
+			<!-- <div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_CANCEL_AUDIO'"><span class="media_msg">[语音通话已取消]</span></div> -->
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_WE_CHAT_MESSAGE'"><span class="media_msg">[查看微信号消息]</span></div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_PHONE_MESSAGE'"><span class="media_msg">[查看手机号消息]</span></div>
+			<!-- 取消语音 -->
+			<PhoneChatElementCancel
+				v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_CANCEL_AUDIO'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_QQ_MESSAGE'"><span class="media_msg">[查看QQ号消息]</span></div>
+			<!-- 挂断语音 -->
+			<PhoneChatEndElement
+				v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_HANGUP_AUDIO'"
+				:isMine="isMine"
+				:payload="JSON.parse(message._elements[0].content.data)"
+				:message="message"
+			/>
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_WE_CHAT_MESSAGE'"><span class="media_msg">[发送微信号消息]</span></div>
+			<!-- <div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_HANGUP_AUDIO'"><span class="media_msg">[语音通话已挂断]</span></div> -->
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_PHONE_MESSAGE'"><span class="media_msg">[发送手机号]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LOCK_HINT'"><span class="media_msg">余额不足</span></div>
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_QQ_MESSAGE'"><span class="media_msg">[发送QQ号消息]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_ANSWER'"><span class="media_msg">[接听]</span></div>
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'REFUSE_FRIEND_APPLY_MESSAGE'"><span class="media_msg">[拒绝好友申请]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'ADD_FRIEND_MESSAGE'"><span class="media_msg">[请求添加好友]</span></div>
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'AGREE_FRIEND_APPLY_MESSAGE'"><span class="media_msg">[同意好友申请]</span></div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'FILE_MESSAGE'"><span class="media_msg">[文件消息]</span></div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'SYSTEM_MESSAGE'"><span class="media_msg">[系统消息]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_WE_CHAT_MESSAGE'"><span class="media_msg">[查看微信号消息]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_PHONE_MESSAGE'"><span class="media_msg">[查看手机号消息]</span></div>
+
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEE_QQ_MESSAGE'"><span class="media_msg">[查看QQ号消息]</span></div>
+
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_WE_CHAT_MESSAGE'"><span class="media_msg">[发送微信号消息]</span></div>
+
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_PHONE_MESSAGE'"><span class="media_msg">[发送手机号]</span></div>
+
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SEND_QQ_MESSAGE'"><span class="media_msg">[发送QQ号消息]</span></div>
+
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'REFUSE_FRIEND_APPLY_MESSAGE'"><span class="media_msg">[拒绝好友申请]</span></div>
+
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'AGREE_FRIEND_APPLY_MESSAGE'"><span class="media_msg">[同意好友申请]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'FILE_MESSAGE'"><span class="media_msg">[文件消息]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'SYSTEM_MESSAGE'"><span class="media_msg">[系统消息]</span></div>
 
 			<sound-element
 				v-else-if="JSON.parse(message.payload.data).messageType === 'AUDIO_MESSAGE'"
@@ -57,29 +100,33 @@
 				:payload="JSON.parse(message._elements[0].content.data)"
 				:message="message"
 			/>
-			
-			<video-chat-element 
+
+			<video-chat-element
 				v-else-if="JSON.parse(message.payload.data).messageType === 'RTC_EVENT_LAUNCH_VIDEO'"
 				:isMine="isMine"
 				:payload="JSON.parse(message._elements[0].content.data)"
 				:message="message"
 			/>
-			
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'TEXT_MESSAGE'">
+
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'TEXT_MESSAGE'">
 				<span>{{ JSON.parse(JSON.parse(message.payload.data).messageContent).textContent }}</span>
 			</div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType === 'VIDEO_MESSAGE'">
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType === 'VIDEO_MESSAGE'">
 				<video :src="JSON.parse(JSON.parse(message._elements[0].content.data).messageContent).videoCoverUrl" controls="true" class="myvideo"></video>
 			</div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_EVENT_OFFER_VIDEO'"><span class="media_msg">[视频邀约]</span></div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_INTELLIGENT_EVENT_LAUNCH_VIDEO'"><span class="media_msg">[马甲视频通话]</span></div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_INTELLIGENT_EVENT_LAUNCH_AUDIO '"><span class="media_msg">[马甲语音通话]</span></div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_EVENT_SHADE_VIDEO'"><span class="media_img">[事件，遮罩]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_EVENT_OFFER_VIDEO'"><span class="media_msg">[视频邀约]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_INTELLIGENT_EVENT_LAUNCH_VIDEO'">
+				<span class="media_msg">[马甲视频通话]</span>
+			</div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_INTELLIGENT_EVENT_LAUNCH_AUDIO '">
+				<span class="media_msg">[马甲语音通话]</span>
+			</div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_EVENT_SHADE_VIDEO'"><span class="media_img">[事件，遮罩]</span></div>
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_EVENT_LOCK_HINT'"><span class="media_msg">[事件，余额不足提示]</span></div>
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType == 'LOCATION_MESSAGE'"><span class="media_msg">[定位消息]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType == 'RTC_EVENT_LOCK_HINT'"><span class="media_msg">[事件，余额不足提示]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType == 'LOCATION_MESSAGE'"><span class="media_msg">[定位消息]</span></div>
 
-			<div class="warapper"  v-else-if="JSON.parse(message.payload.data).messageType == 'DECLINE_REQUEST_GIFT_MESSAGE'"><span>[拒绝求赏]</span></div>
+			<div class="warapper" v-else-if="JSON.parse(message.payload.data).messageType == 'DECLINE_REQUEST_GIFT_MESSAGE'"><span>[拒绝求赏]</span></div>
 
 			<image-text-element
 				v-else-if="JSON.parse(message.payload.data).messageType === 'SERVICE_IMAGE_TEXT_MESSAGE'"
@@ -105,6 +152,12 @@ import ImageTextElement from './image-text-element.vue'
 import GiftElement from './gift-element.vue'
 import SoundElement from './sound-element.vue'
 import VideoChatElement from './video_chat-element.vue'
+import PhoneChatElementCancel from './phone_chat_element_cancel.vue'
+import PhoneChatEndElement from './phone_chat_end_element.vue'
+import VideoChatElementCancel from './video_chat_element_cancel.vue'
+import VideoChatEndElement from './video_chat_end_element.vue'
+import PhoneChatElement from './phone_chat-element.vue'
+
 export default {
 	name: 'CustomElement',
 	props: {
@@ -133,7 +186,12 @@ export default {
 		GiftElement,
 		ImageTextElement,
 		SoundElement,
-		VideoChatElement
+		VideoChatElement,
+		PhoneChatElementCancel,
+		PhoneChatEndElement,
+		VideoChatElementCancel,
+		VideoChatEndElement,
+		PhoneChatElement
 	},
 
 	computed: {

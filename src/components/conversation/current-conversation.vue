@@ -15,8 +15,19 @@
 				<div class="fix_top_item">
 					聊币：1234
 				</div>
-				<div class="fix_top_item">
-					聊币：1234
+				<div class="fix_top_item" @click="showVipCenter">
+					<img src="../../assets/image/chuyu/message_item/qq.png" alt="">
+					<span>查看QQ</span>
+				</div>
+				
+				<div class="fix_top_item" @click="showVipCenter">
+					<img src="../../assets/image/chuyu/message_item/weixin.png" alt="" style="width: 1.152rem;">
+					<span>查看微信</span>
+				</div>
+				
+				<div class="fix_top_item" @click="showVipCenter">
+					<img src="../../assets/image/chuyu/message_item/phone.png" alt="" style="width: 0.896rem;">
+					<span>查看手机</span>
 				</div>
 			</div>
 			
@@ -48,6 +59,8 @@
 		<member-profile-card />
 		<ImagePreviewer />
 		<CallLayer />
+		<SingleTip :show="showSingle" @close="close" />
+		
 	</div>
 </template>
 
@@ -59,6 +72,8 @@ import ConversationProfile from './conversation-profile.vue'
 import MemberProfileCard from '../group/member-profile-card'
 import ImagePreviewer from '../message/image-previewer.vue'
 import CallLayer from '../message/call-layer.vue'
+import SingleTip from '../../basecom/singleTip/index.vue'
+
 export default {
 	name: 'CurrentConversation',
 	components: {
@@ -67,14 +82,16 @@ export default {
 		ConversationProfile,
 		MemberProfileCard,
 		ImagePreviewer,
-		CallLayer
+		CallLayer,
+		SingleTip
 	},
 	data() {
 		return {
 			isShowScrollButtomTips: false,
 			preScrollHeight: 0,
 			showConversationProfile: false,
-			timeout: ''
+			timeout: '',
+			showSingle:false
 		}
 	},
 	computed: {
@@ -140,6 +157,24 @@ export default {
 		}
 	},
 	methods: {
+		close() {
+			this.showSingle = false
+		},
+		showVipCenter() {
+			const number = Math.random() * 10
+			if (number > 5) {
+				this.showSingle = true
+			} else {
+				this.$messagebox({
+					title: '初遇提醒您',
+					message: '安装APP后才可使用此功能哦，快来下载吧，更多精彩在等你哦。',
+					showCancelButton: true,
+					confirmButtonText: '极速安装APP',
+					cancelButtonText: '继续体验',
+					confirmButtonClass: 'downappconfirm'
+				})
+			}
+		},		
 		onScroll({ target: { scrollTop } }) {
 			let messageListNode = this.$refs['message-list']
 			if (!messageListNode) {
@@ -221,6 +256,11 @@ export default {
 			text-align center
 			font-size 0.768rem
 			color #FFFFFF
+			align-items center
+			display flex
+			img
+				width 1.024rem
+				margin-right 0.32rem
 	.current-conversation
 		display flex
 		flex-direction column

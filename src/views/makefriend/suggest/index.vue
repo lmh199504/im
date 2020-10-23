@@ -13,7 +13,35 @@
 				</mt-swipe-item>
 			</mt-swipe>
 			<div class="person_container">
-				<div class="person_item" v-for="i in 11" :key="i" @click="$router.push(`/userInfo/${i}`)">
+				<div class="person_item" v-for="i in 2" :key="i" @click="$router.push(`/userInfo/${i}`)">
+					<!-- <div class="online_state">
+						<img src="../../../assets/image/chuyu/busy.png" alt="">
+						<span>忙碌</span>
+					</div> -->
+					<div class="online_state">
+						<img src="../../../assets/image/chuyu/online.png" alt="" class="Img">
+						<div class="text">在线</div>
+					</div>
+					
+					<div class="username">
+						配齐
+					</div>
+					
+					<div class="chatWith">
+						<img src="../../../assets/image/chuyu/yuyin.png" alt="">
+						<!-- <img src="../../../assets/image/chuyu/shiping.png" alt=""> -->
+						<div>50聊币/分钟</div>
+					</div>
+					
+					<img class="person_img" src="../../../assets/image/chuyu/001.jpg" alt="">
+				</div>
+				
+				<div class="person_item banner_iten" >
+					<img src="../../../basecom/downBanner/imgs/downImg.png" alt="" class="banner">
+				</div>
+				
+				
+				<div class="person_item" v-for="i in 30" :key="i+10" @click="$router.push(`/userInfo/${i}`)">
 					<!-- <div class="online_state">
 						<img src="../../../assets/image/chuyu/busy.png" alt="">
 						<span>忙碌</span>
@@ -82,11 +110,13 @@ export default {
 		.person_item 
 			width 49%
 			margin-bottom 0.6rem
-			background-color #000000
+			// background-color #000000
 			height 11.666666rem
 			position relative
 			border-radius 0.32rem
 			overflow hidden
+			.banner
+				width 100%
 			.person_img 
 				width 100%
 				height 100%
@@ -126,6 +156,9 @@ export default {
 				.text
 					font-size 0.768rem
 					color #FFFFFF
+		.banner_iten
+			width 100%
+			height 7.68rem		
 </style>
 
 <style>
