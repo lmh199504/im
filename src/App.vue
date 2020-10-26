@@ -25,6 +25,10 @@ export default {
 			sessionStorage.setItem('store', JSON.stringify(this.$store.state))
 		})
 	},
+	mounted(){
+		var my_app_loading = document.getElementById('my_app_loading')
+		my_app_loading.remove()
+	}
 
 }
 </script>

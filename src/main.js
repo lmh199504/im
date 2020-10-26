@@ -64,6 +64,7 @@ Vue.use(Dialog)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
+
 Vue.use(Toast)
 Vue.component('avatar', Avatar)
 new Vue({

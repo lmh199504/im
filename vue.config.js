@@ -24,26 +24,37 @@ module.exports = {
 		},
 		disableHostCheck: true
 	},
-	
-	// configureWebpack: {
-	// 	externals: {
-	// 		'vue': 'Vue',
-	// 		'element-ui': 'ELEMENT',
-	// 		'vue-router': 'VueRouter'
-	// 	}
-	// },
+
+	configureWebpack: {
+		externals: {
+			'vue': 'Vue',
+			// 'element-ui': 'ELEMENT',
+			'vue-router': 'VueRouter'
+		}
+	},
 	chainWebpack: config => {
+
+		/* 添加分析工具*/
+		if (process.env.NODE_ENV === 'production') {
+			if (process.env.npm_config_report) {
+				config
+					.plugin('webpack-bundle-analyzer')
+					.use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+					.end();
+				config.plugins.delete('prefetch')
+			}
+		}
+
 		config.resolve.alias
 			.set('@', resolve('src'))
 			.set('tim', resolve('src/tim.js'))
-
-
 		config
 			.when(process.env.NODE_ENV !== 'development',
 				config => {
 					config
 						.optimization.splitChunks({
 							chunks: 'all',
+							maxSize:500000,
 							cacheGroups: {
 								libs: {
 									name: 'chunk-libs',
@@ -51,16 +62,36 @@ module.exports = {
 									priority: 10,
 									chunks: 'initial' // only package third parties that are initially dependent
 								},
-								elementUI: {
-									name: 'chunk-elementUI', // split elementUI into a single package
-									priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-									test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+								timSdk:{
+									name: 'chunk-timSdk', // split mintUi into a single package
+									priority: 120, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+									test: /[\\/]node_modules[\\/]_?tim-js-sdk(.*)/ // in order to adapt to cnpm
 								},
-								mintUi:{
-									name: 'chunk-mintUi', // split mintUi into a single package
-									priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-									test: /[\\/]node_modules[\\/]_?mint-ui(.*)/ // in order to adapt to cnpm
+								trtcSdk:{
+									name: 'chunk-trtcSdk', // split mintUi into a single package
+									priority: 100, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+									test: /[\\/]node_modules[\\/]_?trtc-js-sdk(.*)/ // in order to adapt to cnpm
 								},
+								swiper:{
+									name: 'chunk-swiper', // split mintUi into a single package
+									priority: 110, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+									test: /[\\/]node_modules[\\/]_?swiper(.*)/ // in order to adapt to cnpm
+								},
+								// elementUI: {
+								// 	name: 'chunk-elementUI', // split elementUI into a single package
+								// 	priority: 100, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+								// 	test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+								// },
+								cosSdk:{
+									name: 'chunk-cosSdk', // split mintUi into a single package
+									priority: 120, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+									test: /[\\/]node_modules[\\/]_?cos-js-sdk-v5(.*)/ // in order to adapt to cnpm
+								},
+								// mintUi: {
+								// 	name: 'chunk-mintUi', // split mintUi into a single package
+								// 	priority: 130, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+								// 	test: /[\\/]node_modules[\\/]_?mint-ui(.*)/ // in order to adapt to cnpm
+								// },
 								commons: {
 									name: 'chunk-commons',
 									test: resolve('src/components'), // can customize your rules
