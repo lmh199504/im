@@ -37,13 +37,53 @@
 				font-size: 1.024rem!important;
 			}
 			
-			
+			#my_app_loading{
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0,0.3);
+				z-index: 1000;
+				text-align: center;
+				padding-top: 250px;
+			}
+			.rotateImg{
+				width: 50px;
+				height: 50px;
+				animation: rotateImg 1s ease infinite;
+			}
+			@keyframes rotateImg{
+				from{
+					transform: rotate(0deg);
+				}
+				to{
+					transform: rotate(360deg);
+				}
+			}
+			#my_app_loading .loadingText{
+				font-size: 15px;
+				color: #000;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div id="app"></div>
+		
+		<div id="my_app_loading">
+			<img src="./loading.png" alt="" class="rotateImg">
+			<div class="loadingText">
+				应用加载中...
+			</div>
+		</div>
 		<script src="./debug/GenerateTestUserSig.js"></script>
 		<script src="./debug/lib-generate-test-usersig.min.js"></script>
+		<script>
+			var my_app_loading = document.getElementById('my_app_loading')
+			window.onload = function() {
+				my_app_loading.remove()
+			}
+		</script>
 	</body>
 </html>

@@ -109,6 +109,10 @@ export default {
 		
 		this.$bus.$emit('showCallTip') //显示来电弹窗
 		
+		
+		
+		var my_app_loading = document.getElementById('my_app_loading')
+		my_app_loading.remove()
 	},
 	methods: {
 		closeDown() {
@@ -181,6 +185,7 @@ export default {
 			}
 		},
 		onKickOut(event) {
+			window.console.log('退出登录')
 			this.$store.commit('showMessage', {
 				message: `${this.kickedOutReason(event.data.type)}被踢出，请重新登录。`,
 				type: 'error'
