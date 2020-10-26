@@ -48,6 +48,11 @@ const routes = [{
 		component:() => import('../views/personalData/index.vue')
 	},
 	{
+		path:'/chargeAgree',
+		name:'chargeAgree',
+		component:() => import('../views/chargeAgree/index.vue')
+	},
+	{
 		path:'/userAgreement',
 		name:'userAgreement',
 		component:() => import('../views/userAgreement/index.vue')
@@ -74,7 +79,7 @@ const routes = [{
 			{
 				path: '/find',
 				name: 'Find',
-				component: () => import('../views/find/index.vue'),
+				component: () => import('../views/find/shanliao/index2.vue'),
 				meta: {
 					show: true
 				}

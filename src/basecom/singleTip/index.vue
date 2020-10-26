@@ -94,7 +94,7 @@ export default {
 			margin-top 0.96rem
 		.close
 			text-align center
-			margin-top 1.28rem
+			margin-top 1.92rem
 			img
 				width 1.728rem
 	.mask

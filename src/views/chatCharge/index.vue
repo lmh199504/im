@@ -240,13 +240,7 @@ export default {
 		//前往支付协议
 		toAgree($event) {
 			$event.preventDefault()
-			if (/android/i.test(navigator.userAgent)) {
-				window.consumer.paymentAgreement()
-			} else if (/iphone/i.test(navigator.userAgent)) {
-				window.webkit.messageHandlers.toAgree.postMessage({
-					body: 'toAgree'
-				})
-			}
+			this.$router.push('/chargeAgree')
 		}
 	}
 }

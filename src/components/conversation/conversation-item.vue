@@ -356,6 +356,8 @@ export default {
 				overflow hidden
 				min-width 0px
 				color $secondary
+				white-space nowrap
+				text-overflow ellipsis
 				.remind
 					color $danger
 			.date

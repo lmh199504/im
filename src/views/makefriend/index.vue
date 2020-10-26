@@ -13,7 +13,7 @@
 			<mt-swipe-item>3</mt-swipe-item>
 		</mt-swipe> -->
 
-		<mt-tab-container v-model="active" :swipeable="true" class="centerTab">
+		<mt-tab-container v-model="active" :swipeable="true" class="centerTab" >
 			<mt-tab-container-item id="tab-container1"><NearBy /></mt-tab-container-item>
 			<mt-tab-container-item id="tab-container2"><Suggest /></mt-tab-container-item>
 			<mt-tab-container-item id="tab-container3"><Rank /></mt-tab-container-item>
@@ -46,6 +46,9 @@ export default {
 		},
 		closeSign() {
 			this.showSign = false
+		},
+		tabChange() {
+			window.console.log('tab-change')
 		}
 	},
 	components: {
