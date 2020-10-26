@@ -80,9 +80,13 @@
 		<script src="./debug/GenerateTestUserSig.js"></script>
 		<script src="./debug/lib-generate-test-usersig.min.js"></script>
 		<script>
-			var my_app_loading = document.getElementById('my_app_loading')
-			window.onload = function() {
-				my_app_loading.remove()
+			try{
+				var my_app_loading = document.getElementById('my_app_loading')
+				window.onload = function() {
+					my_app_loading.remove()
+				}
+			}catch(e){
+				//TODO handle the exception
 			}
 		</script>
 	</body>
