@@ -108,11 +108,6 @@ export default {
 		}
 		
 		this.$bus.$emit('showCallTip') //显示来电弹窗
-		
-		
-		
-		var my_app_loading = document.getElementById('my_app_loading')
-		my_app_loading.remove()
 	},
 	methods: {
 		closeDown() {
