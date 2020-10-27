@@ -27,9 +27,9 @@ module.exports = {
 
 	configureWebpack: {
 		externals: {
-			'vue': 'Vue',
-			// 'element-ui': 'ELEMENT',
-			'vue-router': 'VueRouter'
+			// 'vue': 'Vue',
+			// // 'element-ui': 'ELEMENT',
+			// 'vue-router': 'VueRouter'
 		}
 	},
 	chainWebpack: config => {

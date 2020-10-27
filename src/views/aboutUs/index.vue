@@ -24,7 +24,7 @@
 			
 			<div class="footer">
 				<div class="checkbtn">
-					检查新版本
+					下载APP
 				</div>
 				<div class="footerText">
 					如果遇到问题，请联系<span>在线客服</span>

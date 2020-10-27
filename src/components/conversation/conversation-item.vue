@@ -180,6 +180,8 @@ export default {
 					return '[拒绝求赏]'
 				} else if (messageType === 'SERVICE_IMAGE_TEXT_MESSAGE') {
 					return '[图文消息]'
+				}else if(messageType === 'IMAGE_MESSAGE') {
+					return '[图片消息]'
 				}
 			}
 
