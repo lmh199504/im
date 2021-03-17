@@ -97,7 +97,7 @@ export default {
 		submitForm() {
 			if (this.canClick) {
 				this.$store
-					.dispatch('login', 'user01')
+					.dispatch('login', 'user03')
 					.then(() => {
 						// window.console.log(res)
 						this.$router.replace('/')
