@@ -303,11 +303,13 @@ export default {
 			this.messageContent += item
 		},
 		handleSendImageClick() {
-			if(this.toAccount==='customer01') {
-				this.$refs.imagePicker.click()
-			}else{
-				this.showSingle = true
-			}
+			this.$refs.imagePicker.click()
+			
+			// if(this.toAccount==='customer01') {
+			// 	this.$refs.imagePicker.click()
+			// }else{
+			// 	this.showSingle = true
+			// }
 			
 			
 		},

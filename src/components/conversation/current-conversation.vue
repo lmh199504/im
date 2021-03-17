@@ -135,6 +135,7 @@ export default {
 
 		userId() {
 			// return this.currentConversation.toAccount
+			console.log(this.currentConversation)
 			return this.currentConversation.userProfile.userID
 		}
 	},
